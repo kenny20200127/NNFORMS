@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cYpZeS7Oe/0N8LMEt3vQNhlWRisirZCbhOqzLW2pTDGFNSG0bS92Uz+YvVmgM5HWDDPIrpXB3zoye39EBz4AVQ==",
+  "dgSpecHash": "AW8QbJ+NWZO8Q3mTaw052Nu3DY22GRvvjpSu7ruBPRGdq6UhyVzT0ckyFy++aTsnmY+ivOy0FnDxKEf3ZzxxLg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Home\\source\\repos\\NNFORMS\\NNPEFWEB\\NNPEFWEB.csproj",
   "expectedPackageFiles": [
@@ -244,7 +244,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNet.WebApi.Core 5.2.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'Microsoft.AspNet.WebApi.Core 5.2.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.AspNet.WebApi.Core",
       "targetGraphs": [
         "net5.0"
