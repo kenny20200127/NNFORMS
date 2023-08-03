@@ -1,0 +1,5 @@
+2023-08-01T20:38:44.6465374+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2023-08-01T20:38:44.6637971+01:00  [INF] Hosting environment: "Production" (c3307c92)
+2023-08-01T20:38:44.6677446+01:00  [INF] Content root path: "C:\Users\Home\Downloads\navyproject-master\NNPEFWEB" (b5d60022)
+2023-08-01T20:44:37.0954681+01:00 80000131-0001-f200-b63f-84710c7967bb [ERR] Exception ===> Cannot insert the value NULL into column 'SVC_NO', table 'nncpong_HicadAccounts.dbo.ny_nn9b_record'; column does not allow nulls. INSERT fails.
+The statement has been terminated. (5d268c49)

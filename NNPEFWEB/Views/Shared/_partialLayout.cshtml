@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+@using NNPEFWEB.Models
+@using NNPEFWEB.Service
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IAuthorizationService AuthorizationService
+@inject IUserService userService
+@using Microsoft.AspNetCore.Http
+
+@{ var model = await UserManager.GetUserAsync(User);
+   var user = await userService.GetUserWithRolesAndMenus(model.Id);
+    
+}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="../../index3.html" class="brand-link elevation-4">
+
+        <img src="~/Image/navylogo2.png" alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3"
+             style="opacity: .8" />
+        @*<span class="brand-text font-weight-light">AdminLTE 3</span>*@
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <nav class="mt-2">
+            <partial name="_Menu" model="user" />
+
+            <!-- Sidebar Menu -->
+            <!-- /.sidebar-menu -->
+            </nav>
+    </div>
+    <!-- /.sidebar -->
+</aside>

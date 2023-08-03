@@ -1,0 +1,194 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+ <UserSecretsId>aspnet-NNPEFWEB-B77D50DB-C609-4E4C-A8B7-640244F0C644</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Identity\Pages\Account\ExternalLogin.cshtml.cs" />
+    <Compile Remove="Areas\Identity\Pages\Account\Manage\ExternalLogins.cshtml.cs" />
+    <Compile Remove="Migrations\20210416113613_Renamed Identity Table Name.cs" />
+    <Compile Remove="Migrations\20210416113613_Renamed Identity Table Name.Designer.cs" />
+    <Compile Remove="Migrations\20210416222605_Added Custom Properties.cs" />
+    <Compile Remove="Migrations\20210416222605_Added Custom Properties.Designer.cs" />
+    <Compile Remove="Migrations\20210421222918_Add New Tables.cs" />
+    <Compile Remove="Migrations\20210421222918_Add New Tables.Designer.cs" />
+    <Compile Remove="Migrations\20210429153949_Personnel Login.cs" />
+    <Compile Remove="Migrations\20210429153949_Personnel Login.Designer.cs" />
+    <Compile Remove="Migrations\20210510105422_newchanges.cs" />
+    <Compile Remove="Migrations\20210510105422_newchanges.Designer.cs" />
+    <Compile Remove="Migrations\20210618105139_personalinforUpdate.cs" />
+    <Compile Remove="Migrations\20210618105139_personalinforUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20210720175313_addingid.cs" />
+    <Compile Remove="Migrations\20210720175313_addingid.Designer.cs" />
+    <Compile Remove="Migrations\20210722100606_addfield.cs" />
+    <Compile Remove="Migrations\20210722100606_addfield.Designer.cs" />
+    <Compile Remove="Migrations\20210722214126_addrelationship.cs" />
+    <Compile Remove="Migrations\20210722214126_addrelationship.Designer.cs" />
+    <Compile Remove="Migrations\20210727105155_addtopersonelinfo.cs" />
+    <Compile Remove="Migrations\20210727105155_addtopersonelinfo.Designer.cs" />
+    <Compile Remove="Migrations\20210727115147_addtopersonelinfo2.cs" />
+    <Compile Remove="Migrations\20210727115147_addtopersonelinfo2.Designer.cs" />
+    <Compile Remove="Migrations\20210727140602_addtopersonelinfo3.cs" />
+    <Compile Remove="Migrations\20210727140602_addtopersonelinfo3.Designer.cs" />
+    <Compile Remove="Migrations\20210728171823_updateUserTable.cs" />
+    <Compile Remove="Migrations\20210728171823_updateUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20210924214903_updatefields.cs" />
+    <Compile Remove="Migrations\20210924214903_updatefields.Designer.cs" />
+    <Compile Remove="Migrations\20210927211908_createsystemstable.cs" />
+    <Compile Remove="Migrations\20210927211908_createsystemstable.Designer.cs" />
+    <Compile Remove="Migrations\20210927220200_updateclosedate.cs" />
+    <Compile Remove="Migrations\20210927220200_updateclosedate.Designer.cs" />
+    <Compile Remove="Migrations\20210929223927_updatesysteminfo.cs" />
+    <Compile Remove="Migrations\20210929223927_updatesysteminfo.Designer.cs" />
+    <Compile Remove="Migrations\20211004084950_NewFieldtoPersonalInfo.cs" />
+    <Compile Remove="Migrations\20211004084950_NewFieldtoPersonalInfo.Designer.cs" />
+    <Compile Remove="Migrations\20211004124526_Initial Migration.cs" />
+    <Compile Remove="Migrations\20211004124526_Initial Migration.Designer.cs" />
+    <Compile Remove="Migrations\20211007114201_Addnewmigration.cs" />
+    <Compile Remove="Migrations\20211007114201_Addnewmigration.Designer.cs" />
+    <Compile Remove="Migrations\20211007131143_UpdateUserTable2.cs" />
+    <Compile Remove="Migrations\20211007131143_UpdateUserTable2.Designer.cs" />
+    <Compile Remove="Migrations\20211008230353_Updatesysteminfor.cs" />
+    <Compile Remove="Migrations\20211008230353_Updatesysteminfor.Designer.cs" />
+    <Compile Remove="Migrations\20211022090438_classestoPersonalInfo.cs" />
+    <Compile Remove="Migrations\20211022090438_classestoPersonalInfo.Designer.cs" />
+    <Compile Remove="Migrations\20211027112415_addtopersonnellogin.cs" />
+    <Compile Remove="Migrations\20211027112415_addtopersonnellogin.Designer.cs" />
+    <Compile Remove="Migrations\20211117090016_accomodationstatus.cs" />
+    <Compile Remove="Migrations\20211117090016_accomodationstatus.Designer.cs" />
+    <Compile Remove="Migrations\20211201162451_addtopersonel.cs" />
+    <Compile Remove="Migrations\20211201162451_addtopersonel.Designer.cs" />
+    <Compile Remove="Migrations\20211213124251_addtoinfo.cs" />
+    <Compile Remove="Migrations\20211213124251_addtoinfo.Designer.cs" />
+    <Compile Remove="Migrations\20211213134324_addtoinfo2.cs" />
+    <Compile Remove="Migrations\20211213134324_addtoinfo2.Designer.cs" />
+    <Compile Remove="Migrations\20211216171616_addtopersoninfor.cs" />
+    <Compile Remove="Migrations\20211216171616_addtopersoninfor.Designer.cs" />
+    <Compile Remove="Migrations\20211226193418_addshiplogin.cs" />
+    <Compile Remove="Migrations\20211226193418_addshiplogin.Designer.cs" />
+    <Compile Remove="Migrations\20220106104142_menurolemangement.cs" />
+    <Compile Remove="Migrations\20220106104142_menurolemangement.Designer.cs" />
+    <Compile Remove="Migrations\20220106220614_newmigration.cs" />
+    <Compile Remove="Migrations\20220106220614_newmigration.Designer.cs" />
+    <Compile Remove="Migrations\20220118142611_addrankin.cs" />
+    <Compile Remove="Migrations\20220118142611_addrankin.Designer.cs" />
+    <Compile Remove="Migrations\20220124150852_addentrymode.cs" />
+    <Compile Remove="Migrations\20220124150852_addentrymode.Designer.cs" />
+    <Compile Remove="Migrations\20220201135624_Adding ef_contactUs Table.cs" />
+    <Compile Remove="Migrations\20220201135624_Adding ef_contactUs Table.Designer.cs" />
+    <Compile Remove="Migrations\20220328112729_addingopenship.cs" />
+    <Compile Remove="Migrations\20220328112729_addingopenship.Designer.cs" />
+    <Compile Remove="Migrations\20220404144522_addcontrol.cs" />
+    <Compile Remove="Migrations\20220404144522_addcontrol.Designer.cs" />
+    <Compile Remove="Migrations\20220404150917_addcontrolupdate.cs" />
+    <Compile Remove="Migrations\20220404150917_addcontrolupdate.Designer.cs" />
+    <Compile Remove="Migrations\20220406162254_updatecontrol.cs" />
+    <Compile Remove="Migrations\20220406162254_updatecontrol.Designer.cs" />
+    <Compile Remove="Migrations\20220822103015_ef_personalinfohist_Table.cs" />
+    <Compile Remove="Migrations\20220822103015_ef_personalinfohist_Table.Designer.cs" />
+    <Compile Remove="Migrations\20230416074222_updateUserTable.cs" />
+    <Compile Remove="Migrations\20230416074222_updateUserTable.Designer.cs" />
+    <Compile Remove="Models\ApplicationUser.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\Account\ExternalLogin.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\Manage\ExternalLogins.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\Image\CPO_Image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\Account\AccessDenied.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ConfirmEmail.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ConfirmEmailChange.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ForgotPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ForgotPasswordConfirmation.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Lockout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Login.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\LoginWith2fa.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\LoginWithRecoveryCode.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Logout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\DeletePersonalData.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\Disable2fa.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\DownloadPersonalData.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\Email.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\EnableAuthenticator.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\GenerateRecoveryCodes.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\Index.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\PersonalData.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\ResetAuthenticator.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\SetPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\ShowRecoveryCodes.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\TwoFactorAuthentication.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_Layout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_StatusMessage.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\RegisterConfirmation.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ResetPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ResetPasswordConfirmation.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\_StatusMessage.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\Error.cshtml" />
+    <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+    <None Include="bin\Debug\net5.0\Wkhtmltopdf.NetCore.dll" />
+    <None Include="Views\Menu\Index.cshtml" />
+    <None Include="Views\RoleManager\Index.cshtml" />
+    <None Include="Views\Role\Index.cshtml" />
+    <None Include="Views\UserRole\Index.cshtml" />
+    <None Include="Views\UserRole\Manage.cshtml" />
+    <None Include="Views\User\Index.cshtml" />
+    <None Include="wwwroot\Image\navyImage-removebg.png" />
+    <None Include="wwwroot\vue\app.js" />
+    <None Include="wwwroot\vue\component\CommandLogin.vue" />
+    <None Include="wwwroot\vue\component\FirstComponent.vue" />
+    <None Include="wwwroot\vue\component\PersonnelRecord\OfficersRecord.vue" />
+    <None Include="wwwroot\vue\component\Report.vue" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Bootstrap.v3.Datetimepicker" Version="4.17.49" />
+    <PackageReference Include="Bootstrap.v3.Datetimepicker.CSS" Version="4.17.49" />
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0-develop00371" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Reports\" />
+  </ItemGroup>
+
+</Project>

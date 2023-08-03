@@ -1,0 +1,412 @@
+﻿@model NNPEFWEB.Models.PensionModel
+
+@{
+    ViewData["Title"] = "PensionInitiation";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        <h1>Pension Intiation</h1>
+    </div>
+    <div class="card-body">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PensionInitModal">
+            Add New Pensioner 
+        </button>
+        <form>
+            <div style="float:right;">
+                <div class="input-group mb-3">
+                    <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="searchString" aria-describedby="basic-addon1">
+                    <button class="input-group-text" asp-action="PensionInitiation" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fullname</th>
+                    <th>ServiceNo</th>
+                    <th>Rank</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ string fullname = "";
+
+                    @foreach (var k in Model.Pensions)
+                    {
+                        fullname = k.LastName + " " + k.FirstName;
+        <tr>
+            <td>@fullname</td>
+            <td>@k.SVC_NO</td>
+            <td>@k.Title</td>
+            <td>@k.status</td>
+            <td>
+                <a onclick="GetPension(@k.PersonID)"
+                   class="btn btn-primary">
+                    Initiate
+                </a>
+            </td>
+        </tr>} }
+
+            </tbody>
+        </table>
+
+
+        @{ var prevDisabled = !Model.Pensions.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.Pensions.HasNextPage ? "disabled" : ""; }
+
+        <a asp-action="PensionInitiation" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.Pensions.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="PensionInitiation" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.Pensions.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+
+        <div class="modal fade" id="PensionInitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pension Initiation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="saveInitPension" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label asp-for="pension.SVC_NO">SERVICE NO</label>
+                                        <input asp-for="pension.SVC_NO" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>FIRSTNAME</label>
+                                        <input asp-for="pension.FirstName" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>LASTNAME</label>
+                                        <input asp-for="pension.LastName" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>MIDDLENAME</label>
+                                        <input asp-for="pension.MiddleName" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>RANK</label>
+                                        <select asp-for="pension.Title"
+                                                class="form-control"
+                                                asp-items="@(new SelectList(Model.pension.rankDetails,"Value", "Text"))">
+                                        </select>
+                                    @* <input asp-for="pension.Title" class="form-control" />*@
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>PRESENT SHIP</label>
+                                       @* <select id="shipEstab" asp-for="pension.ShipEstab" asp-items="Model.pension.shipDetails" class="form-control"></select>*@
+                                        <select asp-for="pension.ShipEstab"
+                                                class="form-control"
+                                                asp-items="@(new SelectList(Model.pension.shipDetails,"Value", "Text"))">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>DATE OF BIRTH</label>
+                                        <input type="date" id="birthDate" asp-for="pension.BirthDate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>DATE OF LAST PROMOTION</label>
+                                        <input type="date" id="senioritydate" asp-for="pension.senioritydate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>TRADE CATEGORY</label>
+                                        <input id="tradecategory" asp-for="pension.Tradecategory" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>TRADE CATEGORY DATE</label>
+                                        <input id="tradeCatDate" type="date" asp-for="pension.TradeCatDate" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>DATE OF DISCHARGE/AUTHORITY</label>
+                                        <input id="prvServdate" type="date" asp-for="pension.PrvServdate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>PREVIOUS SERVICE FROM</label>
+                                        <input id="prvEstab" type="date" asp-for="pension.PrvEstab" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>PREVIOUS ESTABLISHMENT</label>
+                                        @*<select id="prvShipEstab" asp-for="pension.PrvShipEstab" asp-items="Model.pension.shipDetails" class="form-control"></select>*@
+                                        <select asp-for="pension.PrvShipEstab"
+                                                class="form-control"
+                                                asp-items="@(new SelectList(Model.pension.shipDetails,"Value", "Text"))">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>DATE OF ENLISTMENT</label>
+                                        <input id="enlistmentdate" type="date" asp-for="pension.Enlistmentdate" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>PRESENT SERVICE FROM</label>
+                                        <input id="preServicefrom" type="date" asp-for="pension.PreServicefrom" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>PRESENT SERVICE TO</label>
+                                        <input id="preServiceTo" type="date" asp-for="pension.PreServiceTo" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>WAR SERVICE FROM</label>
+                                        <input id="warsrv_from" type="date" asp-for="pension.Warsrv_from" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>WAR SERVICE TO</label>
+                                        <input id="warsrv_to" type="date" asp-for="pension.Warsrv_to" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>TOTAL LENGTH OF SERVICE</label>
+                                        <input id="totalService" type="text" asp-for="pension.TotalService" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>NON-RECKONABLE SERVICE (IF ANY)</label>
+                                        <input id="nonrec_Service" type="text" asp-for="pension.Nonrec_Service" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>NON-RECKONABLE SERVICE REASON</label>
+                                        <input id="nonRecReason" type="text" asp-for="pension.NonRecReason" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>AUTHORITY FOR TRANSFER OF SERVICE</label>
+                                        <input id="transAuthority" type="text" asp-for="pension.TransAuthority" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>FINAL TOTAL LENGTH OF SERVICE FOR PENSION</label>
+                                        <input id="finTotalService" type="text" asp-for="pension.FinTotalService" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>DATE ON WHICH PAYMENT OF PENSION COMMENCES</label>
+                                        <input id="pensionDate" type="date" asp-for="pension.PensionDate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>SUB-TREASURY MAKING PAYMENT</label>
+                                        <input id="paymentDept" type="text" asp-for="pension.PaymentDept" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>PERMANENT ADDRESS</label>
+                                        <input id="pAddress" type="text" asp-for="pension.PAddress" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>CONTACT ADDRESS</label>
+                                        <input id="cAddress" type="text" asp-for="pension.CAddress" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>NATURE OF DISABILITY</label>
+                                        <input id="disabilityNat" type="text" asp-for="pension.DisabilityNat" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>DEGREE OF DISABILITY</label>
+                                        <input id="disabilityDegree" type="text" asp-for="pension.DisabilityDegree" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>EFFECTIVE DATE OF DISABILITY</label>
+                                        <input id="disabilityDate" type="date" asp-for="pension.DisabilityDate" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" id="btnSavePensionInit" class="btn btn-primary" value="Submit" />
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('#btnSavePensionInit').click(function () {
+                  
+               //let FirstName= $('#pension_FirstName').val();
+               //let LastName= $('#pension_LastName').val();
+               //let Title= $('#pension_Title').val();
+               //let SVC_NO= $('#pension_SVC_NO').val();
+               //let MiddleName= $('#pension_MiddleName').val();
+               //let ShipEstab=$('#pension_ShipEstab').val();
+               //let BirthDate= $('#pension_BirthDate').val();
+               //let senioritydate= $('#pension_senioritydate').val();
+               //let TradeCategory= $('#pension_Tradecategory').val();
+               //let TradeCatDate = $('#pension_TradeCatDate').val();
+               //let PrvEstab = $('#pension_PrvEstab').val();
+               //let PrvShipEstab = $('#pension_PrvShipEstab').val();
+               //let Enlistmentdate = $('#pension_Enlistmentdate').val();
+               //let PresServicefrom = $('#pension_PreServicefrom').val();
+               //let PreServiceTo=$('#pension_PreServiceTo').val();
+               //let PrvServdate= $('#pension_PrvServdate').val();
+               //let Warsrv_from= $('#pension_Warsrv_from').val();
+               //let Warsrv_to= $('#pension_Warsrv_to').val();
+               //let TotalService=$('#pension_TotalService').val();
+               //let Nonrec_Service=$('#pension_Nonrec_Service').val();
+               //let NonRecReason=$('#pension_NonRecReason').val();
+               //let FinTotalService $('#pension_FinTotalService').val();
+               //let $('#pension_TransAuthority').val();
+               // $('#pension_pensionDate').val();
+               // $('#pension_PaymentDept').val();
+               // $('#pension_PAddress').val();
+               // $('#pension_CAddress').val();
+               // $('#pension_DisabilityNat').val();
+               // $('#pension_DisabilityDegree').val();
+               // $('#pension_DisabilityDate').val();
+                let empForm = $('#saveInitPension').serialize();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/PersonnelLogin/CreatePensionInitiation",
+                        data: empForm,
+                        success: function (data) {
+                            window.alert(data.responseMessage);
+
+                            $('#PensionInitModal').on('hidden.bs.modal', function () {
+                                $(this).find('form').trigger('reset');
+                            })
+                            window.location.href = "/PersonnelLogin/PensionInitiation";
+                        },
+                        error: function () {
+                            window.alert("update failed");
+                        }
+                    });
+                
+            });
+        });
+
+        function GetPension(id){
+            $.ajax({
+                method: "GET",
+                url: `/api/Pension/GetPensionByPersonID?personID=${id}`,
+                success: function (data) {
+                    $('#pension_FirstName').val(data.firstName);
+                    $('#pension_LastName').val(data.lastName);
+                    $('#pension_Title').val(data.title);
+                    $('#pension_SVC_NO').val(data.svC_NO);
+
+                    $('#pension_MiddleName').val(data.middleName);
+                    $('#pension_ShipEstab').val(data.shipEstab);
+                    $('#pension_BirthDate').val(data.birthDate);
+                    $('#pension_senioritydate').val(data.senioritydate);
+                    $('#pension_Tradecategory').val(data.tradecategory);
+                    $('#pension_TradeCatDate').val(data.tradeCatDate);
+                    $('#pension_PrvEstab').val(data.prvEstab);
+                    $('#pension_PrvShipEstab').val(data.prvShipEstab);
+                    $('#pension_Enlistmentdate').val(data.enlistmentdate);
+                    $('#pension_PreServicefrom').val(data.preServicefrom);
+                    $('#pension_PreServiceTo').val(data.preServiceTo);
+                    $('#pension_PrvServdate').val(data.prvServdate);
+                    $('#pension_Warsrv_from').val(data.warsrv_from);
+                    $('#pension_Warsrv_to').val(data.warsrv_to);
+                    $('#pension_TotalService').val(data.totalService);
+                    $('#pension_Nonrec_Service').val(data.nonrec_Service);
+                    $('#pension_NonRecReason').val(data.nonRecReason);
+                    $('#pension_FinTotalService').val(data.finTotalService);
+                    $('#pension_TransAuthority').val(data.transAuthority);
+                    $('#pension_pensionDate').val(data.pensionDate);
+                    $('#pension_PaymentDept').val(data.paymentDept);
+                    $('#pension_PAddress').val(data.pAddress);
+                    $('#pension_CAddress').val(data.cAddress);
+                    $('#pension_DisabilityNat').val(data.disabilityNat);
+                    $('#pension_DisabilityDegree').val(data.disabilityDegree);
+                    $('#pension_DisabilityDate').val(data.disabilityDate);
+
+                    $('#PensionInitModal').modal('show');
+                }
+            });
+        }
+        
+    </script>
+}
+

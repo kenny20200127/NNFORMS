@@ -1,0 +1,73 @@
+﻿@model NNPEFWEB.Models.DeathViewModel
+
+@{
+    ViewData["Title"] = "DeathEnquery";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+<div class="card-header">
+    Death Gratuity Enquiry
+</div>
+<div class="card-body">
+    <form asp-action="DeathEnquery">
+        <div class="input-group mb-3">
+            <input name="svcNo" type="text" class="form-control" placeholder="search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" id="searchDeath" type="button">Search</button>
+            </div>
+        </div>
+
+
+    </form>
+    @{
+        if (Model != null)
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Service No
+                        </th>
+                        <th>
+                            LastName
+                        </th>
+                        <th>
+                            FirstName
+                        </th>
+                        <th>
+                            MiddleName
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.SVC_NO</td>
+                        <td>@Model.LastName</td>
+                        <td>@Model.FirstName</td>
+                        <td>@Model.MiddleName</td>
+                        <td>@Model.Title</td>
+                        <td>@Model.status</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    }
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#searchDeath').click(function () {
+                $("Form").submit();
+            });
+        });
+    </script>
+}
+

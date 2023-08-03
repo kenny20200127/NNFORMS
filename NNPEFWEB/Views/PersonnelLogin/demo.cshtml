@@ -1,0 +1,25 @@
+﻿@model NNPEFWEB.ViewModel.demoModel
+
+@{
+    ViewData["Title"] = "demo";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+
+<label>Role</label>
+<select id="selectBox" asp-items="Model.role" class="form-control"></select>
+
+
+@section scripts
+{
+   <script type="text/javascript">
+       $(document).ready(function(){
+            $('#selectBox').select2();
+       });
+
+       $(document.body).on("change","#selectBox", function(){
+           alert("i am here");
+       });
+
+   </script>
+}

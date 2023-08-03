@@ -1,0 +1,181 @@
+﻿@model NNPEFWEB.Models.UserViewModels
+@using Microsoft.AspNetCore.Http
+@{
+    Layout = null;
+    string pp = Context.Session.GetString("userRole");
+    string[] roles = pp.Split(',');
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>NN-CPO</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="~/css/styles2.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+
+    <!-- Navigation-->
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+
+        <div class="container">
+
+            <!--<a class="navbar-brand js-scroll-trigger" href="#page-top">
+                HOME-->
+            @*<img src="~/assets/img/cpo/ppf2_logo.svg" alt="..." />*@
+            <!--</a>-->
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ml-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#page-top">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("HomePage","Home")">Log Out</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-subheading" style="color:#1b8e22;margin-top:-70px;margin-left:140PX">
+                <h3 style="">@Context.Session.GetString("PersonnelName")</h3>
+            </div>
+            <img src="~/assets/img/cpo/LOGO2.svg" style="margin-left:-820px; margin-top:-400px;width:70px;" />
+            <div class="masthead-subheading" style="margin-left:80PX">Welcome To Nigerian Navy Central Pay Office</div>
+            @* <div class="masthead-heading text-uppercase" style="margin-left:80PX">Onward Together</div>*@
+        <div class="masthead-subheading" style="margin-left:80px">
+               
+            @{
+                foreach(var j in roles)
+                {
+                        if (j.ToLower() == "SystemAdmin".ToLower())
+                        {
+                            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" asp-action="AdminIndex" asp-controller="PersonnelLogin">Create Users</a>
+                           
+                        }
+
+                        if (j.ToLower() == "cpo" || j.ToLower() == "cnd" || j.ToLower() == "navsec" || j.ToLower() == "mpb")
+                        {
+                             <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" asp-action="PensionGratuity" asp-controller="PersonnelLogin">Pension Gratuity</a>
+                             <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" asp-action="DeathGratuity" asp-controller="PersonnelLogin">Death Gratuity</a>
+                        }
+                }
+            }
+        </div>
+        </div>
+    </header>
+   
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="saveForm" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control">
+                            <span asp-validation-for="FirstName" id="firstNameVal" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control">
+                            <span asp-validation-for="LastName" id="lastNameVal" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="email" class="control-label"></label>
+                            <input asp-for="email" class="form-control">
+                            <span asp-validation-for="email" id="emailVal" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label"></label>
+                            <input asp-for="UserName" class="form-control">
+                            <span asp-validation-for="UserName" id="userNameVal" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Role</label>
+                            <select asp-for="roleId" asp-items="Model.roleRecords" class="form-control"></select>
+                            <span asp-validation-for="roleId" id="roleIdVal" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-left">
+
+                    <strong>Copyright &copy; @DateTime.Now.Year <a style="color:yellowgreen" href="https://hicadsystemsltd.com/">Hicad Systems LTD</a>.</strong> All rights
+                    reserved.
+
+                    <!-- This script automatically adds the current year to your website footer-->
+                    <!-- (credit: https://updateyourfooter.com/)-->
+                    @*<script>
+                            document.write(new Date().getFullYear());
+                        </script>*@
+                </div>
+                @*<div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                    </div>*@
+                @*<div class="col-lg-4 text-lg-right">
+                        <a class="mr-3" href="#!">Privacy Policy</a>
+                        <a href="#!">Terms of Use</a>
+                    </div>*@
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/621dfc9ca34c24564128daf2/1ft2i5hs4';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <!-- Contact form JS-->
+    <script src="~/assets/mail/jqBootstrapValidation.js"></script>
+    <script src="~/assets/mail/contact_me.js"></script>
+    <!-- Core theme JS-->
+    <script src="~/js/scripts.js"></script>
+   
+</body>
+</html>

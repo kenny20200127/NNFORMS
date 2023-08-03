@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "UploadPensionRecord";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        Upload of Form
+    </div>
+    <div class="card-body">
+        @{
+            if (TempData["messageExcel"] != null)
+            {
+                <div class="alert alert-default-success">
+                    @TempData["messageExcel"].ToString();
+                </div>
+            }
+        }
+
+
+        <a href="@Url.Action("DownloadBForm","PersonnelLogin")">Download Sample</a>
+
+        @using(Html.BeginForm("UploadPensionRecord","PersonnelLogin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="file" name="formFile" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <input type="submit" name="Submit" id="Submit" class="btn btn-primary" value="Upload" />
+                    </div>
+                </div>
+            </div>
+        }
+
+      
+    </div>
+</div>

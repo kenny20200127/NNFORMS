@@ -1,0 +1,233 @@
+﻿@using NNPEFWEB.ViewModel
+@model ContactUsViewModel
+@{ Layout = null; }
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from preview.colorlib.com/theme/unearth/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Jul 2023 22:45:27 GMT -->
+<head>
+    <title>NNFORMS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="template/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="template/css/bootstrap.min.css">
+    <link rel="stylesheet" href="template/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="template/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="template/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="template/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="template/css/aos.css">
+
+    <link rel="stylesheet" href="template/css/style.css">
+    <script nonce="71afd44e-a83e-46ca-bd77-114462e15643">(function (w, d) { !function (a, b, c, d) { a[c] = a[c] || {}; a[c].executed = []; a.zaraz = { deferred: [], listeners: [] }; a.zaraz.q = []; a.zaraz._f = function (e) { return function () { var f = Array.prototype.slice.call(arguments); a.zaraz.q.push({ m: e, a: f }) } }; for (const g of ["track", "set", "debug"]) a.zaraz[g] = a.zaraz._f(g); a.zaraz.init = () => { var h = b.getElementsByTagName(d)[0], i = b.createElement(d), j = b.getElementsByTagName("title")[0]; j && (a[c].t = b.getElementsByTagName("title")[0].text); a[c].x = Math.random(); a[c].w = a.screen.width; a[c].h = a.screen.height; a[c].j = a.innerHeight; a[c].e = a.innerWidth; a[c].l = a.location.href; a[c].r = b.referrer; a[c].k = a.screen.colorDepth; a[c].n = b.characterSet; a[c].o = (new Date).getTimezoneOffset(); if (a.dataLayer) for (const n of Object.entries(Object.entries(dataLayer).reduce(((o, p) => ({ ...o[1], ...p[1] })), {}))) zaraz.set(n[0], n[1], { scope: "page" }); a[c].q = []; for (; a.zaraz.q.length;) { const q = a.zaraz.q.shift(); a[c].q.push(q) } i.defer = !0; for (const r of [localStorage, sessionStorage]) Object.keys(r || {}).filter((t => t.startsWith("_zaraz_"))).forEach((s => { try { a[c]["z_" + s.slice(7)] = JSON.parse(r.getItem(s)) } catch { a[c]["z_" + s.slice(7)] = r.getItem(s) } })); i.referrerPolicy = "origin"; i.src = "../../cdn-cgi/zaraz/sd0d9.js?z=" + btoa(encodeURIComponent(JSON.stringify(a[c]))); h.parentNode.insertBefore(i, h) };["complete", "interactive"].includes(b.readyState) ? zaraz.init() : a.addEventListener("DOMContentLoaded", zaraz.init) }(w, d, "zarazData", "script"); })(window, document);</script>
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center position-relative">
+                    <div class="site-logo">
+                        <a href="index-2.html" class="text-black"><span class="text-primary">
+                       <img src="~/Image/navyImage.jpeg" width="50px" /> NNFORMS
+</a>
+                    </div>
+                    <div class="col-12">
+                        <nav class="site-navigation text-right ml-auto " role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
+                                <li><a href="#home-section" class="nav-link">Home</a></li>
+                                <li><a href="../personnellogin/login" class="nav-link">Login</a></li>
+                                @*<li class="has-children">
+                                    <a href="#about-section" class="nav-link">About Us</a>
+                                    <ul class="dropdown arrow-top">
+                                        <li><a href="#team-section" class="nav-link">Team</a></li>
+                                        <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
+                                        <li><a href="#faq-section" class="nav-link">FAQ</a></li>
+                                        <li class="has-children">
+                                            <a href="#">More Links</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Menu One</a></li>
+                                                <li><a href="#">Menu Two</a></li>
+                                                <li><a href="#">Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>*@
+                               <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+        <div class="owl-carousel slide-one-item">
+            <div class="site-section-cover overlay img-bg-section" style="background-image: url('image/IMG_2266.jpg'); ">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center text-center">
+                        <div class="col-md-12 col-lg-7">
+                            <h1 data-aos="fade-up" data-aos-delay>Welcome to NNCPO</h1>
+                            <p class="mb-5" data-aos="fade-up" data-aos-delay="100">Onward Together</p>
+                            <p data-aos="fade-up" data-aos-delay="200"><a href="#" class="btn btn-outline-white border-w-2 btn-md"></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-section-cover overlay img-bg-section" style="background-image: url('image/NAVY4.jpg'); ">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center text-center">
+                        <div class="col-md-12 col-lg-8">
+                            <h1 data-aos="fade-up" data-aos-delay>NN FORMS</h1>
+                            <p class="mb-5" data-aos="fade-up" data-aos-delay="100">PENSION AND GRATUITY</p>
+                            <p data-aos="fade-up" data-aos-delay="200"><a href="#" class="btn btn-outline-white border-w-2 btn-md"></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-section-cover overlay img-bg-section" style="background-image: url('image/NAVY4.jpg'); ">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center text-center">
+                        <div class="col-md-12 col-lg-8">
+                            <h1 data-aos="fade-up" data-aos-delay>NN FORMS</h1>
+                            <p class="mb-5" data-aos="fade-up" data-aos-delay="100">PENSION AND GRATUITY</p>
+                            <p data-aos="fade-up" data-aos-delay="200"><a href="#" class="btn btn-outline-white border-w-2 btn-md"></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          @*  <div class="site-section-cover overlay img-bg-section" style="width:400px; background-image: url('image/Emmanuel_I._Ogalla.jpg');">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center text-center">
+                        <div class="col-md-12 col-lg-8">
+                            <h1 data-aos="fade-up" data-aos-delay></h1>
+                            <p class="mb-5" data-aos="fade-up" data-aos-delay="100"</p>
+                            <p data-aos="fade-up" data-aos-delay="200"><a href="#" class="btn btn-outline-white border-w-2 btn-md"></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-section-cover overlay img-bg-section" style="width: 400px; background-image: url('image/Emmanuel_I._Ogalla.jpg'); background-image: url('image/nigerian-navy3.jpg');">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center text-center">
+                        <div class="col-md-12 col-lg-8">
+                            <h1 data-aos="fade-up" data-aos-delay>Nigerian Navy</h1>
+                            <p class="mb-5" data-aos="fade-up" data-aos-delay="100">Peace and Security</p>
+                            <p data-aos="fade-up" data-aos-delay="200"><a href="#" class="btn btn-outline-white border-w-2 btn-md"></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        <div class="site-section bg-light" id="contact-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay>
+                        <div class="block-heading-1">
+                            <span>Get In Touch</span>
+                            <h2>Contact Us</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="100">
+                        <form action="#" method="post">
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-4 mb-lg-0">
+                                    <input type="text" class="form-control" placeholder="First name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="First name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="Email address">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+<textarea name id class="form-control" placeholder="Write your message." cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 ml-auto">
+                                    <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Send Message">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="text-black"></h2>
+                        <p>
+                            Please read this information carefully to ensure that you send your enquiry or feedback to the relevant department so it can’t be dealt with promptly.
+
+                            The contact form should ONLY be used for one of the two options available in the dropdown section of the form below. (Application & Website issues)
+
+                            This form cannot be used to contact ships and units, or contact serving or former Naval personnel. We will also not respond to requests for ship or unit movements and locations of future port visits.
+
+                            Please be aware that ‘website issues’ go to an email account which is monitored during office hours only.
+                        </p>
+                       @* <p><a href="#" class="btn btn-primary text-white">Get Started</a></p>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height:40px">
+            <footer >
+                <div class="container">
+
+                    <div class="row pt-5 mt-5 text-center">
+                        <div class="col-md-12">
+                            <div class="border-top pt-5">
+                                <p class="copyright">
+                                    <small>
+                                        Copyright &copy;
+                                        <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                                        <script>document.write(new Date().getFullYear());</script> All rights reserved | HICAD SYSTEMS LTD 
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="template/js/jquery-3.3.1.min.js"></script>
+    <script src="template/js/popper.min.js"></script>
+    <script src="template/js/bootstrap.min.js"></script>
+    <script src="template/js/owl.carousel.min.js"></script>
+    <script src="template/js/jquery.sticky.js"></script>
+    <script src="template/js/jquery.waypoints.min.js"></script>
+    <script src="template/js/jquery.animateNumber.min.js"></script>
+    <script src="template/js/jquery.fancybox.min.js"></script>
+    <script src="template/js/jquery.easing.1.3.js"></script>
+    <script src="template/js/aos.js"></script>
+    <script src="template/js/main.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v2cb3a2ab87c5498db5ce7e6608cf55231689030342039" integrity="sha512-DI3rPuZDcpH/mSGyN22erN5QFnhl760f50/te7FTIYxodEF8jJnSFnfnmG/c+osmIQemvUrnBtxnMpNdzvx1/g==" data-cf-beacon='{"rayId":"7eaf36bc2ef00b32","version":"2023.4.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from preview.colorlib.com/theme/unearth/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Jul 2023 22:45:49 GMT -->
+</html>

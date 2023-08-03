@@ -1,0 +1,98 @@
+﻿@using NNPEFWEB.ViewModel;
+@model PaginatedList<NNPEFWEB.Models.DeathViewModel>
+
+@{
+    ViewData["Title"] = "ApproveDeath";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        Death Gratuity Approval
+    </div>
+    <div class="card-body">
+        <form>
+            <div style="float:right;">
+                <div class="input-group mb-3">
+                    <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="Username" aria-describedby="basic-addon1">
+                    <button class="input-group-text" asp-action="ApproveDeath" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fullname</th>
+                    <th>ServiceNo</th>
+                    <th>Rank</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    string fullname = "";
+
+                    @foreach (var k in Model)
+                    {
+                        fullname = k.LastName + " " + k.FirstName;
+                        <tr>
+                           
+                            <td>@fullname</td>
+                            <td>@k.SVC_NO</td>
+                            <td>@k.Title</td>
+                            <td>
+                                <a onclick="ApproveDeath(@k.personID)"
+                                   class="btn btn-primary">
+                                    Approve
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="ApproveDeath" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="ApproveDeath" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
+</div>
+
+
+@section scripts
+    {
+    <script type="text/javascript">
+
+        function ApproveDeath(id) {
+           
+            $.ajax({
+                method: "POST",
+                url: `/PersonnelLogin/DeathApproved?PersonID=${id}`,
+                success: function (data) {
+                    alert(data.responseMessage);
+                    window.location.href = "/PersonnelLogin/ApproveDeath";
+                },
+                error: function () {
+                    alert('approve death gratuity failed');
+                }
+            })
+        }
+    </script>
+}
+

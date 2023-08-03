@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "UploadDeathRecord";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        Upload of Death Gratuity form
+    </div>
+    <div class="card-body">
+        @{
+            if (TempData["messageDExcel"] != null)
+            {
+                <div class="alert alert-default-success">
+                    @TempData["messageDExcel"].ToString();
+                </div>
+            }
+        }
+
+
+        <a href="@Url.Action("DownloadCForm","PersonnelLogin")">Download Sample</a>
+
+        @using (Html.BeginForm("UploadDeathRecord", "PersonnelLogin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="file" name="formFile" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <input type="submit" name="Submit" id="Submit" class="btn btn-primary" value="Upload" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "UpdatedPayroll";
+}
+
+<h1>Update Payroll</h1>
+ @if (TempData["UpdateMessage"] != null) { 
+<h3>@TempData["UpdateMessage"]</h3>
+}
+<form asp-action="UpdatedPayroll" asp-controller="CPOUpdate">
+    <div class="row">
+        <div class="col-md-4">
+            <select name="payclass" class="form-control">
+                <option value="1">OFP</option>
+                <option value="2">WOP</option>
+                <option value="3">JRPA</option>
+                <option value="4">JRPB</option>
+                <option value="5">JRPC</option>
+                <option value="6">TRNP</option>
+                
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <input type="submit" class="btn btn-primary" value="Update" />
+        </div>
+    </div>
+</form>

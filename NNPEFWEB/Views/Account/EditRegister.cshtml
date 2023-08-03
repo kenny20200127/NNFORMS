@@ -1,0 +1,129 @@
+﻿@model NNPEFWEB.ViewModel.RegisterVM
+
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header text-center">
+                    <h1 class="card-title">Register User</h1>
+                </div>
+                @*<div class="row">
+                    <div class="col-md-4">*@
+                <form method="post">
+
+                    <div class="card-body">
+                        <h2 style="color:#ff0000">@TempData["regError"]</h2>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input asp-for="Id" class="form-control" hidden />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" class="form-control" readonly required />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            @*<div class="col-md-4">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>*@
+                            <div class="col-md-4">
+                                <label asp-for="PhoneNumber"></label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="Rank"></label>
+                                <select asp-for="Rank" class="form-control" required
+                                        asp-items="@(new SelectList(Model.RankList,"Value", "Text"))"></select>
+                                <span asp-validation-for="Rank" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">Command</label>
+                                <select asp-for="Command" id="ddcommand"
+                                        class="form-control"
+                                        asp-items="@(new SelectList(Model.CommandList,"Value", "Text"))">
+                                </select>
+                                <span asp-validation-for="Command" class="text-danger"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label">Ship</label>
+                                <select asp-for="Ship" id="ddship"
+                                        class="form-control"
+                                        asp-items="@(new SelectList(Model.shipList,"Value", "Text"))">
+                                </select>
+                                <span asp-validation-for="Ship" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Password</label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Confirm Password</label>
+                                <input asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+                @*</div>
+
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script>
+    $(document).ready(function () {
+
+    $('#ddcommand').change(function () {
+
+        var id = $("#ddcommand option:selected").val();
+        $.ajax({
+            url: "@Url.Action("Getshipbycommand", "Account")",
+            data: { id: id },
+            dataType: "json",
+            type: "POST",
+            error: function () {
+                alert("An error occurred.");
+            },
+            success: function (data) {
+
+                var items = "<option value=\"\">" + "</option>";
+                $.each(data, function (i, item) {
+
+                    items += "<option value=\"" + item.value + "\">" + item.text + "</option>";
+
+                });
+                $("#lgashow").show();
+                $("#ddship").html(items);
+            }
+        });
+    });
+    });
+
+</script>

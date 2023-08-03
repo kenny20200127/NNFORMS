@@ -1,0 +1,203 @@
+﻿@using NNPEFWEB.ViewModels.Users
+@model UserViewModel
+
+@{ ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+<div class="page-wrapper">
+
+    <div class="page-header">
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                @*<div class="page-header-title">
+                        <div class="d-inline">
+                            <h4>Styling DataTable</h4>
+                            <span>Easy to customise core stylesheets</span>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="col-lg-4">
+                <div class="page-header-breadcrumb">
+                    @*<ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"> <i class="feather icon-home"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Data Table</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Styling</a>
+                            </li>
+                        </ul>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="page-body">
+
+        <div class="card">
+            <div class="page-wrapper">
+
+                @using (Html.BeginForm("Update", "User", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="section-heading">
+                                    <h1 class="page-title">Edit User</h1>
+                                </div>
+                                @*<button type="button" class="close dismiss-modal" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>*@
+                            </div>
+                            <div class="modal-body">
+
+                                @Html.HiddenFor(model => model.Id)
+                                <span style="font-weight:bold; ">User Details</span>
+                                <hr />
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">
+                                            First Name
+                                        </label>
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">
+                                            SurName
+                                        </label>
+                                        @Html.TextBoxFor(model => model.Lastname, new { @class = "form-control" })
+                                    </div>
+                                     <div class="form-group col-sm-4">
+                                        <label for="PhoneNumber" class="control-label">
+                                            Phone Number
+                                        </label>
+                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    @*<div class="col-md-4">
+            <label asp-for="Rank"></label>
+            <select asp-for="Rank" class="form-control" required
+                    asp-items="@(new SelectList(Model.RankList,"Value", "Text"))"></select>
+            <span asp-validation-for="Rank" class="text-danger"></span>
+        </div>*@
+                                    <div class="form-group col-sm-4">
+                                        <label for="email" class="control-label">
+                                            Email
+                                        </label>
+                                        @Html.TextBoxFor(model => model.Email, new { @type = "email", @class = "form-control" })
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">
+                                            Username
+                                        </label>
+                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">
+                                            Login Type
+                                        </label>
+                                        <select name="Appointment" class="form-control" required>
+                                            @switch (Model.Appointment)
+                                            {
+                                                case "Adm":
+                                                    <option value="@Model.Appointment">Admin Officer</option>
+                                                    break;
+
+                                                case "1":
+                                                    <option value="@Model.Appointment">OFP</option>
+                                                    break;
+
+                                                case "2":
+                                                    <option value="@Model.Appointment">WOP</option>
+                                                    break;
+
+                                                case "3":
+                                                    <option value="@Model.Appointment">JRPA</option>
+                                                    break;
+
+                                                case "4":
+                                                    <option value="@Model.Appointment">JRPB</option>
+                                                    break;
+
+                                                case "5":
+                                                    <option value="@Model.Appointment">JRPC</option>
+                                                    break;
+
+                                                case "6":
+                                                    <option value="@Model.Appointment">TRNP</option>
+                                                    break;
+
+                                                default:
+                                                    <option value="Adm">Admin Officer</option>
+                                                    <option value="1">OFP</option>
+                                                    <option value="2">WOP</option>
+                                                    <option value="3">JRPA</option>
+                                                    <option value="4">JRPB</option>
+                                                    <option value="5">JRPC</option>
+                                                    <option value="6">TRNP</option>
+                                                    break;
+                                            }
+                                            <option value="Adm">Admin Officer</option>
+                                            <option value="1">OFP</option>
+                                            <option value="2">WOP</option>
+                                            <option value="3">JRPA</option>
+                                            <option value="4">JRPB</option>
+                                            <option value="5">JRPC</option>
+                                            <option value="6">TRNP</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">
+                                            Role
+                                        </label>
+                                        <select style="width:100%" id="Rolesid" name="Rolesid" class="required form-control row">
+                                            <option value="">Select Roles</option>
+                                            @foreach (var role in Model.Roles)
+                                            {
+                                                <option value="@role.Id">@role.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    @*<div class="form-group col-sm-6 mt-5">
+                                        <label for="active" class="control-label">
+                                            Active
+                                        </label>
+                                        <label class="switch switch-default switch-pill switch-secondary mr-2">
+                                            <input name="Active" type="checkbox" id="isactive" class="switch-input" value="false">
+                                            <span class="switch-label"></span>
+                                            <span class="switch-handle"></span>
+                                        </label>
+                                    </div>*@
+                                </div>
+                                <br />
+
+                                <div class="modal-footer">
+
+                                    @*<button type="reset" class="btn btn-secondary ">Cancel</button>*@
+                                    <button type="submit" value="save" name="save" class="btn btn-success">Update</button>
+                                </div>
+                                @Html.ActionLink("Back to Users", "Index", "User", new { @class = "mb-5" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+

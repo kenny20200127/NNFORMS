@@ -1,0 +1,285 @@
+﻿@model NNPEFWEB.Models.DeathModel
+
+@{
+    ViewData["Title"] = "DeathUpdate";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        Death Gratuity Update
+    </div>
+    <div class="card-body">
+
+        <form>
+            <div style="float:right;">
+                <div class="input-group mb-3">
+                    <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="searchString" aria-describedby="basic-addon1">
+                    <button class="input-group-text" asp-action="DeathUpdate" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  
+                    <th>Fullname</th>
+                    <th>ServiceNo</th>
+                    <th>Rank</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    string fullname = "";
+
+                    @foreach (var k in Model.deaths)
+                    {
+                        fullname = k.LastName + " " + k.FirstName;
+                        <tr>
+                            <td>@fullname</td>
+                            <td>@k.SVC_NO</td>
+                            <td>@k.Title</td>
+                            <td>
+                                <a onclick="getDeath(@k.personID)"
+                                   class="btn btn-primary">
+                                    update
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @{
+            var prevDisabled = !Model.deaths.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.deaths.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="ApproveDeath" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.deaths.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="ApproveDeath" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.deaths.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <form id="saveDeath" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">CPO update of Death Gratuity</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">SERVICENO</label>
+                                        <input asp-for="death.SVC_NO" type="text" class="form-control" readonly="true">
+                                        <span id="#" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">FIRSTNAME</label>
+                                        <input asp-for="death.FirstName" type="text" class="form-control" readonly="true">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">LASTNAME</label>
+                                        <input asp-for="death.LastName" type="text" class="form-control" readonly="true">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">RANK</label>
+                                        <input asp-for="death.Title" type="text" class="form-control" readonly="true">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">BASIC SALARY</label>
+                                        <input asp-for="death.PresentBasicSal" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">UTILITY ALLOWANCE</label>
+                                        <input type="text" asp-for="death.AnnualDiving" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">TRANSPORT ALLOWANCE</label>
+                                        <input asp-for="death.AnnualGCB" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">LODGING ALLOWANCE</label>
+                                        <input asp-for="death.AnnualLodging" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">MEAL SUBSIDY</label>
+                                        <input asp-for="death.AnnualDMeal" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">ENTERTAINMENT ALLOWANCE</label>
+                                        <input asp-for="death.AnnualEntertain" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">PERSONAL SERVICE ALLOWANCE</label>
+                                        <input asp-for="death.AnnualPersonal" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">TOTAL ANNUAL GROSS</label>
+                                        <input asp-for="death.TotAnnualGross" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">CASH ADVANCE</label>
+                                        <input asp-for="death.CashAdvance" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">MOTOR VEHICLE ADVANCE</label>
+                                        <input asp-for="death.MotorVehicle" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">REDUCED INTREST ON ADVANCE</label>
+                                        <input asp-for="death.ReducedInterest" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">HOUSING LOAN</label>
+                                        <input asp-for="death.HousingLoan" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">REDUCED INTREST ON ADVANCE</label>
+                                        <input asp-for="death.ReducedInterest2" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">OTHER SUB CHARGES</label>
+                                        <input asp-for="death.OtherSubCharge" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="btnUpdate" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+    {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#btnUpdate').click(function () {
+
+                var empForm = $('#saveDeath').serialize();
+                
+
+                $.ajax({
+                    type: "POST",
+                    url: "/PersonnelLogin/CreateDeathUpdate",
+                    data: empForm,
+                    success: function (data) {
+                        window.alert(data.responseMessage);
+
+                        $('#exampleModal').on('hidden.bs.modal', function () {
+                            $(this).find('form').trigger('reset');
+                        })
+                        window.location.href = "/PersonnelLogin/DeathUpdate";
+                    },
+                    error: function () {
+                        window.alert("update failed");
+                    }
+                });
+            });
+        });
+
+        function getDeath(id) {
+            $.ajax({
+                method: "GET",
+                url: `/api/Death/GetDeathByPersonID?personID=${id}`,
+                success: function (data) {
+                    $('#death_FirstName').val(data.firstName);
+                    $('#death_LastName').val(data.lastName);
+                    $('#death_Title').val(data.title);
+                    $('#death_SVC_NO').val(data.svC_NO);
+
+                    $('#exampleModal').modal('show');
+                }
+            });
+        }
+
+    </script>
+}
+

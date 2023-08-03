@@ -1,0 +1,362 @@
+﻿@model NNPEFWEB.Models.PensionModel
+
+@{
+    ViewData["Title"] = "PensionUpdate";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        Pension Update
+    </div>
+    <div class="card-body">
+        <form asp-action="PensionUpdte">
+            <div style="float:right;">
+                <div class="input-group mb-3">
+                    <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="Username" aria-describedby="basic-addon1">
+                    <button class="input-group-text" asp-action="PensionUpdate" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fullname</th>
+                    <th>ServiceNo</th>
+                    <th>Rank</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    string fullname = "";
+
+                    @foreach (var k in Model.Pensions)
+                    {
+                        fullname = k.LastName + " " + k.FirstName;
+                        <tr>
+                            <td>@fullname</td>
+                            <td>@k.SVC_NO</td>
+                            <td>@k.Title</td>
+                            <td>
+                                <a onclick="getPension(@k.PersonID)"
+                                   class="btn btn-primary">
+                                    update
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+        @{
+            var prevDisabled = !Model.Pensions.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.Pensions.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="PensionUpdate" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.Pensions.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="PensionUpdate" asp-controller="PersonnelLogin"
+           asp-route-pageNumber="@(Model.Pensions.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <form id="savePension" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">CPO update of Pension</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">SERVICENO</label>
+                                        <input asp-for="pension.SVC_NO" type="text" class="form-control" readonly="true">
+                                        <span id="#" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">FIRSTNAME</label>
+                                        <input asp-for="pension.FirstName" type="text" class="form-control" readonly="true">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">LASTNAME</label>
+                                        <input asp-for="pension.LastName" type="text" class="form-control" readonly="true">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">RANK</label>
+                                        <input asp-for="pension.Title" type="text" class="form-control" readonly="true">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL BASIC SALARY</label>
+                                        <input asp-for="pension.AnnualBasic" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL TRANSPORT ALLOWANCE</label>
+                                        <input type="text" asp-for="pension.AnnualTrans" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL LODGING ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualLodging" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL SERVANT ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualServant" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL MEAL SUBSIDY</label>
+                                        <input asp-for="pension.AnnualMeal" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL ENTERTAINMENT ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualEnter" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL UTILITY ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualUtility" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL HOUSE UPKEEP ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualHouse" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL GENERAL SVC ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualGeneral" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL MEDICAL ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualMedical" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL HAZARD ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualUtlity" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">ANNUAL UNIFORM UPKEEP ALLOWANCE</label>
+                                        <input asp-for="pension.AnnualUniform" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">TOTAL EMOLUMENT</label>
+                                        <input asp-for="pension.TotalEmolument" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="control-label">TOTAL QUALIFYING SERVICE FOR GRATUITY</label>
+                                        <input asp-for="pension.TotalQualify" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">FREE SERVICE ELEMENTS</label>
+                                        <input asp-for="pension.FreeSevcElement" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">HOUSING/LAND LOAN</label>
+                                        <input asp-for="pension.Housing_Loan" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">MOTOR VEHICLE ALLOWANCE</label>
+                                        <input asp-for="pension.Motor_Loan" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">MOTOR CYCLE ALLOWANCE</label>
+                                        <input asp-for="pension.MCycle_Loan" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">WELFARE LOAN</label>
+                                        <input asp-for="pension.Welfare_Loan" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">COOPERATIVE PERSONAL LOAN</label>
+                                        <input asp-for="pension.Coop_Loan" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">MICROFINANCE BANK LOAN</label>
+                                        <input asp-for="pension.MFinance_Loan" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">OVERPAYMENT OF SALARY</label>
+                                        <input asp-for="pension.SalaryOverpayment" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">OTHER SUB CHARGES</label>
+                                        <input asp-for="pension.Other_Overcharge" type="text" class="form-control">
+                                        <span id="firstNameVal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <input asp-for="pension.IsCertify" type="checkbox" /> I certify that the particulars of service
+                                    and payment furnished above are to the best of my knowledge
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="btnUpdate" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+    
+        $(document).ready(function(){
+            $('#btnUpdate').click(function(){
+
+                var empForm = $('#savePension').serialize();
+                let isCheck = $('#pension_IsCertify:checked').val();
+               
+                if(isCheck)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "/PersonnelLogin/CreatePensionUpdate",
+                        data: empForm,
+                        success: function (data) {
+                            window.alert(data.responseMessage);
+
+                            $('#exampleModal').on('hidden.bs.modal', function () {
+                                $(this).find('form').trigger('reset');
+                            })
+                            window.location.href = "/PersonnelLogin/PensionUpdate";
+                        },
+                        error: function () {
+                            window.alert("update failed");
+                        }
+                    });
+                }else{
+                    alert("Please check the term and condition");
+                }
+            });
+        });
+
+        function getPension(id){
+            $.ajax({
+                method: "GET",
+                url: `/api/Pension/GetPensionByPersonID?personID=${id}`,
+                success: function (data) {
+                    $('#pension_FirstName').val(data.firstName);
+                    $('#pension_LastName').val(data.lastName);
+                    $('#pension_Title').val(data.title);
+                    $('#pension_SVC_NO').val(data.svC_NO);
+
+                    $('#exampleModal').modal('show');
+                }
+            });
+        }
+        
+    </script>
+}
+

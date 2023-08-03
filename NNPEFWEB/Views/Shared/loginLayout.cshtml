@@ -1,0 +1,98 @@
+﻿@model NNPEFWEB.ViewModel.personLoginVM
+@using Microsoft.AspNetCore.Http
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<!--
+Template Name: Midone - HTML Admin Dashboard Template
+Author: Left4code
+Website: http://www.left4code.com/
+Contact: muhammadrizki@left4code.com
+Purchase: https://themeforest.net/user/left4code/portfolio
+Renew Support: https://themeforest.net/user/left4code/portfolio
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<html lang="en" class="light">
+<!-- BEGIN: Head -->
+<head>
+    <meta charset="utf-8">
+    <link href="dist2/images/logo.svg" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="LEFT4CODE">
+    <title>Login - NNFORMS</title>
+    <!-- BEGIN: CSS Assets-->
+    <link href="../dist2/css/app.css" rel="stylesheet" />
+    <!-- END: CSS Assets-->
+</head>
+<!-- END: Head -->
+<body class="login">
+    <div class="container sm:px-10">
+        <div class="block xl:grid grid-cols-2 gap-4">
+           @RenderBody()
+        </div>
+    </div>
+
+    <!-- BEGIN: JS Assets-->
+    <script src="../dist2/js/app.js"></script>
+    <div class="alert-default-warning">
+        @if (@Context.Session.GetString("InvalidPassword") != null)
+        {
+            @Context.Session.GetString("InvalidPassword");
+            <script>
+                alert("Invalid User Name or Password");
+            </script>
+        }
+    </div>
+    <script>
+        $('.alert').alert()
+        $(function () {
+            $(".btn").click(function () {
+                $(".form-signin").toggleClass("form-signin-left");
+                $(".form-signup").toggleClass("form-signup-left");
+                $(".frame").toggleClass("frame-long");
+                $(".signup-inactive").toggleClass("signup-active");
+                $(".signin-active").toggleClass("signin-inactive");
+                $(".forgot").toggleClass("forgot-left");
+                $(this).removeClass("idle").addClass("active");
+            });
+        });
+
+        $(function () {
+            $(".btn-signup").click(function () {
+                $(".nav").toggleClass("nav-up");
+                $(".form-signup-left").toggleClass("form-signup-down");
+                $(".success").toggleClass("success-left");
+                $(".frame").toggleClass("frame-short");
+            });
+        });
+
+        $(function () {
+            $(".btn-signin").click(function () {
+                $(".btn-animate").toggleClass("btn-animate-grow");
+                $(".welcome").toggleClass("welcome-left");
+                $(".cover-photo").toggleClass("cover-photo-down");
+                $(".frame").toggleClass("frame-short");
+                $(".profile-photo").toggleClass("profile-photo-down");
+                $(".btn-goback").toggleClass("btn-goback-up");
+                $(".forgot").toggleClass("forgot-fade");
+            });
+        });
+
+    </script>
+    <script>
+        $(".toggle-password").click(function () {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
+</body>
+</html>
