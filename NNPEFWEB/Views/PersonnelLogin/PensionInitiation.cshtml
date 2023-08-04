@@ -49,6 +49,10 @@
                    class="btn btn-primary">
                     Initiate
                 </a>
+                 <a onclick="RemovePension(@k.PersonID)"
+                   class="btn btn-danger">
+                    Delete
+                </a>
             </td>
         </tr>} }
 
@@ -302,6 +306,29 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="editForm" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="DeleteModalLabel">Delete Pension Gratuity</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="deleteId" />
+                            <h1>Are you sure you want to delete?</h1>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="btnDelete" class="btn btn-primary">OK</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -363,6 +390,20 @@
                     });
                 
             });
+            $('#btnDelete').click(function () {
+                let id = $('#deleteId').val();
+                $.ajax({
+                    method: "POST",
+                    url: `/PersonnelLogin/RemovePensionInitiation?PersonID=${id}`,
+                    success: function (data) {
+                        alert(data.responseMessage);
+                        window.location.href = "/PersonnelLogin/PensionInitiation";
+                    },
+                    error: function () {
+                        alert('pension initiation failed');
+                    }
+                });
+            }
         });
 
         function GetPension(id){
@@ -405,6 +446,11 @@
                     $('#PensionInitModal').modal('show');
                 }
             });
+        }
+
+        function RemovePension(id){
+            $('#deleteId').val(id);
+            $('#DeleteModal').modal('show');
         }
         
     </script>

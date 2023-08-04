@@ -373,5 +373,28 @@ namespace NNPEFWEB.Service
                 };
             }
         }
+
+        public async Task<BaseResponse> RemoveDeath(int personID)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@statusInput", 13);
+                param.Add("@personID",personID);
+               
+                var respq = await dapper.GetAsync<BaseResponse>(ApplicationConstant.Sp_Death, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new BaseResponse()
+                {
+                    responseCode = "05",
+                    responseMessage = "Exception Occured"
+                };
+            }
+        }
     }
 }

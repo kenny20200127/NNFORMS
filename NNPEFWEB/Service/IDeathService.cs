@@ -22,6 +22,7 @@ namespace NNPEFWEB.Service
        
         DeathViewModel GetDeathBySvcNo(string svcNo);
         DeathViewModel GetDeathByPersonID(int PersonID);
+        Task<BaseResponse> RemoveDeath(int personID);
 
     }
 }

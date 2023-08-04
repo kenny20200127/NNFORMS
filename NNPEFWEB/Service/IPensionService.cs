@@ -21,6 +21,7 @@ namespace NNPEFWEB.Service
         IEnumerable<PensionViewModel> GetPensionByStatus(string status);
         PensionViewModel GetPensionBySvcNo(string svcNo);
         PensionViewModel GetPensionByPersonID(int PersonID);
-        
+        Task<BaseResponse> RemovePension(int PersonID);
+
     }
 }

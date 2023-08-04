@@ -380,6 +380,28 @@ namespace NNPEFWEB.Service
                 return new PensionViewModel();
             }
         }
-   
+
+        public async Task<BaseResponse> RemovePension(int PersonID)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@statusInput",13);
+                param.Add("@PersonID", PersonID);
+                
+                var respq = await dapper.GetAsync<BaseResponse>(ApplicationConstant.Sp_Pension, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new BaseResponse()
+                {
+                    responseCode = "05",
+                    responseMessage = "Exception Occured"
+                };
+            }
+        }
     }
 }

@@ -394,6 +394,7 @@ namespace NNPEFWEB.Controllers
         }
 
 
+
         public async Task<IActionResult> ApprovePension(int? pageNumber,string searchString)
         {
             string role = TempData["userRole2"] as string;
@@ -440,6 +441,24 @@ namespace NNPEFWEB.Controllers
             model.count1 = countUser.count1;
             model.count2 = countUser.count2;
             return View(model);
+        }
+
+        //PersonnelLogin/ApprovePension
+        [HttpPost]
+        [Route("PersonnelLogin/RemovePensionInitiation")]
+        public async Task<IActionResult> RemovePensionInitiation([FromQuery] int PersonID)
+        {
+            var pp = await service.RemovePension(PersonID);
+            return Ok(pp);
+        }
+
+        //PersonnelLogin/ApprovePension
+        [HttpPost]
+        [Route("PersonnelLogin/RemoveDeathInitiation")]
+        public async Task<IActionResult> RemoveDeathInitiation([FromQuery] int personID)
+        {
+            var pp = await deathService.RemoveDeath(personID);
+            return Ok(pp);
         }
 
         //PersonnelLogin/ApprovePension
