@@ -15,7 +15,7 @@ namespace NNPEFWEB.Service
         Task<BaseResponse> UpdateUser(EditUserViewModels payload);
         Task<BaseResponse> DeleteUser(int Id);
         Task<UserViewModels> GetUserById(int id);
-        Task<IEnumerable<UserViewModels>> GetUsers();
+        Task<IEnumerable<UserViewModels>> GetUsers(string name);
         ef_personnelLogin GetPersonBySvc_NO(string person);
         ef_personnelLogin personnelLogin(string username, string password);
         Task<ef_personnelLogin> GetPersonel(string svcno);
@@ -27,7 +27,7 @@ namespace NNPEFWEB.Service
         Task<ef_shiplogin> GetUserByShip(string person);
         void updateshiplogin(ef_shiplogin values);
         UserWIthRoleViewModel GetUserWithRole(int userId);
-        IEnumerable<SelectListItem> GetRoles();
+        IEnumerable<SelectListItem> GetRoles(string name);
         Task<BaseResponse> AddUser(UserViewModels payload);
         Task<userCountModel> GetUserCount();
     }

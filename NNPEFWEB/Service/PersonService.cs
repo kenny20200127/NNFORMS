@@ -17,14 +17,14 @@ using System.Threading.Tasks;
 
 namespace NNPEFWEB.Service
 {
-    public class PersonService:IPersonService
+    public class PersonService : IPersonService
     {
         private readonly IUnitOfWorks unitOfWork;
         private readonly string connectionString;
         private readonly IDapper dapper;
         private readonly ILogger<PersonService> logger;
         private readonly ApplicationDbContext context;
-        public PersonService(ApplicationDbContext _context, IConfiguration configuration , ILogger<PersonService> logger,  IUnitOfWorks unitOfWork, IDapper dapper)
+        public PersonService(ApplicationDbContext _context, IConfiguration configuration, ILogger<PersonService> logger, IUnitOfWorks unitOfWork, IDapper dapper)
         {
             this.unitOfWork = unitOfWork;
             connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -32,7 +32,7 @@ namespace NNPEFWEB.Service
             this.logger = logger;
             context = _context;
         }
-        public  Task<ef_shiplogin> GetUserByShip(string person)
+        public Task<ef_shiplogin> GetUserByShip(string person)
         {
             return unitOfWork.PersonLogin.GetUserByShip(person);
         }
@@ -45,9 +45,9 @@ namespace NNPEFWEB.Service
         {
             return unitOfWork.PersonLogin.GetPersonnel(svcno);
         }
-        public Task<ef_personnelLogin> GetPersonelByPassword(string password,string per)
+        public Task<ef_personnelLogin> GetPersonelByPassword(string password, string per)
         {
-            return unitOfWork.PersonLogin.GetPersonnelBypassword(password,per);
+            return unitOfWork.PersonLogin.GetPersonnelBypassword(password, per);
         }
         public async Task<bool> updatepersonlogin(ef_personnelLogin values)
         {
@@ -72,7 +72,7 @@ namespace NNPEFWEB.Service
             return shipList;
         }
 
-        public ef_personnelLogin personnelLogin(string username,string password)
+        public ef_personnelLogin personnelLogin(string username, string password)
         {
             return unitOfWork.PersonLogin.GetPersonnelLogin(username, password);
         }
@@ -140,12 +140,12 @@ namespace NNPEFWEB.Service
 
         public UserWIthRoleViewModel GetUserWithRole(int userId)
         {
-            var result= new UserWIthRoleViewModel();
+            var result = new UserWIthRoleViewModel();
             try
             {
                 var param = new DynamicParameters();
                 param.Add("@userId", userId);
-              
+
                 result = dapper.Get<UserWIthRoleViewModel>(ApplicationConstant.sp_GetUserWithRoles, param, commandType: System.Data.CommandType.StoredProcedure);
                 return result;
             }
@@ -155,20 +155,21 @@ namespace NNPEFWEB.Service
             }
         }
 
-        public IEnumerable<SelectListItem> GetRoles()
+        public IEnumerable<SelectListItem> GetRoles(string name)
         {
             var roleListItems = new List<SelectListItem>();
             try
             {
                 var param = new DynamicParameters();
-                param.Add("@status",1);
+                param.Add("@status", 1);
+                param.Add("@role", name);
                 var roleList = dapper.GetAll<Rolevm>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
                 roleList.ForEach(x =>
                 {
                     roleListItems.Add(new SelectListItem()
                     {
-                        Text=x.Name,
-                        Value=x.Id.ToString()
+                        Text = x.Name,
+                        Value = x.Id.ToString()
                     });
                 });
 
@@ -181,15 +182,16 @@ namespace NNPEFWEB.Service
             }
         }
 
-        public async Task<IEnumerable<UserViewModels>> GetUsers()
+        public async Task<IEnumerable<UserViewModels>> GetUsers(string name)
         {
-            
+
             try
             {
                 var param = new DynamicParameters();
                 param.Add("@status", 3);
+                param.Add("@role", name);
                 var userlist = await dapper.GetAllAsync<UserViewModels>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
-               
+
 
                 return userlist;
             }
@@ -222,8 +224,8 @@ namespace NNPEFWEB.Service
             try
             {
                 var param = new DynamicParameters();
-                param.Add("@status",6);
-                param.Add("@Id",Id);
+                param.Add("@status", 6);
+                param.Add("@Id", Id);
 
                 var resp = await dapper.GetAsync<BaseResponse>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
 
@@ -264,7 +266,7 @@ namespace NNPEFWEB.Service
 
         public async Task<BaseResponse> AddUser(UserViewModels payload)
         {
-            
+
             try
             {
                 var param = new DynamicParameters();
@@ -277,8 +279,8 @@ namespace NNPEFWEB.Service
                 param.Add("@phoneNo", payload.PhoneNo);
                 param.Add("@PasswordHash", payload.PasswordHash);
 
-                var resp  = await dapper.GetAsync<BaseResponse>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
-              
+                var resp = await dapper.GetAsync<BaseResponse>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
+
                 return resp;
             }
             catch (Exception ex)
@@ -293,8 +295,8 @@ namespace NNPEFWEB.Service
             try
             {
                 var param = new DynamicParameters();
-                param.Add("@status",7);
-                
+                param.Add("@status", 7);
+
 
                 var resp = await dapper.GetAsync<userCountModel>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
 
@@ -314,8 +316,8 @@ namespace NNPEFWEB.Service
             mail.fromName = "NN-CPO";
             mail.to = to;
             mail.subject = "NNCPO Activation Mail";
-            
-           
+
+
             return mail;
         }
     }

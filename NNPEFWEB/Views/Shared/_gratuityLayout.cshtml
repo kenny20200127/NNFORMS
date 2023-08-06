@@ -1,8 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
-@{
-    string role = Context.Session.GetString("userRole");
-    
-}
+@{ string role = Context.Session.GetString("userRole"); }
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +18,7 @@
     <link href="~/css/index.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <script src="~/js/app.js" defer></script>
-  
+
 </head>
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
     <div class="wrapper" id="app">
@@ -35,8 +32,8 @@
                     <a href="/Home/commanddashbord" class="nav-link">Home</a>
                 </li>
                 @*<li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-                </li>*@
+                    <a href="#" class="nav-link">Contact</a>
+                    </li>*@
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -63,76 +60,119 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        @{ if (role.ToLower() == "SYSTEMADMIN".ToLower() || role.ToLower() == "CNDADMIN".ToLower() || role.ToLower() == "NAVSECADMIN".ToLower() || role.ToLower() == "CPOADMIN".ToLower() || role.ToLower() == "MPBADMIN".ToLower())
+                            {
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-envelope"></i>
+                        <p>
+                            User Management
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="GetAdminUser"
+                               asp-controller="NLogin">
+                                <i class="nav-icon far fa-lock"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon far fa-envelope"></i>
+                                        <p>
+                                            Upload
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="UploadPensionRecord"
+                                               asp-controller="PensionForms">
+                                                <i class="far fa nav-icon"></i>
+                                                <p>Pension Gratuity</p>
+                                            </a>
+
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="UploadDeathRecord"
+                                               asp-controller="DeathForms">
+                                                <i class="far fa nav-icon"></i>
+                                                <p>Death Gratuity</p>
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+                                </li> } }
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-envelope"></i>
                                 <p>
-                                     Pension
+                                    Pension
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @{
-                                
-                                       
-                                        if(role.ToLower()=="Cnd".ToLower() || role.ToLower()=="Navsec".ToLower()){
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="PensionInitiation"
-                                                     asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Pension Initiation</p>
-                                                </a>
+                                @{ if (role.ToLower() == "SYSTEMADMIN".ToLower() || role.ToLower() == "Cnd".ToLower() || role.ToLower() == "Navsec".ToLower() || role.ToLower() == "CNDADMIN".ToLower() || role.ToLower() == "NAVSECADMIN".ToLower())
+                                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="PensionInitiation"
+                               asp-controller="PensionForms">
+                                <i class="far fa nav-icon"></i>
+                                <p>Pension Initiation</p>
+                            </a>
 
-                                            </li>
-                                            <li class="nav-item">
-                                                
-                                                <a class="nav-link" asp-action="PensionReviews"
-                                                   asp-controller="PersonnelLogin" >
-                                                  <i class="far fa nav-icon"></i>
-                                                  <p>Pension Preview</p>
-                                               </a>
-                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="ApprovePension"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Pension Approval</p>
-                                                </a>
-                                            </li>
-                                        }
+                        </li>
+                                        <li class="nav-item">
 
-                                        if(role.ToLower()=="Cpo".ToLower()){
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="PensionUpdate"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Pension Update</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                            <a class="nav-link" asp-action="PensionUpdateReview"
-                                               asp-controller="PersonnelLogin">
+                                            <a class="nav-link" asp-action="PensionReviews"
+                                               asp-controller="PensionForms">
                                                 <i class="far fa nav-icon"></i>
-                                                <p>Update Preview</p>
+                                                <p>Pension Preview</p>
                                             </a>
-                                            </li>
-                                            
-                                        }
+                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" asp-action="ApprovePension"
+                                                               asp-controller="PensionForms">
+                                                                <i class="far fa nav-icon"></i>
+                                                                <p>Pension Approval</p>
+                                                            </a>
+                                                        </li> }
 
-                                        if (role.ToLower() == "MPB".ToLower())
-                                        {
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="PensionPayment"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Payment Approval</p>
-                                                </a>
-                                            </li>
-                                        }
-                                    
-                                }
+                                                                    if (role.ToLower() == "SYSTEMADMIN".ToLower() || role.ToLower() == "Cpo".ToLower() || role.ToLower() == "CPOADMIN".ToLower())
+                                                                    {
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" asp-action="PensionUpdate"
+                                                               asp-controller="PensionForms">
+                                                                <i class="far fa nav-icon"></i>
+                                                                <p>Pension Update</p>
+                                                            </a>
+                                                        </li>
+                                                                        <li>
+                                                                            <a class="nav-link" asp-action="PensionUpdateReview"
+                                                                               asp-controller="PensionForms">
+                                                                                <i class="far fa nav-icon"></i>
+                                                                                <p>Update Preview</p>
+                                                                            </a>
+                                                                        </li> }
 
-                               
+                                                                                    if (role.ToLower() == "SYSTEMADMIN".ToLower() || role.ToLower() == "MPB".ToLower() || role.ToLower() == "MPBADMIN".ToLower())
+                                                                                    {
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" asp-action="PensionPayment"
+                                                                               asp-controller="PensionForms">
+                                                                                <i class="far fa nav-icon"></i>
+                                                                                <p>Payment Approval</p>
+                                                                            </a>
+                                                                        </li> } }
+
+
 
                             </ul>
                         </li>
@@ -145,72 +185,64 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @{
-                                   
-                                        if (role.ToLower() == "Cnd".ToLower() || role.ToLower() == "Navsec".ToLower())
-                                        {
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="Initiation"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Death Initiation</p>
-                                                </a>
+                                @{ if (role.ToLower() == "SYSTEMADMIN".ToLower() || role.ToLower() == "Cnd".ToLower() || role.ToLower() == "Navsec".ToLower() || role.ToLower() == "CNDADMIN".ToLower() || role.ToLower() == "NAVSECADMIN".ToLower())
+                                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Initiation"
+                               asp-controller="DeathForms">
+                                <i class="far fa nav-icon"></i>
+                                <p>Death Initiation</p>
+                            </a>
 
-                                            </li>
-                                            <li class="nav-item">
+                        </li>
+                                        <li class="nav-item">
 
-                                                <a class="nav-link" asp-action="DeathReviews"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Death Preview</p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="ApproveDeath"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Death Approval</p>
-                                                </a>
-                                            </li>
-                                        }
-
-                                        if (role.ToLower() == "Cpo".ToLower())
-                                        {
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="DeathUpdate"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Death Update</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                            <a class="nav-link" asp-action="DeathUpdateReview"
-                                               asp-controller="PersonnelLogin">
+                                            <a class="nav-link" asp-action="DeathReviews"
+                                               asp-controller="DeathForms">
                                                 <i class="far fa nav-icon"></i>
-                                                <p>Death Update Preview</p>
+                                                <p>Death Preview</p>
                                             </a>
-                                            </li>
-                                           
-                                        }
+                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" asp-action="ApproveDeath"
+                                                               asp-controller="DeathForms">
+                                                                <i class="far fa nav-icon"></i>
+                                                                <p>Death Approval</p>
+                                                            </a>
+                                                        </li> }
 
-                                        if (role.ToLower() == "MPB".ToLower())
-                                        {
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-action="DeathPayment"
-                                                   asp-controller="PersonnelLogin">
-                                                    <i class="far fa nav-icon"></i>
-                                                    <p>Death Payment Approval</p>
-                                                </a>
-                                            </li>
-                                        }
-                                  
-                                }
+                                                                    if (role.ToLower() == "SYSTEMADMIN".ToLower() || role.ToLower() == "Cpo".ToLower() || role.ToLower() == "CNDADMIN".ToLower())
+                                                                    {
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" asp-action="DeathUpdate"
+                                                               asp-controller="DeathForms">
+                                                                <i class="far fa nav-icon"></i>
+                                                                <p>Death Update</p>
+                                                            </a>
+                                                        </li>
+                                                                        <li>
+                                                                            <a class="nav-link" asp-action="DeathUpdateReview"
+                                                                               asp-controller="DeathForms">
+                                                                                <i class="far fa nav-icon"></i>
+                                                                                <p>Death Update Preview</p>
+                                                                            </a>
+                                                                        </li> }
+
+                                                                                    if (role.ToLower() == "SYSTEMADMIN".ToLower() || role.ToLower() == "MPB".ToLower() || role.ToLower() == "MPBADMIN".ToLower())
+                                                                                    {
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" asp-action="DeathPayment"
+                                                                               asp-controller="DeathForms">
+                                                                                <i class="far fa nav-icon"></i>
+                                                                                <p>Death Payment Approval</p>
+                                                                            </a>
+                                                                        </li> } }
 
 
 
                             </ul>
                         </li>
-                       
+
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-envelope"></i>
@@ -235,7 +267,7 @@
 
                                 <li class="nav-item">
                                     <a class="nav-link" asp-action="DeathEnquery"
-                                       asp-controller="PersonnelLogin">
+                                       asp-controller="DeathForms">
                                         <i class="far fa nav-icon"></i>
                                         <p>Death Gratuity Enquiry</p>
                                     </a>
@@ -244,14 +276,14 @@
 
                             </ul>
                         </li>
-                      
+
                         <li class="nav-item">
                             <a class="nav-link" asp-action="HomePage"
                                asp-controller="Home">
                                 <i class="nav-icon far fa-lock"></i>
                                 <p>Log Out</p>
                             </a>
-                           
+
                         </li>
                     </ul>
                 </nav>
@@ -295,7 +327,7 @@
         </footer>
     </div>
     <script src="~/plugins/jquery/jquery.min.js"></script>
-   
+
     <!-- Bootstrap 4 -->
     <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -305,12 +337,12 @@
     <script src="~/dist/js/demo.js"></script>
     <script src="~/js/index.js"></script>
     @*<script type="text/javascript">
-        $('#checkId').click(function(){
-            console.log("i am here");
-        });
-       
-    </script>*@
+            $('#checkId').click(function(){
+                console.log("i am here");
+            });
+
+        </script>*@
     @RenderSection("Scripts", required: false)
-    
+
 </body>
 </html>

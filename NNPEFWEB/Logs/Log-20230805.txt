@@ -1,0 +1,3 @@
+2023-08-05T17:08:45.8688173+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2023-08-05T17:08:45.8837709+01:00  [INF] Hosting environment: "Production" (c3307c92)
+2023-08-05T17:08:45.9147067+01:00  [INF] Content root path: "C:\Users\Home\source\repos\NNFORMS\NNPEFWEB" (b5d60022)

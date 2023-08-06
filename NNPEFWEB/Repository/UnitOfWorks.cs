@@ -20,10 +20,7 @@ namespace NNPEFWEB.Repository
             UserRoles = new UserRoleRepository(context);
 
             PersonLogin = new PersonLoginRepository(_context);
-            Personinfo = new PersonInfoRepository(_context);
-            SystemsInfo = new SystemsInfoRepository(_context);
             shiplogin = new ShipRepository(_context);
-            ContactUs = new ContactUsRepository(_context);
         }
         public IUserRepository Users { get; private set; }
         public IMenuGroupRepository MenuGroups { get; private set; }
@@ -33,11 +30,7 @@ namespace NNPEFWEB.Repository
 
         public IPersonLoginRepository PersonLogin { get; }
 
-        public IPersonInfoRepository Personinfo { get; }
         public IShipRepo shiplogin { get; }
-        public IContactUs ContactUs { get; }
-
-        public ISystemsInfoRepository SystemsInfo { get; }
 
 
         public async Task<bool> Done()

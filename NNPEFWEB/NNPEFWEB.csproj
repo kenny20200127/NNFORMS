@@ -140,7 +140,6 @@
     <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
     <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
     <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
-    <None Include="bin\Debug\net5.0\Wkhtmltopdf.NetCore.dll" />
     <None Include="Views\Menu\Index.cshtml" />
     <None Include="Views\RoleManager\Index.cshtml" />
     <None Include="Views\Role\Index.cshtml" />

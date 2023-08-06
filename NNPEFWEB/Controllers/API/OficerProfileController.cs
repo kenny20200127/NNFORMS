@@ -26,66 +26,24 @@ namespace NNPEFWEB.Controllers.API
     {
         private readonly IDapper _dapper;
         private readonly IPersonService personService;
-        private readonly IPersonInfoService personinfoService;
         private readonly ApplicationDbContext _context;
         private readonly IUnitOfWorks unitOfWorks;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IMapper imapper;
-        public OficerProfileController(IDapper dapper,IMapper _imapper, IWebHostEnvironment HostEnvironment, IUnitOfWorks unitOfWorks, IPersonInfoService personinfoService, IPersonService personService, ApplicationDbContext _context)
+        public OficerProfileController(IDapper dapper,IMapper _imapper, IWebHostEnvironment HostEnvironment, IUnitOfWorks unitOfWorks,  IPersonService personService, ApplicationDbContext _context)
         {
             this._context = _context;
             this.personService = personService;
-            this.personinfoService = personinfoService;
             this.unitOfWorks = unitOfWorks;
             this.webHostEnvironment = HostEnvironment;
             imapper = _imapper;
             _dapper = dapper;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("getPersonBySearch/{Searching}")]
-        public List<PersonListID_Name> getperson(string searching)
-        {
-            List<PersonListID_Name> ps = new List<PersonListID_Name>();
-            var pp = personinfoService.FilterBySearch(searching).Result;
-            foreach(var p in pp)
-            {
-                ps.Add(new PersonListID_Name
-                {
-                    Id = p.serviceNumber,
-                    name = p.Surname + "" + p.OtherName + "" + p.serviceNumber
-                });
-            }
-            return ps;
-        }
-        [Route("getAllPersons")]
-        [HttpGet]
-        public async Task<IActionResult> Get(int? pageno)
-        {
-            int? shipid = HttpContext.Session.GetInt32("ship");
-            string payclass = HttpContext.Session.GetString("class");
-            string ship = _context.ef_ships.Where(x => x.Id == shipid).FirstOrDefault().shipName;
-            int iDisplayLength = 10;
-            pageno = pageno == null ? 0 : (pageno--);
-            var _personlist = await personinfoService.getPersonList(((int)pageno * iDisplayLength), iDisplayLength,payclass, ship);
-            var countall = await personinfoService.getPersonListCount(payclass, ship);
-            return Ok(new { responseCode = 200, personlist = _personlist, total = countall });
-        }
        
-        // GET: api/<OficerProfileController>
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("getAllPersonsByServiceNo/{serviceno}")]
-        public IActionResult Get(string serviceno)
-        {
-            int? shipid = HttpContext.Session.GetInt32("ship");
-            string Appointment = HttpContext.Session.GetString("Appointment");
-            string ship = _context.ef_ships.Where(x => x.Id == shipid).FirstOrDefault().shipName;
-            string id ="1";
-            var pp = personinfoService.GetUpdatedPersonnelBySVCNO(id, ship, serviceno);
-            return Ok(new { respondCode=200, plist= pp});
-        }
+     
+       
+      
         [HttpGet("{id}")]
         public string Get(int id)
         {
