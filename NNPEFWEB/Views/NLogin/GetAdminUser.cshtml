@@ -64,12 +64,12 @@
             var nextDisabled = !Model.Users.HasNextPage ? "disabled" : "";
         }
 
-        <a asp-action="GetAdminUser" asp-controller="PersonnelLogin"
+        <a asp-action="GetAdminUser" asp-controller="NLogin"
            asp-route-pageNumber="@(Model.Users.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Previous
         </a>
-        <a asp-action="GetAdminUser" asp-controller="PersonnelLogin"
+        <a asp-action="GetAdminUser" asp-controller="NLogin"
            asp-route-pageNumber="@(Model.Users.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Next
@@ -234,12 +234,12 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/PersonnelLogin/CreateUsers",
+                    url: "/NLogin/CreateUsers",
                     data: empForm,
                     success: function (data) {
                         if (data.responseCode == "00") {
                             window.alert(data.responseMessage);
-                            window.location.href = "/PersonnelLogin/GetAdminUser";
+                            window.location.href = "/NLogin/GetAdminUser";
                         }
                     },
                     error: function () {
@@ -321,13 +321,13 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/PersonnelLogin/UpdateUsers",
+                        url: "/NLogin/UpdateUsers",
                         data: empForms,
                         success: function (data) {
                             console.log(data);
                             if (data.responseCode == "00") {
                                 window.alert(data.responseMessage);
-                                window.location.href = "/PersonnelLogin/GetAdminUser";
+                                window.location.href = "/NLogin/GetAdminUser";
                             }
                         },
                         error:function(){
@@ -343,11 +343,11 @@
                 let id= $('#deleteId').val();
                 $.ajax({
                     method: "GET",
-                    url: `/PersonnelLogin/DeleteUser?Id=${id}`,
+                    url: `/NLogin/DeleteUser?Id=${id}`,
                     success: function (data) {
                       
                         window.alert(data.responseMessage);
-                        window.location.href = "/PersonnelLogin/GetAdminUser";
+                        window.location.href = "/NLogin/GetAdminUser";
                     },
                     error: function () {
                         window.alert("failed contact admin");
@@ -361,7 +361,7 @@
 
             $.ajax({
                 method:"GET",
-                url: `/PersonnelLogin/GetUserById?Id=${id}`,
+                url: `/NLogin/GetUserById?Id=${id}`,
                 success:function(data){
                     console.log(data);
                     $('#firstNameId').val(data.firstName);
@@ -389,7 +389,7 @@
         function fillSelect(){
             $.ajax({
                 type: "GET",
-                url: "/PersonnelLogin/ViewRole",
+                url: "/NLogin/ViewRole",
                 success: function (data) {
                     $.each(data, function (index, key) {
                         $('#selectRoleId').append($("<option></option>")

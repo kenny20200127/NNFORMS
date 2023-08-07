@@ -161,7 +161,7 @@ namespace NNPEFWEB.Controllers
         }
         public IActionResult Index()
         {
-            string role = TempData["userRole2"] as string;
+            string role = HttpContext.Session.GetString("userRole").ToString();
 
             if (string.IsNullOrEmpty(role))
             {
@@ -212,7 +212,7 @@ namespace NNPEFWEB.Controllers
 
         public async Task<IActionResult> GetAdminUser(int ?pageNumber,string searchString)
         {
-            string role = TempData["userRole2"] as string;
+            string role = HttpContext.Session.GetString("userRole").ToString();
 
             if (string.IsNullOrEmpty(role))
             {
@@ -239,7 +239,7 @@ namespace NNPEFWEB.Controllers
         [HttpGet]
         public IActionResult ViewRole()
         {
-            string role = TempData["userRole2"] as string;
+            string role = HttpContext.Session.GetString("userRole").ToString();
 
             if (string.IsNullOrEmpty(role))
             {
