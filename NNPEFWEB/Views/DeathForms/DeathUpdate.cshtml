@@ -15,7 +15,7 @@
             <div style="float:right;">
                 <div class="input-group mb-3">
                     <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="searchString" aria-describedby="basic-addon1">
-                    <button class="input-group-text" asp-action="DeathUpdate" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                    <button class="input-group-text" asp-action="DeathUpdate" asp-controller="DeathForms" asp-route-searchString="searchString">
                         Search
                     </button>
                 </div>
@@ -60,12 +60,12 @@
             var nextDisabled = !Model.deaths.HasNextPage ? "disabled" : "";
         }
 
-        <a asp-action="ApproveDeath" asp-controller="PersonnelLogin"
+        <a asp-action="ApproveDeath" asp-controller="DeathForms"
            asp-route-pageNumber="@(Model.deaths.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Previous
         </a>
-        <a asp-action="ApproveDeath" asp-controller="PersonnelLogin"
+        <a asp-action="ApproveDeath" asp-controller="DeathForms"
            asp-route-pageNumber="@(Model.deaths.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Next
@@ -248,7 +248,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/PersonnelLogin/CreateDeathUpdate",
+                    url: "/DeathForms/CreateDeathUpdate",
                     data: empForm,
                     success: function (data) {
                         window.alert(data.responseMessage);
@@ -256,7 +256,7 @@
                         $('#exampleModal').on('hidden.bs.modal', function () {
                             $(this).find('form').trigger('reset');
                         })
-                        window.location.href = "/PersonnelLogin/DeathUpdate";
+                        window.location.href = "/DeathForms/DeathUpdate";
                     },
                     error: function () {
                         window.alert("update failed");

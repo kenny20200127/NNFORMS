@@ -72,10 +72,10 @@
 
             $.ajax({
                 method: "POST",
-                url: `/PersonnelLogin/CreatePensionPayment?PersonID=${id}`,
+                url: `/PensionForms/CreatePensionPayment?PersonID=${id}`,
                 success: function (data) {
                     window.alert(data.responseMessage);
-                    window.location.href = "/PersonnelLogin/PensionPayment";
+                    window.location.href = "/PensionForms/PensionPayment";
                 },
                 error: function () {
                     alert('approve payment failed');

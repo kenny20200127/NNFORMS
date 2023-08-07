@@ -374,7 +374,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/PersonnelLogin/CreatePensionInitiation",
+                        url: "/PensionForms/CreatePensionInitiation",
                         data: empForm,
                         success: function (data) {
                             window.alert(data.responseMessage);
@@ -382,7 +382,7 @@
                             $('#PensionInitModal').on('hidden.bs.modal', function () {
                                 $(this).find('form').trigger('reset');
                             })
-                            window.location.href = "/PersonnelLogin/PensionInitiation";
+                            window.location.href = "/PensionForms/PensionInitiation";
                         },
                         error: function () {
                             window.alert("update failed");
@@ -394,10 +394,10 @@
                 let id = $('#deleteId').val();
                 $.ajax({
                     method: "POST",
-                    url: `/PersonnelLogin/RemovePensionInitiation?PersonID=${id}`,
+                    url: `/PensionForms/RemovePensionInitiation?PersonID=${id}`,
                     success: function (data) {
                         alert(data.responseMessage);
-                        window.location.href = "/PersonnelLogin/PensionInitiation";
+                        window.location.href = "/PensionForms/PensionInitiation";
                     },
                     error: function () {
                         alert('pension initiation failed');

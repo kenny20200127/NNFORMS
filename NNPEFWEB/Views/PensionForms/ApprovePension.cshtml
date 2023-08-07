@@ -62,12 +62,12 @@
             var nextDisabled = !Model.HasNextPage ? "disabled" : "";
         }
 
-        <a asp-action="ApprovePension" asp-controller="PersonnelLogin"
+        <a asp-action="ApprovePension" asp-controller="PensionForms"
            asp-route-pageNumber="@(Model.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Previous
         </a>
-        <a asp-action="ApprovePension" asp-controller="PersonnelLogin"
+        <a asp-action="ApprovePension" asp-controller="PensionForms"
            asp-route-pageNumber="@(Model.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Next
@@ -90,10 +90,10 @@
 
             $.ajax({
                 method: "POST",
-                url: `/PersonnelLogin/PensionApproved?PersonID=${id}`,
+                url: `/PensionForms/PensionApproved?PersonID=${id}`,
                 success: function (data) {
                     alert(data.responseMessage);
-                    window.location.href = "/PersonnelLogin/ApprovePension";
+                    window.location.href = "/PensionForms/ApprovePension";
                 },
                 error: function () {
                     alert('approve pension failed');

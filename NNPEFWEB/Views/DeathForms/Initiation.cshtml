@@ -17,7 +17,7 @@
             <div style="float:right;">
                 <div class="input-group mb-3">
                     <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="Username" aria-describedby="basic-addon1">
-                    <button class="input-group-text" asp-action="Initiation" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                    <button class="input-group-text" asp-action="Initiation" asp-controller="DeathForms" asp-route-searchString="searchString">
                         Search
                     </button>
                 </div>
@@ -63,12 +63,12 @@
         @{ var prevDisabled = !Model.deaths.HasPreviousPage ? "disabled" : "";
                         var nextDisabled = !Model.deaths.HasNextPage ? "disabled" : ""; }
 
-        <a asp-action="Initiation" asp-controller="PersonnelLogin"
+        <a asp-action="Initiation" asp-controller="DeathForms"
            asp-route-pageNumber="@(Model.deaths.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Previous
         </a>
-        <a asp-action="Initiation" asp-controller="PersonnelLogin"
+        <a asp-action="Initiation" asp-controller="DeathForms"
            asp-route-pageNumber="@(Model.deaths.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Next
@@ -346,7 +346,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/PersonnelLogin/CreateInitiation",
+                    url: "/DeathForms/CreateInitiation",
                     data: empForm,
                     success: function (data) {
                         window.alert(data.responseMessage);
@@ -354,7 +354,7 @@
                         $('#PensionInitModal').on('hidden.bs.modal', function () {
                             $(this).find('form').trigger('reset');
                         })
-                        window.location.href = "/PersonnelLogin/Initiation";
+                        window.location.href = "/DeathForms/Initiation";
                     },
                     error: function () {
                         window.alert("update failed");
@@ -365,10 +365,10 @@
                 let id = $('#deleteId').val();
                 $.ajax({
                     method: "POST",
-                    url: `/PersonnelLogin/RemoveDeathInitiation?personID=${id}`,
+                    url: `/DeathForms/RemoveDeathInitiation?personID=${id}`,
                     success: function (data) {
                         alert(data.responseMessage);
-                        window.location.href = "/PersonnelLogin/Initiation";
+                        window.location.href = "/DeathForms/Initiation";
                     },
                     error: function () {
                         alert('death initiation failed');

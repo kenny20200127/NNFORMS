@@ -61,12 +61,12 @@
             var nextDisabled = !Model.Pensions.HasNextPage ? "disabled" : "";
         }
 
-        <a asp-action="PensionUpdateReview" asp-controller="PersonnelLogin"
+        <a asp-action="PensionUpdateReview" asp-controller="PensionForms"
            asp-route-pageNumber="@(Model.Pensions.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Previous
         </a>
-        <a asp-action="PensionUpdateReview" asp-controller="PersonnelLogin"
+        <a asp-action="PensionUpdateReview" asp-controller="PensionForms"
            asp-route-pageNumber="@(Model.Pensions.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Next
@@ -318,7 +318,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/PersonnelLogin/CreatePensionUpdate",
+                    url: "/PensionForms/CreatePensionUpdate",
                     data: empForm,
                     success: function (data) {
                         window.alert(data.responseMessage);
@@ -326,7 +326,7 @@
                         $('#exampleModal').on('hidden.bs.modal', function () {
                             $(this).find('form').trigger('reset');
                         })
-                        window.location.href = "/PersonnelLogin/PensionUpdateReview";
+                        window.location.href = "/PensionForms/PensionUpdateReview";
                     },
                     error: function () {
                         window.alert("update failed");
