@@ -295,25 +295,7 @@ namespace NNPEFWEB.Controllers
         }
        
       
-        public async Task<FileResult> DownloadBForm()
-        {
-            string fileName = "ny_nn9bRecord.xlsx";
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "uploads", fileName);
-            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
-
-            return File(bytes, "application/octet", fileName);
-
-        }
-
-        public async Task<FileResult> DownloadCForm()
-        {
-            string fileName = "ny_nn9cRecord.xlsx";
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "uploads", fileName);
-            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
-
-            return File(bytes, "application/octet", fileName);
-
-        }
+           
 
         public bool IsValidEmail(string source)
         {

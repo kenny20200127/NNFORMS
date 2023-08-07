@@ -115,7 +115,7 @@ namespace NNPEFWEB.Controllers
             TempData["messageInit"] = result.responseMessage;
             TempData["user"] = createdBy;
             ModelState.Clear();
-            return RedirectToAction("PensionInitiation", "PersonnelLogin");
+            return RedirectToAction("PensionInitiation", "PensionForms");
         }
 
 
@@ -200,7 +200,7 @@ namespace NNPEFWEB.Controllers
         }
 
         [HttpPost]
-        [Route("PersonnelLogin/CreatePensionPayment")]
+        [Route("PensionForms/CreatePensionPayment")]
         public async Task<IActionResult> CreatePensionPayment([FromQuery] int PersonID)
         {
             string createdBy = TempData["username"] as string;
@@ -213,7 +213,7 @@ namespace NNPEFWEB.Controllers
             return Ok(pp);
         }
         [HttpPost]
-        [Route("PersonnelLogin/PensionApproved")]
+        [Route("PensionForms/PensionApproved")]
         public async Task<IActionResult> PensionApproved([FromQuery] int PersonID)
         {
             string createdBy = TempData["username"] as string;
@@ -385,7 +385,7 @@ namespace NNPEFWEB.Controllers
             return View(model);
         }
         [HttpPost]
-        [Route("PersonnelLogin/RemovePensionInitiation")]
+        [Route("PensionForms/RemovePensionInitiation")]
         public async Task<IActionResult> RemovePensionInitiation([FromQuery] int PersonID)
         {
             var pp = await service.RemovePension(PersonID);
@@ -441,5 +441,15 @@ namespace NNPEFWEB.Controllers
             });
             return shipList;
         }
+        public async Task<FileResult> DownloadBForm()
+        {
+            string fileName = "ny_nn9bRecord.xlsx";
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "uploads", fileName);
+            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+
+            return File(bytes, "application/octet", fileName);
+
+        }
+
     }
 }

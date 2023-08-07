@@ -19,9 +19,9 @@
         }
 
 
-        <a href="@Url.Action("DownloadCForm","PersonnelLogin")">Download Sample</a>
+        <a href="@Url.Action("DownloadCForm","DeathForms")">Download Sample</a>
 
-        @using (Html.BeginForm("UploadDeathRecord", "PersonnelLogin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("UploadDeathRecord", "DeathForms", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 

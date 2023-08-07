@@ -81,7 +81,7 @@ namespace NNPEFWEB.Controllers
             var result = await deathService.UpdateDeath(model2);
 
             ModelState.Clear();
-            return RedirectToAction("Initiation", "PersonnelLogin");
+            return RedirectToAction("Initiation", "DeathForms");
         }
 
         public async Task<IActionResult> DeathReviews(int? pageNumber, string searchString)
@@ -190,7 +190,7 @@ namespace NNPEFWEB.Controllers
         }
 
         [HttpPost]
-        [Route("PersonnelLogin/CreateDeathPayment")]
+        [Route("DeathForms/CreateDeathPayment")]
         public async Task<IActionResult> CreateDeathPayment([FromQuery] int PersonID)
         {
             string createdBy = TempData["username"] as string;
@@ -207,7 +207,7 @@ namespace NNPEFWEB.Controllers
 
         //PersonnelLogin/ApprovePension
         [HttpPost]
-        [Route("PersonnelLogin/DeathApproved")]
+        [Route("DeathForms/DeathApproved")]
         public async Task<IActionResult> DeathApproved([FromQuery] int PersonID)
         {
             string createdBy = TempData["username"] as string;
@@ -384,7 +384,7 @@ namespace NNPEFWEB.Controllers
 
         //PersonnelLogin/ApprovePension
         [HttpPost]
-        [Route("PersonnelLogin/RemoveDeathInitiation")]
+        [Route("DeathForms/RemoveDeathInitiation")]
         public async Task<IActionResult> RemoveDeathInitiation([FromQuery] int personID)
         {
             var pp = await deathService.RemoveDeath(personID);
@@ -447,6 +447,14 @@ namespace NNPEFWEB.Controllers
             });
             return shipList;
         }
+        public async Task<FileResult> DownloadCForm()
+        {
+            string fileName = "ny_nn9cRecord.xlsx";
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "uploads", fileName);
+            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
 
+            return File(bytes, "application/octet", fileName);
+
+        }
     }
 }
