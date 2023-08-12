@@ -400,13 +400,18 @@ namespace NNPEFWEB.Controllers
         public IEnumerable<DeathViewModel> filterDeathByRole(IEnumerable<DeathViewModel> deathList, string role)
         {
             var filterByRole = new List<DeathViewModel>();
-            if (role.ToLower() == "navsec")
+            if (role.ToLower() == "navsec"|| role == "NAVSECADMIN")
             {
                 var unFilteredRecord = deathList.Where(x => x.SVC_NO.Substring(0, 2).ToLower() == "nn");
                 filterByRole = unFilteredRecord.ToList();
             }
+            if (role== "SYSTEMADMIN")
+            {
+                var unFilteredRecord = deathList;
+                filterByRole = unFilteredRecord.ToList();
+            }
 
-            if (role.ToLower() == "cnd")
+            if (role.ToLower() == "cnd"||role=="CNDADMIN")
             {
                 var unFilteredRecord2 = deathList.Where(x => x.SVC_NO.Substring(0, 2).ToLower() != "nn");
                 filterByRole = unFilteredRecord2.ToList();

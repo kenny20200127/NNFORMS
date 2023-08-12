@@ -55,7 +55,7 @@ namespace NNPEFWEB.Controllers
         {
             PensionModel model = new();
             PensionViewModel model2 = new PensionViewModel();
-            string role = TempData["userRole2"] as string;
+            string role = HttpContext.Session.GetString("userRole").ToString();
 
             if (string.IsNullOrEmpty(role))
             {
@@ -394,13 +394,18 @@ namespace NNPEFWEB.Controllers
         public IEnumerable<PensionViewModel> filterPensionByRole(IEnumerable<PensionViewModel> pensionList, string role)
         {
             var filterByRole = new List<PensionViewModel>();
-            if (role.ToLower() == "navsec")
+            if (role.ToLower() == "navsec" || role == "NAVSECADMIN")
             {
                 var unFilteredRecord = pensionList.Where(x => x.SVC_NO.Substring(0, 2).ToLower() == "nn");
                 filterByRole = unFilteredRecord.ToList();
             }
+            if (role == "SYSTEMADMIN")
+            {
+                var unFilteredRecord = pensionList;
+                filterByRole = unFilteredRecord.ToList();
+            }
 
-            if (role.ToLower() == "cnd")
+            if (role.ToLower() == "cnd"|| role == "CNDADMIN")
             {
                 var unFilteredRecord2 = pensionList.Where(x => x.SVC_NO.Substring(0, 2).ToLower() != "nn");
                 filterByRole = unFilteredRecord2.ToList();

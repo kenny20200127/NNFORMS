@@ -84,7 +84,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="saveInitPension" method="post">
+                        <form id="saveInitPension" asp-controller="PensionForms" asp-action="CreatePensionInitiation" method="post">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -371,7 +371,7 @@
                // $('#pension_DisabilityDegree').val();
                // $('#pension_DisabilityDate').val();
                 let empForm = $('#saveInitPension').serialize();
-
+                alert("I am here");
                     $.ajax({
                         type: "POST",
                         url: "/PensionForms/CreatePensionInitiation",
