@@ -501,7 +501,7 @@ namespace NNPEFWEB.Controllers
                     return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
 
                 }
-                else
+                else if(payload.filterType=="pdf")
                 {
                     var newReportList = new List<DeathReportDTO>();
                     filterStatusReportList.ForEach(x =>
@@ -518,6 +518,11 @@ namespace NNPEFWEB.Controllers
                         });
                     });
                     return await generatePdf.GetPdf("Views/DeathForms/DeathStatusReportPage.cshtml", newReportList);
+                }
+                else
+                {
+                    TempData["messageReport"] = "Please check the right format";
+                    return View(model);
                 }
 
             }
@@ -573,9 +578,14 @@ namespace NNPEFWEB.Controllers
                         return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
 
                     }
-                    else
+                    else if(payload.filterType =="pdf")
                     {
                         return await generatePdf.GetPdf("Views/DeathForms/DeathMainReportPage.cshtml", reportList);
+                    }
+                    else
+                    {
+                        TempData["messageReport"] = "Please select the right format";
+                        return View(model);
                     }
                 }
                 else

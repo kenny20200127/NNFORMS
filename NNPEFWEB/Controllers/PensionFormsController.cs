@@ -540,7 +540,7 @@ namespace NNPEFWEB.Controllers
                     return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
 
                 }
-                else
+                else if(payload.filterType=="pdf")
                 {
                     var newReportList = new List<PensionReportDTO>();
                     filteredReportList.ToList().ForEach(x =>
@@ -558,12 +558,17 @@ namespace NNPEFWEB.Controllers
                     });
                     return await generatePdf.GetPdf("Views/PensionForms/PensionStatusReportPage.cshtml", newReportList);
                 }
+                else
+                {
+                    TempData["messageReport"] = "Please select the format for your report";
+                    return View(model);
+                }
 
             }
             else
             {
                 TempData["messageReport"] = "there is no record";
-                return View();
+                return View(model);
             }
 
         }
