@@ -63,12 +63,12 @@
         @{ var prevDisabled = !Model.Pensions.HasPreviousPage ? "disabled" : "";
                         var nextDisabled = !Model.Pensions.HasNextPage ? "disabled" : ""; }
 
-        <a asp-action="PensionInitiation" asp-controller="PersonnelLogin"
+        <a asp-action="PensionInitiation" asp-controller="PensionForms"
            asp-route-pageNumber="@(Model.Pensions.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Previous
         </a>
-        <a asp-action="PensionInitiation" asp-controller="PersonnelLogin"
+        <a asp-action="PensionInitiation" asp-controller="PensionForms"
            asp-route-pageNumber="@(Model.Pensions.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Next
@@ -339,56 +339,55 @@
 
         $(document).ready(function () {
             $('#btnSavePensionInit').click(function () {
-                  
-               //let FirstName= $('#pension_FirstName').val();
-               //let LastName= $('#pension_LastName').val();
-               //let Title= $('#pension_Title').val();
-               //let SVC_NO= $('#pension_SVC_NO').val();
-               //let MiddleName= $('#pension_MiddleName').val();
-               //let ShipEstab=$('#pension_ShipEstab').val();
-               //let BirthDate= $('#pension_BirthDate').val();
-               //let senioritydate= $('#pension_senioritydate').val();
-               //let TradeCategory= $('#pension_Tradecategory').val();
-               //let TradeCatDate = $('#pension_TradeCatDate').val();
-               //let PrvEstab = $('#pension_PrvEstab').val();
-               //let PrvShipEstab = $('#pension_PrvShipEstab').val();
-               //let Enlistmentdate = $('#pension_Enlistmentdate').val();
-               //let PresServicefrom = $('#pension_PreServicefrom').val();
-               //let PreServiceTo=$('#pension_PreServiceTo').val();
-               //let PrvServdate= $('#pension_PrvServdate').val();
-               //let Warsrv_from= $('#pension_Warsrv_from').val();
-               //let Warsrv_to= $('#pension_Warsrv_to').val();
-               //let TotalService=$('#pension_TotalService').val();
-               //let Nonrec_Service=$('#pension_Nonrec_Service').val();
-               //let NonRecReason=$('#pension_NonRecReason').val();
-               //let FinTotalService $('#pension_FinTotalService').val();
-               //let $('#pension_TransAuthority').val();
-               // $('#pension_pensionDate').val();
-               // $('#pension_PaymentDept').val();
-               // $('#pension_PAddress').val();
-               // $('#pension_CAddress').val();
-               // $('#pension_DisabilityNat').val();
-               // $('#pension_DisabilityDegree').val();
-               // $('#pension_DisabilityDate').val();
-                let empForm = $('#saveInitPension').serialize();
-                alert("I am here");
-                    $.ajax({
-                        type: "POST",
-                        url: "/PensionForms/CreatePensionInitiation",
-                        data: empForm,
-                        success: function (data) {
-                            window.alert(data.responseMessage);
 
-                            $('#PensionInitModal').on('hidden.bs.modal', function () {
-                                $(this).find('form').trigger('reset');
-                            })
-                            window.location.href = "/PensionForms/PensionInitiation";
-                        },
-                        error: function () {
-                            window.alert("update failed");
-                        }
-                    });
-                
+                //let FirstName= $('#pension_FirstName').val();
+                //let LastName= $('#pension_LastName').val();
+                //let Title= $('#pension_Title').val();
+                //let SVC_NO= $('#pension_SVC_NO').val();
+                //let MiddleName= $('#pension_MiddleName').val();
+                //let ShipEstab=$('#pension_ShipEstab').val();
+                //let BirthDate= $('#pension_BirthDate').val();
+                //let senioritydate= $('#pension_senioritydate').val();
+                //let TradeCategory= $('#pension_Tradecategory').val();
+                //let TradeCatDate = $('#pension_TradeCatDate').val();
+                //let PrvEstab = $('#pension_PrvEstab').val();
+                //let PrvShipEstab = $('#pension_PrvShipEstab').val();
+                //let Enlistmentdate = $('#pension_Enlistmentdate').val();
+                //let PresServicefrom = $('#pension_PreServicefrom').val();
+                //let PreServiceTo=$('#pension_PreServiceTo').val();
+                //let PrvServdate= $('#pension_PrvServdate').val();
+                //let Warsrv_from= $('#pension_Warsrv_from').val();
+                //let Warsrv_to= $('#pension_Warsrv_to').val();
+                //let TotalService=$('#pension_TotalService').val();
+                //let Nonrec_Service=$('#pension_Nonrec_Service').val();
+                //let NonRecReason=$('#pension_NonRecReason').val();
+                //let FinTotalService $('#pension_FinTotalService').val();
+                //let $('#pension_TransAuthority').val();
+                // $('#pension_pensionDate').val();
+                // $('#pension_PaymentDept').val();
+                // $('#pension_PAddress').val();
+                // $('#pension_CAddress').val();
+                // $('#pension_DisabilityNat').val();
+                // $('#pension_DisabilityDegree').val();
+                // $('#pension_DisabilityDate').val();
+                let empForm = $('#saveInitPension').serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/PensionForms/CreatePensionInitiation",
+                    data: empForm,
+                    success: function (data) {
+                        window.alert(data.responseMessage);
+
+                        $('#PensionInitModal').on('hidden.bs.modal', function () {
+                            $(this).find('form').trigger('reset');
+                        })
+                        window.location.href = "/PensionForms/PensionInitiation";
+                    },
+                    error: function () {
+                        window.alert("update failed");
+                    }
+                });
+
             });
             $('#btnDelete').click(function () {
                 let id = $('#deleteId').val();
@@ -403,9 +402,8 @@
                         alert('pension initiation failed');
                     }
                 });
-            }
+            });
         });
-
         function GetPension(id){
             $.ajax({
                 method: "GET",

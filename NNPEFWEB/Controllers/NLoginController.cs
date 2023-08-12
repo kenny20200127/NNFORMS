@@ -230,7 +230,7 @@ namespace NNPEFWEB.Controllers
             }
 
 
-            int pageSize = 3;
+            int pageSize = 10;
             model.UserViewModels = models;
             var zz = await PaginatedList<UserViewModels>.CreateAsync(listOfusers.AsQueryable(), pageNumber ?? 1, pageSize);
             model.Users= zz;
@@ -258,7 +258,7 @@ namespace NNPEFWEB.Controllers
             }
 
 
-            int pageSize = 3;
+            int pageSize = 10;
             model.UserViewModels = models;
             var zz = await PaginatedList<UserViewModels>.CreateAsync(listOfusers.AsQueryable(), pageNumber ?? 1, pageSize);
             model.Users = zz;

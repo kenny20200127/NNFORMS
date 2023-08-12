@@ -1233,3 +1233,12 @@ C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\NNPEFWEB.dll
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\ref\NNPEFWEB.dll
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\NNPEFWEB.pdb
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\NNPEFWEB.genruntimeconfig.cache
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\DeathForms\DeathMainReport.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\DeathForms\DeathMainReportPage.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\DeathForms\DeathStatusReport.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\DeathForms\DeathStatusReportPage.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\NLogin\GetUser.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionMainReport.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionMainReportPage.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionStatusReport.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionStatusReportPage.cshtml.g.cs

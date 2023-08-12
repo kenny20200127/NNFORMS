@@ -73,7 +73,7 @@ namespace NNPEFWEB.Controllers
             {
                 InitPensionList = InitPensionList.Where(s => s.SVC_NO.ToLower() == searchString.ToLower());
             }
-            int pageSize = 3;
+            int pageSize = 5;
             model.Pensions = await PaginatedList<PensionViewModel>.CreateAsync(InitPensionList.AsQueryable(), pageNumber ?? 1, pageSize);
             model2.shipDetails = GetShip();
             model2.rankDetails = GetRank();
@@ -100,7 +100,7 @@ namespace NNPEFWEB.Controllers
             var pp = pensionForReview.ToList();
             model2.shipDetails = GetShip();
             model.pension = model2;
-            int pageSize = 3;
+            int pageSize = 5;
             model.Pensions = await PaginatedList<PensionViewModel>.CreateAsync(pp.AsQueryable(), pageNumber ?? 1, pageSize);
             TempData["role"] = role;
             return View(model);
@@ -140,7 +140,7 @@ namespace NNPEFWEB.Controllers
 
             model2.shipDetails = GetShip();
             model.pension = model2;
-            int pageSize = 3;
+            int pageSize = 5;
             model.Pensions = await PaginatedList<PensionViewModel>.CreateAsync(pensionByInitation.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return View(model);
@@ -161,7 +161,7 @@ namespace NNPEFWEB.Controllers
 
             var pp = pensionUpdateForReview.ToList();
             //model.Pensions = pp;
-            int pageSize = 3;
+            int pageSize = 5;
             model.Pensions = await PaginatedList<PensionViewModel>.CreateAsync(pp.AsQueryable(), pageNumber ?? 1, pageSize);
             return View(model);
 
@@ -193,7 +193,7 @@ namespace NNPEFWEB.Controllers
                 pensionForApproval = pensionForApproval.Where(s => s.SVC_NO.ToLower() == searchString.ToLower());
             }
 
-            int pageSize = 3;
+            int pageSize = 5;
             TempData["role"] = role;
             return View(await PaginatedList<PensionViewModel>.CreateAsync(pensionForApproval.AsQueryable(), pageNumber ?? 1, pageSize));
         }
@@ -201,7 +201,7 @@ namespace NNPEFWEB.Controllers
         public async Task<IActionResult> PensionPayment(int? pageNumber)
         {
             var pensionForApproval = service.GetPensionByStatus(ApplicationConstant.Approved);
-            int pageSize = 3;
+            int pageSize = 5;
             return View(await PaginatedList<PensionViewModel>.CreateAsync(pensionForApproval.AsQueryable(), pageNumber ?? 1, pageSize));
         }
 
@@ -385,7 +385,7 @@ namespace NNPEFWEB.Controllers
             PensionModel model = new PensionModel();
             var pensionForReview = service.GetPensionByStatus(ApplicationConstant.Update);
             //var pp = pensionForReview.ToList();
-            int pageSize = 3;
+            int pageSize = 5;
             model.Pensions = await PaginatedList<PensionViewModel>.CreateAsync(pensionForReview.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return View(model);

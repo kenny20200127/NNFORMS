@@ -63,7 +63,7 @@ namespace NNPEFWEB.Controllers
 
             model.death = model2;
 
-            int pageSize = 3;
+            int pageSize = 5;
             TempData["role"] = role;
 
             model.deaths = await PaginatedList<DeathViewModel>.CreateAsync(initList.AsQueryable(), pageNumber ?? 1, pageSize);
@@ -108,7 +108,7 @@ namespace NNPEFWEB.Controllers
             }
 
             TempData["role"] = role;
-            int pageSize = 3;
+            int pageSize = 5;
             model.deaths = await PaginatedList<DeathViewModel>.CreateAsync(pp.AsQueryable(), pageNumber ?? 1, pageSize);
             return View(model);
         }
@@ -127,7 +127,7 @@ namespace NNPEFWEB.Controllers
             }
 
             model.death = model2;
-            int pageSize = 3;
+            int pageSize = 5;
             model.deaths = await PaginatedList<DeathViewModel>.CreateAsync(pp.AsQueryable(), pageNumber ?? 1, pageSize); ;
             return View(model);
 
@@ -145,7 +145,7 @@ namespace NNPEFWEB.Controllers
             }
             var pp = deathByInitation.ToList();
             model.death = viewModel;
-            int pageSize = 3;
+            int pageSize = 5;
             model.deaths = await PaginatedList<DeathViewModel>.CreateAsync(pp.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return View(model);
@@ -172,7 +172,7 @@ namespace NNPEFWEB.Controllers
                 role = TempData["role"] as string;
             }
             var deathGratuityForApproval = filterDeathByRole(deathService.GetDeathByStatus(ApplicationConstant.Update), role);
-            int pageSize = 3;
+            int pageSize = 5;
             if (!String.IsNullOrEmpty(searchString))
             {
                 deathGratuityForApproval = deathGratuityForApproval.Where(s => s.SVC_NO.ToLower() == searchString.ToLower());
@@ -189,7 +189,7 @@ namespace NNPEFWEB.Controllers
             {
                 pensionForApproval = pensionForApproval.Where(s => s.SVC_NO.ToLower() == searchString.ToLower());
             }
-            int pageSize = 3;
+            int pageSize = 5;
             return View(await PaginatedList<DeathViewModel>.CreateAsync(pensionForApproval.AsQueryable(), pageNumber ?? 1, pageSize));
         }
 
@@ -380,7 +380,7 @@ namespace NNPEFWEB.Controllers
             var pp = deathForReview.ToList();
             model2.shipDetails = GetShip();
 
-            int pageSize = 3;
+            int pageSize = 5;
             model.deaths = await PaginatedList<DeathViewModel>.CreateAsync(pp.AsQueryable(), pageNumber ?? 1, pageSize); ;
 
             return View(model);
