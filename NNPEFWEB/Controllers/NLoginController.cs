@@ -210,7 +210,8 @@ namespace NNPEFWEB.Controllers
             return Ok(result);
         }
 
-        public async Task<IActionResult> GetAdminUser(int ?pageNumber,string searchString)
+        public async Task<IActionResult> GetAdminUser(int? 
+            pageNumber,string searchString)
         {
             string role = HttpContext.Session.GetString("userRole").ToString();
 
@@ -235,6 +236,35 @@ namespace NNPEFWEB.Controllers
             model.Users= zz;
             return View(model);
         }
+
+
+        public async Task<IActionResult> GetUser(int?
+            pageNumber, string searchString)
+        {
+            string role = HttpContext.Session.GetString("userRole").ToString();
+
+            if (string.IsNullOrEmpty(role))
+            {
+                role = TempData["role"] as string;
+            }
+            UserView model = new UserView();
+            UserViewModels models = new UserViewModels();
+            models.roleRecords = personService.GetRoles(role).ToList();
+            var listOfusers = await personService.GetUsers(role);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                listOfusers = listOfusers.Where(s => s.UserName.ToLower() == searchString.ToLower());
+            }
+
+
+            int pageSize = 3;
+            model.UserViewModels = models;
+            var zz = await PaginatedList<UserViewModels>.CreateAsync(listOfusers.AsQueryable(), pageNumber ?? 1, pageSize);
+            model.Users = zz;
+            return View(model);
+        }
+
 
         [HttpGet]
         public IActionResult ViewRole()

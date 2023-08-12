@@ -73,7 +73,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="GetAdminUser"
+                            <a class="nav-link" asp-action="GetUser"
                                asp-controller="NLogin">
                                 <i class="nav-icon far fa-lock"></i>
                                 <p>Users</p>
@@ -255,7 +255,7 @@
 
                                 <li class="nav-item">
                                     <a class="nav-link" asp-action="PensionEnquery"
-                                       asp-controller="PersonnelLogin">
+                                       asp-controller="PensionForms">
                                         <i class="far fa nav-icon"></i>
                                         <p>Pension Enquiry</p>
                                     </a>
@@ -270,6 +270,56 @@
                                        asp-controller="DeathForms">
                                         <i class="far fa nav-icon"></i>
                                         <p>Death Gratuity Enquiry</p>
+                                    </a>
+
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    Reports
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="PensionStatusReport"
+                                       asp-controller="PensionForms">
+                                        <i class="far fa nav-icon"></i>
+                                        <p>Pension Status Report</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="PensionMainReport"
+                                       asp-controller="PensionForms">
+                                        <i class="far fa nav-icon"></i>
+                                        <p>Pension Main Report</p>
+                                    </a>
+
+                                </li>
+
+                            </ul>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="DeathStatusReport"
+                                       asp-controller="DeathForms">
+                                        <i class="far fa nav-icon"></i>
+                                        <p>Death Status Report</p>
+                                    </a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="DeathMainReport"
+                                       asp-controller="DeathForms">
+                                        <i class="far fa nav-icon"></i>
+                                        <p>Death Main Report</p>
                                     </a>
 
                                 </li>

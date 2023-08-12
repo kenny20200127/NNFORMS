@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using NNPEFWEB.Models;
 using NNPEFWEB.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace NNPEFWEB.Service
 {
     public interface IDeathService
     {
+        Task<IEnumerable<DeathReportModel>> getDeathpaidReport(DateTime start, DateTime end);
+        Task<IEnumerable<DeathReportModel>> getDeathStatusReport(string role);
         Task<BaseResponse> ApproveDeathPayment(ApproveDeathViewModel model);
         IEnumerable<DeathViewModel> GetDeathInit();
         DeathDto GetDeathCount();

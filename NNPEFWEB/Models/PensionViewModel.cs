@@ -89,6 +89,113 @@ namespace NNPEFWEB.Models
         }
     }
 
+
+    public class PensionReportRequestModel
+    {
+        public List<SelectListItem> roles { get; set; }
+        public string filteredValue { get; set; }
+        public string filterType { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
+    }
+
+    public class DeathReportRequestModel
+    {
+        public List<SelectListItem> roles { get; set; }
+        public string filteredValue { get; set; }
+        public string filterType { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
+    }
+    public class PensionMainExcelReport
+    {
+        public string SVCNO { get; set; }
+        public string Names { get; set; }
+        public string DateInitiated { get; set; }
+        public decimal? Amount { get; set; }
+        public string DatePaid { get; set; }
+    }
+
+    public class PensionStatusExcelReport
+    {
+        public string SVCNO { get; set; }
+        public string Names { get; set; }
+        public string DateInitiated { get; set; }
+        public decimal? Amount { get; set; }
+        public string LastUpdatedDate { get; set; }
+        public string Status { get; set; }
+    }
+
+    public class DeathMainExcelReport
+    {
+        public string SVCNO { get; set; }
+        public string Names { get; set; }
+        public string DateInitiated { get; set; }
+        public decimal? Amount { get; set; }
+        public string DatePaid { get; set; }
+    }
+
+    public class DeathStatusExcelReport
+    {
+        public string SVCNO { get; set; }
+        public string Names { get; set; }
+        public string DateInitiated { get; set; }
+        public decimal? Amount { get; set; }
+        public string LastUpdatedDate { get; set; }
+        public string Status { get; set; }
+    }
+
+
+    public class PensionReportModel
+    {
+        public string SVC_NO { get; set; }
+        public string Names { get; set; }
+        public decimal? Amount { get; set; }
+        public DateTime DateInitiated { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public DateTime DatePaid { get; set; }
+        public DateTime datecreated { get; set; }
+        public DateTime datecreated2 { get; set; }
+        public DateTime datecreated3 { get; set; }
+        public string status { get; set; }
+    }
+
+    public class DeathReportModel
+    {
+        public string SVC_NO { get; set; }
+        public string Names { get; set; }
+        public decimal? Amount { get; set; }
+        public DateTime DateInitiated { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public DateTime DatePaid { get; set; }
+        public DateTime datecreated { get; set; }
+        public DateTime datecreated2 { get; set; }
+        public DateTime datecreated3 { get; set; }
+        public string status { get; set; }
+    }
+
+    public class PensionReportDTO
+    {
+        public string SVC_NO { get; set; }
+        public string Names { get; set; }
+        public decimal? Amount { get; set; }
+        public string DateInitiated { get; set; }
+        public string LastUpdateDate { get; set; }
+        public string DatePaid { get; set; }
+        public string status { get; set; }
+    }
+
+    public class DeathReportDTO
+    {
+        public string SVC_NO { get; set; }
+        public string Names { get; set; }
+        public decimal? Amount { get; set; }
+        public string DateInitiated { get; set; }
+        public string LastUpdateDate { get; set; }
+        public string DatePaid { get; set; }
+        public string status { get; set; }
+    }
+
     public class PensionModel
     {
         public PaginatedList<PensionViewModel> Pensions { get; set; }
@@ -204,20 +311,20 @@ namespace NNPEFWEB.Models
         public string NOKName { get; set; }
         public string NOKAdress { get; set;}
         public string Totalgratuity { get; set; }
-        public string PresentBasicSal { get; set; }
-        public string AnnualDiving { get; set; }
-        public string AnnualGCB { get; set; }
-        public string AnnualLodging { get; set; }
-        public string AnnualDMeal { get; set; }
-        public string AnnualEntertain { get; set; }
-        public string AnnualPersonal { get; set; }
-        public string TotAnnualGross { get; set; }
-        public string CashAdvance { get; set; }
-        public string MotorVehicle { get;set; }
-        public string ReducedInterest { get; set; }
-        public string HousingLoan { get; set; }
-        public string ReducedInterest2 { get; set; }
-        public string OtherSubCharge { get; set; }
+        public decimal PresentBasicSal { get; set; }
+        public decimal AnnualDiving { get; set; }
+        public decimal AnnualGCB { get; set; }
+        public decimal AnnualLodging { get; set; }
+        public decimal AnnualDMeal { get; set; }
+        public decimal AnnualEntertain { get; set; }
+        public decimal AnnualPersonal { get; set; }
+        public decimal TotAnnualGross { get; set; }
+        public decimal CashAdvance { get; set; }
+        public decimal MotorVehicle { get;set; }
+        public decimal ReducedInterest { get; set; }
+        public decimal HousingLoan { get; set; }
+        public decimal ReducedInterest2 { get; set; }
+        public decimal OtherSubCharge { get; set; }
         public string status { get; set; }
         public string createdby { get; set; }
         public string createdby2 { get; set; }
