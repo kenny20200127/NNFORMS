@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Wkhtmltopdf.NetCore;
 
 namespace NNPEFWEB.Controllers
 {
@@ -25,16 +26,19 @@ namespace NNPEFWEB.Controllers
         private readonly IPensionService service;
         private readonly IDeathService deathService;
         private readonly ApplicationDbContext _context;
+        private readonly IGeneratePdf generatePdf;
         private readonly ILogger<DeathFormsController> _logger;
         public DeathFormsController(
             IPensionService service, 
             IDeathService deathService,
             ApplicationDbContext _context,
+             IGeneratePdf generatePdf,
             ILogger<DeathFormsController> _logger)
         {
             this.deathService = deathService;
             this.service = service;
             this._context = _context;
+            this.generatePdf = generatePdf;
             this._logger = _logger;
         }
         public IActionResult Index()
@@ -420,6 +424,175 @@ namespace NNPEFWEB.Controllers
             return filterByRole;
         }
 
+        public IActionResult DeathStatusReport()
+        {
+            var roles = new List<SelectListItem>()
+            {
+                new SelectListItem{ Text="All",Value="All"},
+                new SelectListItem{ Text="NAVSEC",Value="NAVSEC"},
+                new SelectListItem{ Text="CPO",Value="CPO"},
+                new SelectListItem{ Text="CND",Value="CND"},
+                new SelectListItem{ Text="APPROVED",Value="APPROVED"}
+            };
+            var model = new DeathReportRequestModel();
+            model.roles = roles;
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeathStatusReport(DeathReportRequestModel payload)
+        {
+            var roles = new List<SelectListItem>()
+            {
+                new SelectListItem{ Text="All",Value="All"},
+                new SelectListItem{ Text="NAVSEC",Value="NAVSEC"},
+                new SelectListItem{ Text="CPO",Value="CPO"},
+                new SelectListItem{ Text="CND",Value="CND"},
+                new SelectListItem{ Text="APPROVED",Value="APPROVED"}
+            };
+            var model = new DeathReportRequestModel();
+            var pp = new List<DeathStatusExcelReport>();
+            model.roles = roles;
+
+            //get the value
+            var reportList = await deathService.getDeathStatusReport(payload.filteredValue);
+            //filtered record
+            var filterStatusReportList= new List<DeathReportModel>();
+            reportList.ToList().ForEach(x =>
+            {
+                filterStatusReportList.Add(new DeathReportModel()
+                {
+                    Amount = x.Amount,
+                    status = x.status,
+                    SVC_NO = x.SVC_NO,
+                    Names = x.Names,
+                    DateInitiated = x.DateInitiated,
+                    LastUpdateDate = GetlastUpdatedDate(x.datecreated, x.datecreated2, x.datecreated3)
+                });
+            });
+            if (filterStatusReportList.ToList().Count > 0)
+            {
+                if (payload.filterType == "excel")
+                {
+                    filterStatusReportList.ToList().ForEach(x =>
+                    {
+                        pp.Add(new DeathStatusExcelReport
+                        {
+                            Status = x.status,
+                            SVCNO = x.SVC_NO,
+                            Amount = x.Amount == null ? 0M : x.Amount,
+                            Names = x.Names,
+                            DateInitiated = x.DateInitiated.ToString("dd MMMM yyyy"),
+                            LastUpdatedDate = x.LastUpdateDate == DateTime.MinValue ? "" : x.LastUpdateDate.ToString("dd MMMM yyyy")
+                        });
+                    });
+
+                    var stream2 = new MemoryStream();
+
+                    using (var package2 = new ExcelPackage(stream2))
+                    {
+                        var workSheet = package2.Workbook.Worksheets.Add("Sheet1");
+                        workSheet.Cells.LoadFromCollection(pp, true);
+                        package2.Save();
+                    }
+                    stream2.Position = 0;
+                    string excelName = $"StatusReport-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+                    return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+
+                }
+                else
+                {
+                    var newReportList = new List<DeathReportDTO>();
+                    filterStatusReportList.ForEach(x =>
+                    {
+                        newReportList.Add(new DeathReportDTO
+                        {
+                            SVC_NO = x.SVC_NO,
+                            DateInitiated = x.DateInitiated.ToString("dd MMMM yyyy"),
+                            DatePaid = x.DatePaid == DateTime.MinValue ? "" : x.DatePaid.ToString("dd MMMM yyyy"),
+                            LastUpdateDate = x.LastUpdateDate == DateTime.MinValue ? "" : x.LastUpdateDate.ToString("dd MMMM yyyy"),
+                            Amount = x.Amount == null ? 0M : x.Amount,
+                            Names = x.Names,
+                            status = x.status
+                        });
+                    });
+                    return await generatePdf.GetPdf("Views/DeathForms/DeathStatusReportPage.cshtml", newReportList);
+                }
+
+            }
+            else
+            {
+                TempData["messageReport"] = "there is no record";
+                return View(model);
+            }
+
+        }
+
+        public IActionResult DeathMainReport()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeathMainReport(DeathReportRequestModel payload)
+        {
+            var model = new DeathReportRequestModel();
+            var pp = new List<DeathMainExcelReport>();
+
+            if (payload.start <= payload.end)
+            {
+                //get the value
+                var reportList = await service.getPensionpaidReport(payload.start.Date, payload.end.Date);
+                if (reportList.ToList().Count > 0)
+                {
+                    if (payload.filterType == "excel")
+                    {
+                        reportList.ToList().ForEach(x =>
+                        {
+                            pp.Add(new DeathMainExcelReport
+                            {
+                                SVCNO = x.SVC_NO,
+                                Amount = x.Amount == null ? 0M : x.Amount,
+                                Names = x.Names,
+                                DateInitiated = x.DateInitiated.ToString("dd MMMM yyyy"),
+                                DatePaid = x.DatePaid.ToString("dd MMMM yyyy")
+                            });
+                        });
+
+                        var stream2 = new MemoryStream();
+
+                        using (var package2 = new ExcelPackage(stream2))
+                        {
+                            var workSheet = package2.Workbook.Worksheets.Add("Sheet1");
+                            workSheet.Cells.LoadFromCollection(pp, true);
+                            package2.Save();
+                        }
+                        stream2.Position = 0;
+                        string excelName = $"MainReport-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+                        return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+
+                    }
+                    else
+                    {
+                        return await generatePdf.GetPdf("Views/DeathForms/DeathMainReportPage.cshtml", reportList);
+                    }
+                }
+                else
+                {
+                    TempData["messageReport"] = "there is no record";
+                    return View();
+                }
+
+            }
+            else
+            {
+                TempData["messageReport"] = "start date must be less than end date";
+                return View();
+            }
+
+        }
+
         public List<SelectListItem> GetRank()
         {
             var ranksList = (from rk in _context.ef_ranks
@@ -460,6 +633,27 @@ namespace NNPEFWEB.Controllers
 
             return File(bytes, "application/octet", fileName);
 
+        }
+
+        public DateTime GetlastUpdatedDate(DateTime first,DateTime second,DateTime third)
+        {
+            DateTime output = DateTime.MinValue;
+            if(first!= DateTime.MinValue && second==DateTime.MinValue && third == DateTime.MinValue)
+            {
+                output= first;
+            }
+
+            if(first != DateTime.MinValue && second != DateTime.MinValue && third == DateTime.MinValue)
+            {
+                output= second;
+            }
+
+            if (first != DateTime.MinValue && second != DateTime.MinValue && third != DateTime.MinValue)
+            {
+                output= third;
+            }
+
+            return output;
         }
     }
 }

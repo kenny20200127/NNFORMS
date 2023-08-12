@@ -1,0 +1,408 @@
+﻿@model NNPEFWEB.Models.UserView;
+@{
+    ViewData["Title"] = "GetUser";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        User Management
+    </div>
+    <div class="card-body">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add User
+        </button>
+        <form asp-action="GetUser">
+            <div style="float:right;">
+                <div class="input-group mb-3">
+                    <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="Username" aria-describedby="basic-addon1">
+                    <button class="input-group-text" asp-action="GetUser" asp-controller="NLogin" asp-route-searchString="searchString">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+        <br />
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>Fullname</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Phone No</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var j in Model.Users)
+                {
+                    <tr>
+                        <td>@j.Fullname</td>
+                        <td>@j.email</td>
+                        <td>@j.UserName</td>
+                        <td>@j.PhoneNo</td>
+                        <td>@j.RoleName</td>
+                        <td>
+                            <a onclick="EditUser(@j.Id)"
+                               class="btn btn-primary">
+                                Edit
+                            </a>
+                            <a onclick="DeleteUser(@j.Id)"
+                               class="btn btn-danger">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @{
+            var prevDisabled = !Model.Users.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.Users.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="GetUser" asp-controller="NLogin"
+           asp-route-pageNumber="@(Model.Users.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="GetUser" asp-controller="NLogin"
+           asp-route-pageNumber="@(Model.Users.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="saveForm" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="UserViewModels.FirstName" class="control-label"></label>
+                        <input asp-for="UserViewModels.FirstName" class="form-control">
+                        <span asp-validation-for="UserViewModels.FirstName" id="firstNameValId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserViewModels.LastName" class="control-label"></label>
+                        <input asp-for="UserViewModels.LastName" class="form-control">
+                        <span asp-validation-for="UserViewModels.LastName" id="lastNameValId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserViewModels.email" class="control-label"></label>
+                        <input asp-for="UserViewModels.email" class="form-control">
+                        <span asp-validation-for="UserViewModels.email" id="emailValId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Phone</label>
+                        <input asp-for="UserViewModels.PhoneNo" class="form-control">
+                        <span asp-validation-for="UserViewModels.PhoneNo" id="PhoneNoValId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserViewModels.UserName" class="control-label"></label>
+                        <input asp-for="UserViewModels.UserName" class="form-control">
+                        <span asp-validation-for="UserViewModels.UserName" id="userNameValId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Role</label>
+                        <select asp-for="UserViewModels.roleId" asp-items="Model.UserViewModels.roleRecords" class="form-control"></select>
+                        <span asp-validation-for="UserViewModels.roleId" id="roleIdValId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="editForm" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditModalLabel">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="updId" />
+                    <div class="form-group">
+                        <label class="control-label">FirstName</label>
+                        <input type="text" id="firstNameId" class="form-control">
+                        @* <span id="firstNameUpd" class="text-danger"></span>*@
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">LastName</label>
+                        <input type="text" id="lastNameId" class="form-control">
+                        @*<span id="lastNameValUpd" class="text-danger"></span>*@
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <input type="text" id="emailId" class="form-control">
+                        @*<span id="emailValUpd" class="text-danger"></span>*@
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Phone</label>
+                        <input type="text" id="phoneId" class="form-control">
+                        @*<span id="emailValUpd" class="text-danger"></span>*@
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Username</label>
+                        <input id="usernameId" class="form-control">
+                        @*<span  id="userNameValUpd" class="text-danger"></span>*@
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Role</label>
+                        <select id="selectRoleId" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnUpdate" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="editForm" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">Delete User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="deleteId" />
+                    <h1>Are you sure you want to delete?</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnDelete" class="btn btn-primary">OK</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSearch').click(function () {
+                $("Form").submit();
+            });
+
+            $('#btnSave').click(function () {
+
+                let res = true;
+                var firstname = $('#UserViewModels_FirstName').val();
+                var lastname = $('#UserViewModels_LastName').val();
+                var email = $('#UserViewModels_email').val();
+                var username = $('#UserViewModels_UserName').val();
+                var roleId = $('#UserViewModels_roleId').val();
+                let phoneNo = $('#UserViewModels_PhoneNo').val();
+
+                let empForm = {
+                    FirstName: firstname,
+                    LastName: lastname,
+                    email: email,
+                    UserName: username,
+                    roleId: roleId,
+                    PhoneNo: phoneNo
+                };
+                console.log(empForm);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/NLogin/CreateUsers",
+                    data: empForm,
+                    success: function (data) {
+                        if (data.responseCode == "00") {
+                            window.alert(data.responseMessage);
+                            window.location.href = "/NLogin/GetUser";
+                        }
+                    },
+                    error: function () {
+                        window.alert("failed contact admin");
+                    }
+                });
+
+
+
+                //if (!firstname) {
+                //    res = false;
+                //    $('#firstNameVal').html("FirstName is required");
+                //}
+                //if (!lastname) {
+                //    res = false;
+                //    $('#lastNameVal').html("LastName is required");
+                //}
+                //if (!email) {
+                //    res = false;
+                //    $('#emailVal').html("email is required");
+                //}
+                //if (!username) {
+                //    res = false;
+                //    $('#userNameVal').html("Username is required");
+                //}
+
+                //if (roleId < 1) {
+                //    res = false;
+                //    $('#roleIdVal').html("role is required");
+                //}
+
+                //if (res) {
+
+                //}
+            });
+
+            $('#btnUpdate').click(function () {
+                let res = true;
+                let firstname = $('#firstNameId').val();
+                let lastname = $('#lastNameId').val();
+                let email = $('#emailId').val();
+                let username = $('#usernameId').val();
+                let roleId = $('#selectRoleId').val();
+                let id = $('#updId').val();
+                let phoneId = $('#phoneId').val();
+
+                //if (!firstname) {
+                //    res = false;
+                //    $('#firstNameVal').html("FirstName is required");
+                //}
+                //if (!lastname) {
+                //    res = false;
+                //    $('#lastNameVal').html("LastName is required");
+                //}
+                //if (!email) {
+                //    res = false;
+                //    $('#emailVal').html("email is required");
+                //}
+                //if (!username) {
+                //    res = false;
+                //    $('#userNameVal').html("Username is required");
+                //}
+
+                //if (roleId < 1) {
+                //    res = false;
+                //    $('#roleIdVal').html("role is required");
+                //}
+
+                if (res) {
+                    let empForms = {
+                        Id: id,
+                        FirstName: firstname,
+                        LastName: lastname,
+                        email: email,
+                        UserName: username,
+                        roleId: roleId,
+                        PhoneNo: phoneId
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/NLogin/UpdateUsers",
+                        data: empForms,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.responseCode == "00") {
+                                window.alert(data.responseMessage);
+                                window.location.href = "/NLogin/GetUser";
+                            }
+                        },
+                        error: function () {
+                            window.alert("failed contact admin");
+                        }
+
+                    });
+                }
+            })
+
+            $('#btnDelete').click(function () {
+
+                let id = $('#deleteId').val();
+                $.ajax({
+                    method: "GET",
+                    url: `/NLogin/DeleteUser?Id=${id}`,
+                    success: function (data) {
+
+                        window.alert(data.responseMessage);
+                        window.location.href = "/NLogin/GetUser";
+                    },
+                    error: function () {
+                        window.alert("failed contact admin");
+                    }
+                });
+            });
+
+        });
+
+        function EditUser(id) {
+
+            $.ajax({
+                method: "GET",
+                url: `/NLogin/GetUserById?Id=${id}`,
+                success: function (data) {
+                    console.log(data);
+                    $('#firstNameId').val(data.firstName);
+                    $('#lastNameId').val(data.lastName);
+                    $('#emailId').val(data.email);
+                    $('#usernameId').val(data.userName);
+                    $('#updId').val(data.id);
+                    $('#phoneId').val(data.phoneNo);
+
+                    fillSelect();
+
+                    $('#EditModal').modal('show');
+                }
+            })
+        }
+
+        function DeleteUser(id) {
+            $('#deleteId').val(id);
+
+            $('#DeleteModal').modal('show');
+        }
+
+
+
+        function fillSelect() {
+            $.ajax({
+                type: "GET",
+                url: "/NLogin/ViewRole",
+                success: function (data) {
+                    $.each(data, function (index, key) {
+                        $('#selectRoleId').append($("<option></option>")
+                            .attr("value", key.value)
+                            .text(key.text));
+                    });
+                }
+            })
+        }
+
+    </script>
+}
+
+
+
+

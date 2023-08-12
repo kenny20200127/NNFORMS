@@ -1,0 +1,52 @@
+﻿@model NNPEFWEB.Models.PensionReportRequestModel
+
+@{
+    ViewData["Title"] = "PensionStatusReport";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        Pension Status Report
+    </div>
+    <div class="card-body">
+        <form asp-action="PensionStatusReport" method="post">
+            @if (TempData["messageReport"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["messageReport"].ToString();
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Status
+                        </label>
+                        <select asp-items="Model.roles" asp-for="filteredValue" class="form-control"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="filterType" value="excel">
+                        <label class="form-check-label">
+                            Excel
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="filterType" value="pdf">
+                        <label class="form-check-label">
+                            PDF
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Export</button>
+            </div>
+        </form>
+    </div>
+</div>
