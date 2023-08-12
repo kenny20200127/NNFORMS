@@ -162,7 +162,7 @@ namespace NNPEFWEB.Service
             {
                 var param = new DynamicParameters();
                 param.Add("@status", 1);
-                param.Add("@role", name);
+               // param.Add("@role", name);
                 var roleList = dapper.GetAll<Rolevm>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
                 roleList.ForEach(x =>
                 {
@@ -189,7 +189,7 @@ namespace NNPEFWEB.Service
             {
                 var param = new DynamicParameters();
                 param.Add("@status", 3);
-                param.Add("@role", name);
+                //param.Add("@role", name);
                 var userlist = await dapper.GetAllAsync<UserViewModels>(ApplicationConstant.sp_users, param, commandType: System.Data.CommandType.StoredProcedure);
 
 

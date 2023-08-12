@@ -15,6 +15,51 @@ namespace NNPEFWEB.Service
         private readonly IDapper dapper;
         private readonly ILogger<PensionService> logger;
 
+
+        public async Task<IEnumerable<PensionReportModel>> getPensionStatusReport(string role)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@statusInput", 11);
+                param.Add("@filterValue", role.ToLower());
+
+
+                var respq = await dapper.GetAllAsync<PensionReportModel>(ApplicationConstant.Sp_Pension, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new List<PensionReportModel>();
+            }
+        }
+
+        public async Task<IEnumerable<PensionReportModel>> getPensionpaidReport(DateTime start, DateTime end)
+        {
+            try
+            {
+
+                string newStartDate = reformatDate(start);
+                string newEndDate = reformatDate(end);
+                var param = new DynamicParameters();
+                param.Add("@statusInput", 12);
+                param.Add("@startdate",newStartDate);
+                param.Add("@enddate", newEndDate);
+
+
+                var respq = await dapper.GetAllAsync<PensionReportModel>(ApplicationConstant.Sp_Pension, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new List<PensionReportModel>();
+            }
+        }
+
         public PensionService(IDapper dapper, ILogger<PensionService> logger)
         {
             this.dapper = dapper;
@@ -403,5 +448,20 @@ namespace NNPEFWEB.Service
                 };
             }
         }
+
+        public string reformatDate(DateTime date)
+        {
+            string mnth=date.Month.ToString();
+            string day = date.Day.ToString();
+            string year = date.Year.ToString();
+
+            if(mnth.Length==1)
+                mnth = "0" + mnth;
+            if(day.Length==1)
+                day = "0" + day;
+
+            string output=year+"-"+mnth+"-"+day;
+            return output;
+        } 
     }
 }

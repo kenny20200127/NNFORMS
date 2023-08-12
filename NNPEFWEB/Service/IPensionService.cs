@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using NNPEFWEB.Models;
 using NNPEFWEB.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace NNPEFWEB.Service
 {
     public interface IPensionService
     {
+        Task<IEnumerable<PensionReportModel>> getPensionpaidReport(DateTime start, DateTime end);
+        Task<IEnumerable<PensionReportModel>> getPensionStatusReport(string role);
         IEnumerable<PensionViewModel> GetPensionInit();
         Task<BaseResponse> UpdatePensionPayment(ApprovePensionViewModel model);
         PensionDto GetPensionCount();

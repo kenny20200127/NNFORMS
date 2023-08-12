@@ -14,9 +14,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Wkhtmltopdf.NetCore;
 
 namespace NNPEFWEB.Controllers
 {
@@ -26,17 +28,21 @@ namespace NNPEFWEB.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IDeathService deathService;
         private readonly ILogger<PensionFormsController> _logger;
+        private readonly IGeneratePdf generatePdf;
+
         public PensionFormsController(
             IPensionService service, 
             ApplicationDbContext _context,
             IDeathService deathService, 
-            ILogger<PensionFormsController> _logger)
+            ILogger<PensionFormsController> _logger,
+            IGeneratePdf generatePdf)
         {
             this.service = service;
             this._context = _context;
             this.deathService = deathService;
             this._logger = _logger;
-    }
+            this.generatePdf = generatePdf;
+        }
         public IActionResult Index()
         {
             return View();
@@ -384,6 +390,7 @@ namespace NNPEFWEB.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         [Route("PensionForms/RemovePensionInitiation")]
         public async Task<IActionResult> RemovePensionInitiation([FromQuery] int PersonID)
@@ -450,6 +457,194 @@ namespace NNPEFWEB.Controllers
             return File(bytes, "application/octet", fileName);
 
         }
+        public IActionResult PensionStatusReport()
+        {
+            var roles = new List<SelectListItem>()
+            {
+                new SelectListItem{ Text="All",Value="All"},
+                new SelectListItem{ Text="NAVSEC",Value="NAVSEC"},
+                new SelectListItem{ Text="CPO",Value="CPO"},
+                new SelectListItem{ Text="CND",Value="CND"},
+                new SelectListItem{ Text="APPROVED",Value="APPROVED"}
+            };
+            var model = new PensionReportRequestModel();
+            model.roles = roles;
+            return View(model);
+        }
 
+        
+        [HttpPost]
+        public async Task<IActionResult> PensionStatusReport(PensionReportRequestModel payload)
+        {
+            var roles = new List<SelectListItem>()
+            {
+                new SelectListItem{ Text="All",Value="All"},
+                new SelectListItem{ Text="NAVSEC",Value="NAVSEC"},
+                new SelectListItem{ Text="CPO",Value="CPO"},
+                new SelectListItem{ Text="CND",Value="CND"},
+                new SelectListItem{ Text="APPROVED",Value="APPROVED"}
+            };
+            var model = new PensionReportRequestModel();
+            var pp = new List<PensionStatusExcelReport>();
+            model.roles = roles;
+
+            //get the value
+            var reportList = await service.getPensionStatusReport(payload.filteredValue);
+            //filtered result
+            var filteredReportList = new List<PensionReportModel>();
+            reportList.ToList().ForEach(x =>
+            {
+                filteredReportList.Add(new PensionReportModel()
+                {
+                    Names = x.Names,
+                    SVC_NO = x.SVC_NO,
+                    status = x.status,
+                    Amount = x.Amount,
+                    DateInitiated = x.DateInitiated,
+                    LastUpdateDate = GetlastUpdatedDate(x.datecreated, x.datecreated2, x.datecreated3)
+                });
+            });
+
+            if(filteredReportList.ToList().Count > 0)
+            {
+                if (payload.filterType == "excel")
+                {
+                    filteredReportList.ToList().ForEach(x =>
+                    {
+                        pp.Add(new PensionStatusExcelReport
+                        {
+                            Status = x.status,
+                            SVCNO = x.SVC_NO,
+                            Amount = x.Amount == null ? 0M : x.Amount,
+                            Names = x.Names,
+                            DateInitiated = x.DateInitiated.ToString("dd MMMM yyyy"),
+                            LastUpdatedDate = x.LastUpdateDate == DateTime.MinValue ? "" : x.LastUpdateDate.ToString("dd MMMM yyyy")
+                        });
+                    });
+
+                    var stream2 = new MemoryStream();
+
+                    using (var package2 = new ExcelPackage(stream2))
+                    {
+                        var workSheet = package2.Workbook.Worksheets.Add("Sheet1");
+                        workSheet.Cells.LoadFromCollection(pp, true);
+                        package2.Save();
+                    }
+                    stream2.Position = 0;
+                    string excelName = $"StatusReport-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+                    return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+
+                }
+                else
+                {
+                    var newReportList = new List<PensionReportDTO>();
+                    filteredReportList.ToList().ForEach(x =>
+                    {
+                        newReportList.Add(new PensionReportDTO
+                        {
+                            SVC_NO = x.SVC_NO,
+                            DateInitiated = x.DateInitiated.ToString("dd MMMM yyyy"),
+                            DatePaid = x.DatePaid == DateTime.MinValue ? "" : x.DatePaid.ToString("dd MMMM yyyy"),
+                            LastUpdateDate = x.LastUpdateDate == DateTime.MinValue ? "" : x.LastUpdateDate.ToString("dd MMMM yyyy"),
+                            Amount = x.Amount == null ? 0M : x.Amount,
+                            Names = x.Names,
+                            status = x.status
+                        });
+                    });
+                    return await generatePdf.GetPdf("Views/PensionForms/PensionStatusReportPage.cshtml", newReportList);
+                }
+
+            }
+            else
+            {
+                TempData["messageReport"] = "there is no record";
+                return View();
+            }
+
+        }
+
+        public IActionResult PensionMainReport()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PensionMainReport(PensionReportRequestModel payload)
+        {
+            var model = new PensionReportRequestModel();
+            var pp = new List<PensionMainExcelReport>();
+
+            if (payload.start <= payload.end)
+            {
+                //get the value
+                var reportList = await service.getPensionpaidReport(payload.start.Date, payload.end.Date);
+                if(reportList.ToList().Count>0) {
+                    if (payload.filterType == "excel")
+                    {
+                        reportList.ToList().ForEach(x =>
+                        {
+                            pp.Add(new PensionMainExcelReport
+                            {
+                                SVCNO = x.SVC_NO,
+                                Amount = x.Amount == null ? 0M : x.Amount,
+                                Names = x.Names,
+                                DateInitiated = x.DateInitiated.ToString("dd MMMM yyyy"),
+                                DatePaid = x.DatePaid.ToString("dd MMMM yyyy")
+                            });
+                        });
+
+                        var stream2 = new MemoryStream();
+
+                        using (var package2 = new ExcelPackage(stream2))
+                        {
+                            var workSheet = package2.Workbook.Worksheets.Add("Sheet1");
+                            workSheet.Cells.LoadFromCollection(pp, true);
+                            package2.Save();
+                        }
+                        stream2.Position = 0;
+                        string excelName = $"MainReport-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+                        return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+
+                    }
+                    else
+                    {
+                        return await generatePdf.GetPdf("Views/PensionForms/PensionMainReportPage.cshtml", reportList);
+                    }
+                }
+                else
+                {
+                    TempData["messageReport"] = "there is no record";
+                    return View();
+                }
+                
+            }
+            else
+            {
+                TempData["messageReport"] = "start date must be less than end date";
+                return View();
+            }
+
+        }
+
+        public DateTime GetlastUpdatedDate(DateTime first, DateTime second, DateTime third)
+        {
+            DateTime output = DateTime.MinValue;
+            if (first != DateTime.MinValue && second == DateTime.MinValue && third == DateTime.MinValue)
+            {
+                output = first;
+            }
+
+            if (first != DateTime.MinValue && second != DateTime.MinValue && third == DateTime.MinValue)
+            {
+                output = second;
+            }
+
+            if (first != DateTime.MinValue && second != DateTime.MinValue && third != DateTime.MinValue)
+            {
+                output = third;
+            }
+
+            return output;
+        }
     }
 }
