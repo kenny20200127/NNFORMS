@@ -616,9 +616,14 @@ namespace NNPEFWEB.Controllers
                         return File(stream2, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
 
                     }
-                    else
+                    else if(payload.filterType=="pdf")
                     {
                         return await generatePdf.GetPdf("Views/PensionForms/PensionMainReportPage.cshtml", reportList);
+                    }
+                    else
+                    {
+                        TempData["messageReport"] = "Please select the right format";
+                        return View();
                     }
                 }
                 else
