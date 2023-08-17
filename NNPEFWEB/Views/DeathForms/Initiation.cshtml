@@ -10,9 +10,10 @@
         Death Gratuity Initiation
     </div>
     <div class="card-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <a asp-controller="DeathForms" asp-action="CreateDeathBen" class="btn btn-primary">Add New Death Gratuity </a>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Add New Death Gratuity
-        </button>
+        </button>*@
         <form>
             <div style="float:right;">
                 <div class="input-group mb-3">
@@ -39,29 +40,30 @@
                     @foreach (var k in Model.deaths)
                     {
                         fullname = k.LastName + " " + k.FirstName;
-        <tr>
-            <td>@fullname</td>
-            <td>@k.SVC_NO</td>
-            <td>@k.Title</td>
-            <td>@k.status</td>
-            <td>
-                <a onclick="EditDeath(@k.personID)"
-                   class="btn btn-primary">
-                    Initiate
-                </a>
-                   <a onclick="RemoveDeath(@k.personID)"
-                   class="btn btn-danger">
-                    Delete
-                </a>
-            </td>
-        </tr>} }
+                        <tr>
+                            <td>@fullname</td>
+                            <td>@k.SVC_NO</td>
+                            <td>@k.Title</td>
+                            <td>@k.status</td>
+                            <td>
+                                <a onclick="EditDeath(@k.personID)"
+                                   class="btn btn-primary">
+                                    Initiate
+                                </a>
+                                <a onclick="RemoveDeath(@k.personID)"
+                                   class="btn btn-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+} }
 
             </tbody>
         </table>
 
 
         @{ var prevDisabled = !Model.deaths.HasPreviousPage ? "disabled" : "";
-                        var nextDisabled = !Model.deaths.HasNextPage ? "disabled" : ""; }
+            var nextDisabled = !Model.deaths.HasNextPage ? "disabled" : ""; }
 
         <a asp-action="Initiation" asp-controller="DeathForms"
            asp-route-pageNumber="@(Model.deaths.PageIndex - 1)"
@@ -90,13 +92,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>SERVICE NO</label>
-                                        <input  type="text" asp-for="death.SVC_NO" class="form-control" />
+                                        <input type="text" asp-for="death.SVC_NO" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>FIRSTNAME</label>
-                                        <input  asp-for="death.FirstName" class="form-control" />
+                                        <input asp-for="death.FirstName" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -120,7 +122,7 @@
                                                 class="form-control"
                                                 asp-items="@(new SelectList(Model.death.rankDetails,"Value", "Text"))">
                                         </select>
-                                       @* <input asp-for="death.Title" class="form-control" />*@
+                                        @* <input asp-for="death.Title" class="form-control" />*@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -165,7 +167,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>PREVIOUS ESTABLISHMENT</label>
-                                       @* <select id="prvEstab" asp-for="death.PrvEstab" asp-items="Model.death.shipDetails" class="form-control"></select>*@
+                                        @* <select id="prvEstab" asp-for="death.PrvEstab" asp-items="Model.death.shipDetails" class="form-control"></select>*@
                                         <select asp-for="death.PrvEstab"
                                                 class="form-control"
                                                 asp-items="@(new SelectList(Model.death.shipDetails,"Value", "Text"))">
@@ -175,7 +177,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>AUTHORITY FOR TRANSFER OF SERVICE</label>
-                                        <input  type="text" asp-for="death.PrvAuthor" class="form-control" />
+                                        <input type="text" asp-for="death.PrvAuthor" class="form-control" />
                                     </div>
                                 </div>
                             </div>

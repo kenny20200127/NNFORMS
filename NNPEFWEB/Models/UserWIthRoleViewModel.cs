@@ -8,7 +8,8 @@ namespace NNPEFWEB.Models
     {
       public int count1 { get; set; }
       public int count2 { get; set; }
-
+      public PensionDto pensionDto { get; set; }
+      public DeathDto deathDto { get; set; }
       public IEnumerable<UserViewModels> users{get; set; }
     }
     public class UserWIthRoleViewModel

@@ -106,7 +106,21 @@ namespace NNPEFWEB.Controllers
             return View(model);
         }
 
-
+        public IActionResult CreatePension()
+        {
+            string role = TempData["userRole2"] as string;
+            if (string.IsNullOrEmpty(role))
+            {
+                role = TempData["role"] as string;
+            }
+            PensionModel model = new();
+            PensionViewModel model2 = new PensionViewModel();
+            model2.shipDetails = GetShip();
+            model2.rankDetails = GetRank();
+            model.pension = model2;
+            TempData["role"] = role;
+            return View(model);
+        }
         [HttpPost]
         public async Task<IActionResult> CreatePensionInitiation(PensionModel model)
         {
@@ -116,8 +130,19 @@ namespace NNPEFWEB.Controllers
             viewModel = model.pension;
             viewModel.createdBy = createdBy;
             viewModel.status = ApplicationConstant.Initiation;
-            // model.serviceDetails = TempData["serviceDetails"] as List<SelectListItem>;
-            var result = await service.UpdatePension(viewModel);
+            var getpension = service.GetPersonnelBySvcNo(viewModel.SVC_NO);
+            var result =new BaseResponse();
+            if (getpension == null)
+            {
+                viewModel.status = null;
+                 result = await service.CreatePension(viewModel);
+
+            }
+            else
+            {
+                 result = await service.UpdatePension(viewModel);
+            }
+            
             TempData["messageInit"] = result.responseMessage;
             TempData["user"] = createdBy;
             ModelState.Clear();
@@ -146,6 +171,7 @@ namespace NNPEFWEB.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> PensionUpdateReview(int? pageNumber, string searchString)
         {
             PensionModel model = new PensionModel();
@@ -182,7 +208,7 @@ namespace NNPEFWEB.Controllers
         }
         public async Task<IActionResult> ApprovePension(int? pageNumber, string searchString)
         {
-            string role = TempData["userRole2"] as string;
+            string role = HttpContext.Session.GetString("userRole").ToString();
             if (string.IsNullOrEmpty(role))
             {
                 role = TempData["role"] as string;
@@ -234,11 +260,28 @@ namespace NNPEFWEB.Controllers
 
         public IActionResult PensionEnquery(string svcNo)
         {
+            PensionViewModel searChPensionBySvc = new PensionViewModel();
+            string role = HttpContext.Session.GetString("userRole").ToString();
+            if (string.IsNullOrEmpty(role))
+            {
+                role = TempData["role"] as string;
+            }
             if (!string.IsNullOrWhiteSpace(svcNo))
             {
-                PensionViewModel searChPensionBySvc = service.GetPensionBySvcNo(svcNo);
-                return View(searChPensionBySvc);
+                if (role.ToLower() == "navsec" || role == "NAVSECADMIN" && svcNo.Substring(0, 2).ToLower() == "nn")
+                {
+                    searChPensionBySvc = service.GetPensionBySvcNo(svcNo);
+                }
+                if (role == "SYSTEMADMIN")
+                {
+                    searChPensionBySvc = service.GetPensionBySvcNo(svcNo);
+                }
 
+                if (role.ToLower() == "cnd" || role == "CNDADMIN" && svcNo.Substring(0, 2).ToLower() != "nn")
+                {
+                     searChPensionBySvc = service.GetPensionBySvcNo(svcNo);
+                }
+                return View(searChPensionBySvc);
             }
             else
             {
@@ -444,7 +487,7 @@ namespace NNPEFWEB.Controllers
                             {
                                 Text = rk.shipName,
                                 Value = rk.shipName
-                            }).ToList();
+                            }).OrderBy(x=>x.Text).ToList();
 
             shipList.Insert(0, new SelectListItem()
             {
@@ -661,5 +704,23 @@ namespace NNPEFWEB.Controllers
 
             return output;
         }
+
+        public async Task<IActionResult> PensionFormsReport(int id)
+        {
+            
+                //get the value
+                var reportList = await service.getPensionFormsReport(id);
+                if (reportList!=null)
+                {
+                        return await generatePdf.GetPdf("Views/PensionForms/PensionFormReportPage.cshtml", reportList);
+                }
+                else
+                {
+                    TempData["messageReport"] = "there is no record";
+                    return View();
+                }
+
+        }
+        
     }
 }

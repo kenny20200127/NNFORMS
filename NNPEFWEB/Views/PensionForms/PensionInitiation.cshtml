@@ -10,14 +10,15 @@
         <h1>Pension Intiation</h1>
     </div>
     <div class="card-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PensionInitModal">
+        <a asp-controller="PensionForms" asp-action="CreatePension" class="btn btn-primary" >Add New Pensioner </a>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PensionInitModal">
             Add New Pensioner 
-        </button>
+        </button>*@
         <form>
             <div style="float:right;">
                 <div class="input-group mb-3">
                     <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="searchString" aria-describedby="basic-addon1">
-                    <button class="input-group-text" asp-action="PensionInitiation" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                    <button class="input-group-text" asp-action="PensionInitiation" asp-controller="PensionForms" asp-route-searchString="searchString">
                         Search
                     </button>
                 </div>
@@ -84,7 +85,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="saveInitPension" asp-controller="PensionForms" asp-action="CreatePensionInitiation" method="post">
+                        <form id="saveInitPension">
+                            @*asp-controller="PensionForms" asp-action="CreatePensionInitiation" method="post"*@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -119,13 +121,13 @@
                                                 class="form-control"
                                                 asp-items="@(new SelectList(Model.pension.rankDetails,"Value", "Text"))">
                                         </select>
-                                    @* <input asp-for="pension.Title" class="form-control" />*@
+                                        @* <input asp-for="pension.Title" class="form-control" />*@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>PRESENT SHIP</label>
-                                       @* <select id="shipEstab" asp-for="pension.ShipEstab" asp-items="Model.pension.shipDetails" class="form-control"></select>*@
+                                        @* <select id="shipEstab" asp-for="pension.ShipEstab" asp-items="Model.pension.shipDetails" class="form-control"></select>*@
                                         <select asp-for="pension.ShipEstab"
                                                 class="form-control"
                                                 asp-items="@(new SelectList(Model.pension.shipDetails,"Value", "Text"))">
@@ -137,13 +139,13 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>DATE OF BIRTH</label>
-                                        <input type="date" id="birthDate" asp-for="pension.BirthDate" class="form-control" />
+                                        <input type="date" asp-for="pension.BirthDate" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>DATE OF LAST PROMOTION</label>
-                                        <input type="date" id="senioritydate" asp-for="pension.senioritydate" class="form-control" />
+                                        <input type="date"  asp-for="pension.senioritydate" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -155,7 +157,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>TRADE CATEGORY DATE</label>
-                                        <input id="tradeCatDate" type="date" asp-for="pension.TradeCatDate" class="form-control" />
+                                        <input  type="date" asp-for="pension.TradeCatDate" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -163,13 +165,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>DATE OF DISCHARGE/AUTHORITY</label>
-                                        <input id="prvServdate" type="date" asp-for="pension.PrvServdate" class="form-control" />
+                                        <input type="date" asp-for="pension.PrvServdate" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>PREVIOUS SERVICE FROM</label>
-                                        <input id="prvEstab" type="date" asp-for="pension.PrvEstab" class="form-control" />
+                                        <input type="date" asp-for="pension.PrvEstab" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -187,19 +189,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>DATE OF ENLISTMENT</label>
-                                        <input id="enlistmentdate" type="date" asp-for="pension.Enlistmentdate" class="form-control">
+                                        <input type="date" asp-for="pension.Enlistmentdate" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>PRESENT SERVICE FROM</label>
-                                        <input id="preServicefrom" type="date" asp-for="pension.PreServicefrom" class="form-control" />
+                                        <input type="date" asp-for="pension.PreServicefrom" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>PRESENT SERVICE TO</label>
-                                        <input id="preServiceTo" type="date" asp-for="pension.PreServiceTo" class="form-control" />
+                                        <input  type="date" asp-for="pension.PreServiceTo" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -207,19 +209,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>WAR SERVICE FROM</label>
-                                        <input id="warsrv_from" type="date" asp-for="pension.Warsrv_from" class="form-control">
+                                        <input  type="date" asp-for="pension.Warsrv_from" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>WAR SERVICE TO</label>
-                                        <input id="warsrv_to" type="date" asp-for="pension.Warsrv_to" class="form-control" />
+                                        <input  type="date" asp-for="pension.Warsrv_to" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>TOTAL LENGTH OF SERVICE</label>
-                                        <input id="totalService" type="text" asp-for="pension.TotalService" class="form-control" />
+                                        <input  type="text" asp-for="pension.TotalService" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +255,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>DATE ON WHICH PAYMENT OF PENSION COMMENCES</label>
-                                        <input id="pensionDate" type="date" asp-for="pension.PensionDate" class="form-control" />
+                                        <input  type="date" asp-for="pension.PensionDate" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -293,7 +295,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>EFFECTIVE DATE OF DISABILITY</label>
-                                        <input id="disabilityDate" type="date" asp-for="pension.DisabilityDate" class="form-control">
+                                        <input type="date" asp-for="pension.DisabilityDate" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -376,11 +378,11 @@
                     url: "/PensionForms/CreatePensionInitiation",
                     data: empForm,
                     success: function (data) {
-                        window.alert(data.responseMessage);
+                        window.alert("PensionForms Initiation Successful");
 
-                        $('#PensionInitModal').on('hidden.bs.modal', function () {
-                            $(this).find('form').trigger('reset');
-                        })
+                        //$('#PensionInitModal').on('hidden.bs.modal', function () {
+                        //    $(this).find('form').trigger('reset');
+                        //})
                         window.location.href = "/PensionForms/PensionInitiation";
                     },
                     error: function () {
@@ -409,37 +411,49 @@
                 method: "GET",
                 url: `/api/Pension/GetPensionByPersonID?personID=${id}`,
                 success: function (data) {
+                    var formattedDate = formatDateForInput(data.birthDate);
+                    var formattedsenioritydate = formatDateForInput(data.senioritydate);
+                    var formattedtradeCatDate = formatDateForInput(data.tradeCatDate);
+                    var formatteddisabilityDate = formatDateForInput(data.disabilityDate);
+                    var formattedenlistmentdate = formatDateForInput(data.enlistmentdate);
+                    var formattedprvServdate = formatDateForInput(data.prvServdate);
+                    var formattedpreServiceTo = formatDateForInput(data.preServiceTo);
+                    var formattedwarsrv_from = formatDateForInput(data.warsrv_from);
+                    var formattedwarsrv_to = formatDateForInput(data.warsrv_to);
+                    var formattedpensionDate = formatDateForInput(data.pensionDate);
+
+                    console.log(formattedDate);
+                    $('#pension_BirthDate').prop('value', formattedDate);
                     $('#pension_FirstName').val(data.firstName);
                     $('#pension_LastName').val(data.lastName);
                     $('#pension_Title').val(data.title);
                     $('#pension_SVC_NO').val(data.svC_NO);
-
                     $('#pension_MiddleName').val(data.middleName);
                     $('#pension_ShipEstab').val(data.shipEstab);
-                    $('#pension_BirthDate').val(data.birthDate);
-                    $('#pension_senioritydate').val(data.senioritydate);
+                    $('#pension_senioritydate').prop('value', formattedsenioritydate);
                     $('#pension_Tradecategory').val(data.tradecategory);
-                    $('#pension_TradeCatDate').val(data.tradeCatDate);
+                    $('#pension_TradeCatDate').prop('value', formattedtradeCatDate);
                     $('#pension_PrvEstab').val(data.prvEstab);
                     $('#pension_PrvShipEstab').val(data.prvShipEstab);
-                    $('#pension_Enlistmentdate').val(data.enlistmentdate);
-                    $('#pension_PreServicefrom').val(data.preServicefrom);
-                    $('#pension_PreServiceTo').val(data.preServiceTo);
-                    $('#pension_PrvServdate').val(data.prvServdate);
-                    $('#pension_Warsrv_from').val(data.warsrv_from);
-                    $('#pension_Warsrv_to').val(data.warsrv_to);
+                    $('#pension_Enlistmentdate').prop('value', formattedenlistmentdate);
+                    $('#pension_PreServicefrom').prop('value', formattedprvServdate);
+                    $('#pension_PreServiceTo').prop('value', formattedpreServiceTo);
+                    $('#pension_PrvServdate').prop('value', formattedprvServdate);
+                    $('#pension_Warsrv_from').prop('value', formattedwarsrv_from);
+                    $('#pension_Warsrv_to').prop('value', formattedwarsrv_to);
                     $('#pension_TotalService').val(data.totalService);
                     $('#pension_Nonrec_Service').val(data.nonrec_Service);
                     $('#pension_NonRecReason').val(data.nonRecReason);
-                    $('#pension_FinTotalService').val(data.finTotalService);
                     $('#pension_TransAuthority').val(data.transAuthority);
-                    $('#pension_pensionDate').val(data.pensionDate);
+                    $('#pension_FinTotalService').val(data.finTotalService);
+                    $('#pension_PensionDate').prop('value', formattedpensionDate);
                     $('#pension_PaymentDept').val(data.paymentDept);
                     $('#pension_PAddress').val(data.pAddress);
                     $('#pension_CAddress').val(data.cAddress);
                     $('#pension_DisabilityNat').val(data.disabilityNat);
                     $('#pension_DisabilityDegree').val(data.disabilityDegree);
-                    $('#pension_DisabilityDate').val(data.disabilityDate);
+                    $('#pension_DisabilityDate').prop('value', formatteddisabilityDate);
+
 
                     $('#PensionInitModal').modal('show');
                 }
@@ -450,7 +464,14 @@
             $('#deleteId').val(id);
             $('#DeleteModal').modal('show');
         }
-        
+        function formatDateForInput(date) {
+            var dateObj = new Date(date);
+            var year = dateObj.getFullYear();
+            var month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            var day = String(dateObj.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
     </script>
 }
 

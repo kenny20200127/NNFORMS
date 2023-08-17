@@ -44,7 +44,7 @@
             </tbody>
         </table>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <form id="savePension" method="post">
@@ -126,7 +126,7 @@
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
                                                                         <label>DATE OF BIRTH</label>
-                                                                        <input asp-for="pension.BirthDate" class="form-control" type="email" name="name" placeholder="">
+                                                                        <input asp-for="pension.BirthDate" class="form-control" type="date" id="BirthDate" name="name" placeholder="">
                                                                     </div>
                                                                 </div>
 
@@ -485,7 +485,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>*@
 
     </div>
 </div>
@@ -507,7 +507,10 @@
                 method: "GET",
                 url: `/api/Pension/GetPensionByPersonID?personID=${id}`,
                 success: function (data) {
+                    alert("i am here");
                     console.log(data);
+                    console.log("i am here");
+                    console.log(data.birthDate);
                     $('#pension_FirstName').val(data.firstName);
                     $('#pension_LastName').val(data.lastName);
                     $('#pension_Title').val(data.title);

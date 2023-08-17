@@ -1,0 +1,234 @@
+﻿@model NNPEFWEB.Models.DeathModel
+@{
+    ViewData["Title"] = "CreateDeathBen";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        <h1>Death Gratuity Initiation</h1>
+    </div>
+    <div class="card-body">
+        <form asp-controller="DeathForms" asp-action="CreateInitiation" method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>SERVICE NO</label>
+                        <input type="text" asp-for="death.SVC_NO" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>FIRSTNAME</label>
+                        <input asp-for="death.FirstName" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>LASTNAME</label>
+                        <input asp-for="death.LastName" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>MIDDLENAME</label>
+                        <input asp-for="death.MiddleName" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RANK</label>
+                        <select asp-for="death.Title"
+                                class="form-control"
+                                asp-items="@(new SelectList(Model.death.rankDetails,"Value", "Text"))">
+                        </select>
+                        @* <input asp-for="death.Title" class="form-control" />*@
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>SHIP</label>
+                        @*<select id="shipEstab" asp-for="death.ShipEstab" asp-items="Model.death.shipDetails" class="form-control"></select>*@
+                        <select asp-for="death.ShipEstab"
+                                class="form-control"
+                                asp-items="@(new SelectList(Model.death.shipDetails,"Value", "Text"))">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DATE OF BIRTH</label>
+                        <input type="date" asp-for="death.BirthDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DATE OF LAST PROMOTION</label>
+                        <input type="date" asp-for="death.senioritydate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PREVIOUS SERVICE FROM</label>
+                        <input type="date" asp-for="death.Prevsrv_from" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PREVIOUS SERVICE TO</label>
+                        <input type="date" asp-for="death.Prevsrv_To" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PREVIOUS ESTABLISHMENT</label>
+                        @* <select id="prvEstab" asp-for="death.PrvEstab" asp-items="Model.death.shipDetails" class="form-control"></select>*@
+                        <select asp-for="death.PrvEstab"
+                                class="form-control"
+                                asp-items="@(new SelectList(Model.death.shipDetails,"Value", "Text"))">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>AUTHORITY FOR TRANSFER OF SERVICE</label>
+                        <input type="text" asp-for="death.PrvAuthor" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>ENLISTMENT DATE</label>
+                        <input type="date" asp-for="death.PrvEnListDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DATE OF DEATH</label>
+                        <input type="date" asp-for="death.Deathdate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>CAUSE OF DEATH</label>
+                        <input type="text" asp-for="death.DeathReason" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DEATH CONFIRMATION BY SHIP</label>
+                        <input asp-for="death.DeathConfirm" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>TRADE CLASSIFICATION</label>
+                        <input asp-for="death.TradeClass" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PRE-WAR SERVICE FROM</label>
+                        <input type="date" asp-for="death.Prvwar_from" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PRE-WAR SERVICE TO</label>
+                        <input type="date" asp-for="death.Prvwar_to" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>WAR SERVICE FROM</label>
+                        <input type="date" asp-for="death.Warsrv_from" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>WAR SERVICE TO</label>
+                        <input type="date" asp-for="death.Warsrv_to" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>POST WAR SERVICE FROM</label>
+                        <input type="date" asp-for="death.Postwar_from" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>POST WAR SERVICE TO</label>
+                        <input type="date" asp-for="death.Postwar_to" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>NON-RECKONABLE SERVICE</label>
+                        <input type="text" asp-for="death.Nonrec_Service" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>TOTAL RECKONABLE SERVICE</label>
+                        <input type="text" asp-for="death.Totalrec_Service" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>SUB-TREASURY MAKING PAYMENT</label>
+                        <input type="text" asp-for="death.SubTreasury" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>NEXT OF KIN NAME</label>
+                        <input type="text" asp-for="death.NOKName" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>NEXT OF KIN ADDRESS</label>
+                        <input type="text" asp-for="death.NOKAdress" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>QUALIFYING SERVICE FOR GRATUITY</label>
+                        <input type="text" asp-for="death.Totalgratuity" class="form-control">
+                    </div>
+                </div>
+            </div>
+            @* <div class="row">
+                <div class="form-group">
+                <input asp-for="isCertify" type="checkbox" />I certify that the particulars of service
+                furnished in items above are correct
+                </div>
+                </div>*@
+            <div class="form-group">
+                <input type="submit" id="btnDeathInitiate" class="btn btn-primary" value="Submit" />
+            </div>
+        </form>
+    </div>
+
+</div>

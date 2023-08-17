@@ -1,0 +1,551 @@
+﻿@model NNPEFWEB.Models.PensionReport
+@using Microsoft.AspNetCore.Http
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>NNFORMS</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+
+
+    <style type="text/css">
+        .waterMark {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -9999;
+            pointer-event: none;
+            font-size: 5em;
+            font-weight: bold;
+            font-family: Consolas;
+            color: #EDEDED;
+            opacity: 0.2;
+        }
+
+        .waterMark-inner {
+            transform: rotate(-20deg);
+            line-height: 200px
+        }
+
+        .waterMark2 {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -9999;
+            pointer-event: none;
+            font-size: 5em;
+            font-weight: bold;
+            font-family: Consolas;
+            color: #EDEDED;
+            /*opacity: 0.1;*/
+        }
+
+        .waterMark-inner2 {
+            transform: rotate(-20deg);
+            line-height: 200px
+        }
+
+        .centered {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Create three equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 33.33%;
+            padding: 10px;
+            height: 300px; /* Should be removed. Only for demonstration */
+        }
+
+        .column2 {
+            float: left;
+            width: 40.33%;
+        }
+
+        .column2a {
+            float: left;
+            width: 30.33%;
+        }
+
+        .column2d {
+            float: left;
+            width: 31.33%;
+        }
+
+        .column3 {
+            float: left;
+            width: 45.33%;
+            /*padding: 10px;*/
+            /* Should be removed. Only for demonstration */
+        }
+
+        .column4 {
+            float: left;
+            width: 20.33%;
+            /*padding: 10px;*/
+            /* Should be removed. Only for demonstration */
+        }
+
+        .column5 {
+            float: left;
+            width: 48.33%;
+            /*padding: 10px;*/
+            /* Should be removed. Only for demonstration */
+        }
+
+        .column6 {
+            float: left;
+            width: 18.33%;
+            /*padding: 10px;*/
+            /* Should be removed. Only for demonstration */
+        }
+
+        .column7 {
+            float: left;
+            width: 70.00%;
+        }
+        /* Clear floats after the columns */
+        .rowss:after {
+            content: "";
+            display: table;
+            clear: both;
+            height: 8px;
+            margin-left:100px;
+        }
+    </style>
+    <style>
+        div.a {
+            font-size: 23px;
+        }
+
+        div.b {
+            font-size: large;
+        }
+
+        div.c {
+            font-size: 150%;
+        }
+    </style>
+</head>
+
+<body style="margin: 0px; padding:0px; outline: none;">
+
+    <div id="btnprint">
+
+
+        <div style="text-align:center; margin-top:-25px" class="row"><div class="col-md-4"> <h4>RESTRICTED </h4></div> </div>
+
+        <h3 style="text-align: center; margin-top: -10px;"><u>PENSION AND GRATUITY ASSESSMENT FORM </u></h3>
+        <h4 style="text-align: right;">
+            FORM NN9B (AMENDED)
+            (JUNE '85)
+        </h4>
+        <div style="margin-top: -16px;">
+            <h4><u>PARTICULARS:</u> &nbsp;&nbsp;&nbsp;</h4>
+            <div style="margin-left:6px;margin-top:-12px">
+                <div class="rowss">
+                    <div class="column7"><strong>a.&nbsp;&nbsp;&nbsp; FULL NAME (Surname First):&nbsp;&nbsp;  @Model.LastName + @Model.FirstName</strong></div>
+                </div>
+                <div class="rowss">
+                    <div class="column7"><strong>b.&nbsp;&nbsp;&nbsp; PERSONAUOFFICIAL NUMBER: &nbsp;&nbsp;  @Model.SVC_NO</strong></div>
+                </div>
+
+                <div class="rowss">
+                    <div class="column7"><strong>c.&nbsp;&nbsp;&nbsp; RANK/RATE ON DISCHARGE:&nbsp;&nbsp;  @Model.Title</strong></div>
+                </div>
+                <div class="rowss">
+                    <div class="column7"><strong>d.&nbsp;&nbsp;&nbsp; PRESENT SHIP:&nbsp;&nbsp;  @Model.ShipEstab</strong></div>
+                </div>
+                <div class="rowss">
+                    <div class="column7"><strong>e.&nbsp;&nbsp; DATE OF BIRTH:&nbsp;&nbsp;  @Html.DisplayFor(x => x.BirthDate)</strong></div>
+                </div>
+                <div class="rowss">
+                    <div class="column7"><strong>f.&nbsp;&nbsp; DATE OF LAST PROMOTION/ADVANCEMENT::&nbsp;&nbsp;  @Html.DisplayFor(x => x.senioritydate)</strong></div>
+                </div>
+                <div class="rowss">
+                    <div class="column7"><strong>g.&nbsp;&nbsp; TRADE CATEGORY AND DATE:&nbsp;&nbsp;  @Html.DisplayFor(x => x.TradeCatDate)</strong></div>
+                </div>
+                <div class="rowss">
+                    <div class="column7"><strong>h.&nbsp;&nbsp; DATE OF DISCHARGE/AUTHORITY :&nbsp;&nbsp;  @Html.DisplayFor(x => x.PensionDate)</strong></div>
+                </div>
+
+            </div>
+        </div>
+
+        <h4><u>DETAILS OF SERVICE:</u> &nbsp;&nbsp;&nbsp;</h4>
+        <div style="margin-left:6px;margin-top:-12px">
+            <div class="rowss">
+                <div class="column7"><strong>a.&nbsp;&nbsp;&nbsp; PREVIOUS SERVICE FROM:&nbsp;&nbsp;  @Model.PreServicefrom</strong></div>
+            </div>
+            <div class="rowss">
+                <div class="column7"><strong>b.&nbsp;&nbsp;&nbsp; PREVIOUS ESTABLISHMENT: &nbsp;&nbsp;  @Model.PrvShipEstab</strong></div>
+            </div>
+
+            <div class="rowss">
+                <div class="column7"><strong>c.&nbsp;&nbsp;&nbsp; DATE OF ENLISTMENT/RE-ENLISTMENT: &nbsp;&nbsp;  @Html.DisplayFor(x => x.Enlistmentdate)</strong></div>
+            </div>
+            <div class="rowss">
+                <div class="column7"><strong>d.&nbsp;&nbsp;&nbsp; PRESENT SERVICE FROM:&nbsp;&nbsp;  @Model.PreServicefrom</strong></div>
+            </div>
+            <div class="rowss">
+                <div class="column7"><strong>e.&nbsp;&nbsp; WAR SERVICE (IN ACCORDANCE WITH DECREE NO.49/1969):&nbsp;&nbsp;  @Model.Warsrv_from</strong></div>
+            </div>
+
+        </div>
+        <table style="margin-left:15px;">
+            <tbody>
+                <tr>
+                    <td>c</td>
+                    <td>DATE OF ENLISTMENT/RE-ENLISTMENT:</td>
+                    <td></td>
+                    <td>@Html.DisplayFor(x => x.Enlistmentdate)</td>
+
+                </tr>
+                <tr>
+                    <td>d</td>
+                    <td>PRESENT SERVICE FROM:</td>
+                    <td></td>
+                    <td>@Model.PreServicefrom</td>
+
+                </tr>
+                <tr>
+                    <td>e</td>
+                    <td>WAR SERVICE (IN ACCORDANCE WITH DECREE NO.49/1969): </td>
+                    <td></td>
+                    <td>@Model.Warsrv_from</td>
+
+                </tr>
+                <tr>
+                    <td>f</td>
+                    <td>TOTAL LENGTH OF SERVICE:</td>
+                    <td></td>
+                    <td>@Model.TotalService</td>
+
+                </tr>
+                <tr>
+                    <td>g</td>
+                    <td>NON-RECKONABLE SERVICE (if any) </td>
+                    <td></td>
+                    <td>@Model.Nonrec_Service</td>
+
+                </tr>
+                <tr>
+                    <td>h</td>
+                    <td>REASON FOR FORFEITURE OF SERVICE:  </td>
+                    <td></td>
+                    <td>@Model.NonRecReason</td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="margin-left:15px;">
+            <tbody>
+                <tr>
+                    <td>3</td>
+                    <td>AUTHORITY FOR TRANSFER OF SERVICE:</td>
+                    <td></td>
+                    <td>@Model.TransAuthority</td>
+
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>FINAL TOTAL LENGTH OF SERVICE FOR PENSION:</td>
+                    <td></td>
+                    <td>@Model.FinTotalService</td>
+
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>DATE ON WHICH PAYMENT OF PENSION COMMENCES: </td>
+                    <td></td>
+                    <td>@Model.PensionDate</td>
+
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>SUB-TREASURY MAKING PAYMENT:</td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>PERMANENT ADDRESS:</td>
+                    <td></td>
+                    <td>@Model.PAddress</td>
+
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>CONTACT ADDRESS:  </td>
+                    <td></td>
+                    <td>@Model.CAddress</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 style="text-align:center">SECTION B</h3>
+        <h4><u>9. DISABILITY AWARD: </u> &nbsp;&nbsp;&nbsp;</h4>
+
+        <table style="margin-left:15px;">
+            <tbody>
+                <tr>
+                    <td>a</td>
+                    <td>NATURE OF DISABILITY:</td>
+                    <td></td>
+                    <td>@Model.DisabilityNat</td>
+
+                </tr>
+                <tr>
+                    <td>b</td>
+                    <td>DEGREE OF DISABILITY:</td>
+                    <td></td>
+                    <td>@Model.DisabilityDegree</td>
+
+                </tr>
+                <tr>
+                    <td>c</td>
+                    <td>EFFECTIVE DATE OF DISABILITY: </td>
+                    <td></td>
+                    <td>@Html.DisplayFor(x => x.DisabilityDate)</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 style="text-align:center">SECTION C</h3>
+        <h4><u>10. ASSESSMENT OF ANNUAL PENSIONABLE EMOLUMENT </u> &nbsp;&nbsp;&nbsp;</h4>
+        <table style="margin-left:15px;">
+            <tbody>
+                <tr>
+                    <td>(i)</td>
+                    <td>ANNUAL TERMINAL BASIC SALARY:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualBasic</td>
+
+                </tr>
+                <tr>
+                    <td>(ii)</td>
+                    <td>ANNUAL TRANSPORT ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualTrans</td>
+
+                </tr>
+                <tr>
+                    <td>(iii)</td>
+                    <td>ANNUAL LODGING ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualLodging</td>
+
+                </tr>
+                <tr>
+                    <td>(iii)</td>
+                    <td>ANNUAL LODGING ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualLodging</td>
+
+                </tr>
+                <tr>
+                    <td>(iv)</td>
+                    <td>ANNUAL PERSONAL SERVANT ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualServant</td>
+
+                </tr>
+                <tr>
+                    <td>(v)</td>
+                    <td>ANNUAL MEAL SUBSIDY (RATION ALLOWANCE: </td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualMeal</td>
+
+                </tr>
+
+                <tr>
+                    <td>(vi)</td>
+                    <td>ANNUAL ENTERTAINMENT ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualEnter</td>
+
+                </tr>
+                <tr>
+                    <td>(vii)</td>
+                    <td> ANNUAL UTILITY ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualUtility</td>
+
+                </tr>
+                <tr>
+                    <td>(viii) </td>
+                    <td>ANNUAL HOUSE UPKEEP ALLOWANCE: </td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualHouse</td>
+                </tr>
+                <tr>
+                    <td>(ix) </td>
+                    <td>ANNUAL GENERAL SVC ALLOWANCE: </td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualGeneral</td>
+                </tr>
+                <tr>
+                    <td>(x)</td>
+                    <td> ANNUAL MEDICAL ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.AnnualMedical</td>
+                </tr>
+                <tr>
+                    <td>(xi) </td>
+                    <td> ANNUAL HAZARD ALLOWANCE: </td>
+                    <td></td>
+                    <td> &#8358; @Model.AnnualUtility</td>
+                </tr>
+                <tr>
+                    <td>(xii)</td>
+                    <td> ANNUAL UNIFORM UPKEEP ALLOWANCE:</td>
+                    <td></td>
+                    <td>&#8358;  @Model.AnnualUniform</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table style="margin-left:15px;">
+            <tbody>
+                <tr>
+                    <td>(a)</td>
+                    <td>TOTAL ANNUAL TERMINAL GROSS PERSONAL EMOLUMENT:</td>
+                    <td></td>
+                    <td>&#8358;  @Model.TotalEmolument</td>
+
+                </tr>
+                <tr>
+                    <td>(b)</td>
+                    <td>TOTAL QUALIFYING SERVICE FOR GRATUITY:</td>
+                    <td></td>
+                    <td>&#8358; @Model.TotalQualify</td>
+
+                </tr>
+                <tr>
+                    <td>(c)</td>
+                    <td>FREE SERVICE ELEMENTS (=N=200.00) FOR RATINGS ONLY: </td>
+                    <td></td>
+                    <td>&#8358; @Model.MCycle_Loan</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <h4><u> ITEMS OF DEBTS DUE TO NN:</u> &nbsp;&nbsp;&nbsp;</h4>
+
+        <table style="margin-left:15px;">
+            <tbody>
+                <tr>
+                    <td>(b)</td>
+                    <td>HOUSING/LAND LOAN:</td>
+                    <td></td>
+                    <td>&#8358; @Model.PreServicefrom</td>
+
+                </tr>
+                <tr>
+                    <td>(b)</td>
+                    <td>PRESIDENTIAL MOTOR VEHICLE ADVANCE:</td>
+                    <td></td>
+                    <td>&#8358; @Model.Motor_Loan</td>
+
+                </tr>
+                <tr>
+                    <td>(c)</td>
+                    <td>MOTOR CYCLE ALLOWANCE: </td>
+                    <td></td>
+                    <td>&#8358; @Model.MCycle_Loan</td>
+                </tr>
+                <tr>
+                    <td>(d)</td>
+                    <td>WELFARE LOAN: </td>
+                    <td></td>
+                    <td>&#8358; @Model.Welfare_Loan</td>
+                </tr>
+                <tr>
+                    <td>(e)</td>
+                    <td>COOPERATIVE PERSONAL LOAN</td>
+                    <td></td>
+                    <td>&#8358; @Model.Coop_Loan</td>
+                </tr>
+                <tr>
+                    <td>(f)</td>
+                    <td>NN MICROFINANCE BANK LOAN</td>
+                    <td></td>
+                    <td> &#8358; @Model.MFinance_Loan</td>
+                </tr>
+                <tr>
+                    <td>(g)</td>
+                    <td>OVERPAYMENT OF SALARY </td>
+                    <td></td>
+                    <td>&#8358;  @Model.SalaryOverpayment</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <h3 style="text-align:center">SECTION D</h3>
+        <div class="rowss">
+            <div class="column7">
+                <strong>
+                    I certify that the particulars of service and payment furnished above (in items 1 - 11) are to the bPst of my knowledge.
+
+                </strong>
+            </div>
+        </div>
+        <div class="rowss">
+            <div class="column7" style="align-content:center"><strong>&nbsp;&nbsp;  SIGNATURE &nbsp;&nbsp; </strong></div>
+        </div>
+        <div class="rowss">
+            <div class="column7"><strong>&nbsp;&nbsp;   Full name : &nbsp;&nbsp; </strong></div>
+            <div class="column7"><strong>&nbsp;&nbsp;  Official Stamp&nbsp;&nbsp; </strong></div>
+
+        </div>
+        <div class="rowss">
+            <div class="column7"><strong>&nbsp;&nbsp;  RANK: &nbsp;&nbsp; </strong></div>
+
+        </div>
+    </div>
+
+
+    </div>
+
+    @* <script src="~/plugins/jquery/jquery.min.js"></script>
+        <canvas id="DemoCanvas" width="500" height="200"></canvas>*@
+    <script>
+        var canvas = document.getElementById('DemoCanvas');
+        //Always check for properties and methods, to make sure your code doesn't break in other browsers.
+        if (canvas.getContext) {
+            var context = canvas.getContext('2d');
+            // Reset the current path
+            context.beginPath();
+            // Staring point (10,45)
+            context.moveTo(10, 45);
+            // End point (180,47)
+            context.lineTo(180, 47);
+            // Make the line visible
+            context.stroke();</script>
+</body>
+</html>           

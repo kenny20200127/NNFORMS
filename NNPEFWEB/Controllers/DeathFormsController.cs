@@ -71,7 +71,22 @@ namespace NNPEFWEB.Controllers
             return View(model);
 
         }
+        public IActionResult CreateDeathBen()
+        {
+            DeathModel model = new();
+            DeathViewModel model2 = new();
+            string role = TempData["userRole2"] as string;
+            if (string.IsNullOrEmpty(role))
+            {
+                role = TempData["role"] as string;
+            }
+            model2.shipDetails = GetShip();
+            model2.rankDetails = GetRank();
+            model.death = model2;
+            TempData["role"] = role;
+            return View(model);
 
+        }
         [HttpPost]
         public async Task<IActionResult> CreateInitiation(DeathModel model)
         {
@@ -81,8 +96,18 @@ namespace NNPEFWEB.Controllers
             model2.createdby = createdBy;
             model2.status = ApplicationConstant.Initiation;
             model2.shipDetails = GetShip();
-            // model.serviceDetails = TempData["serviceDetails"] as List<SelectListItem>;
-            var result = await deathService.UpdateDeath(model2);
+            var getdeath = deathService.GetPersonnelBySvcNo(model2.SVC_NO);
+            if (getdeath == null)
+            {
+                model.death.status = null;
+                await deathService.CreateDeath(model2);
+
+            }
+            else
+            {
+                await deathService.UpdateDeath(model2);
+            }
+            //var result = await deathService.UpdateDeath(model2);
 
             ModelState.Clear();
             return RedirectToAction("Initiation", "DeathForms");
@@ -548,7 +573,7 @@ namespace NNPEFWEB.Controllers
             if (payload.start <= payload.end)
             {
                 //get the value
-                var reportList = await service.getPensionpaidReport(payload.start.Date, payload.end.Date);
+                var reportList = await deathService.getDeathpaidReport(payload.start.Date, payload.end.Date);
                 if (reportList.ToList().Count > 0)
                 {
                     if (payload.filterType == "excel")
@@ -626,7 +651,7 @@ namespace NNPEFWEB.Controllers
                             {
                                 Text = rk.shipName,
                                 Value = rk.shipName
-                            }).ToList();
+                            }).OrderBy(x => x.Text).ToList();
 
             shipList.Insert(0, new SelectListItem()
             {
@@ -664,6 +689,22 @@ namespace NNPEFWEB.Controllers
             }
 
             return output;
+        }
+        public async Task<IActionResult> DeathFormsReport(int id)
+        {
+
+            //get the value
+            var reportList = await deathService.getDeathFormsReport(id);
+            if (reportList != null)
+            {
+                return await generatePdf.GetPdf("Views/DeathForms/DeathFormReportPage.cshtml", reportList);
+            }
+            else
+            {
+                TempData["messageReport"] = "there is no record";
+                return View();
+            }
+
         }
     }
 }

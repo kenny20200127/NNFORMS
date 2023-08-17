@@ -43,6 +43,8 @@ namespace NNPEFWEB.Controllers
         private readonly IAuthService authenticationService;
         private readonly IUserService userService;
         private readonly UserManager<User> userManager;
+        private readonly IPensionService service;
+        private readonly IDeathService deathService;
 
         private int resetcode;
         Random rnd = new Random();
@@ -50,6 +52,8 @@ namespace NNPEFWEB.Controllers
 
         public NLoginController
          (
+            IPensionService service,
+            IDeathService deathService,
             UserManager<User> userManager,
             ILogger<NLoginController> logger,
             ApplicationDbContext context,
@@ -72,6 +76,8 @@ namespace NNPEFWEB.Controllers
             _mailService = mailService;
             this.authenticationService = authenticationService;
             this.userService = userService;
+            this.deathService = deathService;
+            this.service = service;
         }
 
         public IActionResult Login()
@@ -260,6 +266,9 @@ namespace NNPEFWEB.Controllers
             var countUser= await personService.GetUserCount();
             model.count1 = countUser.count1;
             model.count2 = countUser.count2;
+            model.pensionDto = service.GetPensionCount();
+            model.deathDto = deathService.GetDeathCount();
+
             return View(model);
         }
 

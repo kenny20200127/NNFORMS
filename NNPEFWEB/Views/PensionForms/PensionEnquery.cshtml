@@ -25,36 +25,40 @@
             {
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>
-                                Service No
-                            </th>
-                            <th>
-                                LastName
-                            </th>
-                            <th>
-                                FirstName
-                            </th>
-                            <th>
-                                MiddleName
-                            </th>
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                Status
-                            </th>
-                        </tr>
+                                <tr>
+                                    <th>
+                                        Service No
+                                    </th>
+                                    <th>
+                                        LastName
+                                    </th>
+                                    <th>
+                                        FirstName
+                                    </th>
+                                    <th>
+                                        MiddleName
+                                    </th>
+                                    <th>
+                                        Title
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>@Model.SVC_NO</td>
-                            <td>@Model.LastName</td>
-                            <td>@Model.FirstName</td>
-                            <td>@Model.MiddleName</td>
-                            <td>@Model.Title</td>
-                            <td>@Model.status</td>
-                        </tr>
+                                <tr>
+                                    <td>@Model.SVC_NO</td>
+                                    <td>@Model.LastName</td>
+                                    <td>@Model.FirstName</td>
+                                    <td>@Model.MiddleName</td>
+                                    <td>@Model.Title</td>
+                                    <td>@Model.status</td>
+                                    <td><a asp-action="PensionFormsReport" asp-controller="PensionForms" asp-route-id="@Model.PersonID"  class="btn btn-success"> Print</a></td>
+                                </tr>
                     </tbody>
                 </table>
             }
