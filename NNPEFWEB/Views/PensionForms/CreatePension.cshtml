@@ -1,0 +1,234 @@
+﻿@model NNPEFWEB.Models.PensionModel
+
+@{
+    ViewData["Title"] = "PensionInitiation";
+    Layout = "~/Views/Shared/_gratuityLayout.cshtml";
+}
+
+<div class="card" style="width:100%;">
+    <div class="card-header">
+        <h1>Pension Intiation</h1>
+    </div>
+    <div class="card-body">
+        <form asp-controller="PensionForms" asp-action="CreatePensionInitiation" method="post">
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="pension.SVC_NO">SERVICE NO</label>
+                        <input asp-for="pension.SVC_NO" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>FIRSTNAME</label>
+                        <input asp-for="pension.FirstName" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>LASTNAME</label>
+                        <input asp-for="pension.LastName" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>MIDDLENAME</label>
+                        <input asp-for="pension.MiddleName" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RANK</label>
+                        <select asp-for="pension.Title"
+                                class="form-control"
+                                asp-items="@(new SelectList(Model.pension.rankDetails,"Value", "Text"))">
+                        </select>
+                        @* <input asp-for="pension.Title" class="form-control" />*@
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PRESENT SHIP</label>
+                        @* <select id="shipEstab" asp-for="pension.ShipEstab" asp-items="Model.pension.shipDetails" class="form-control"></select>*@
+                        <select asp-for="pension.ShipEstab"
+                                class="form-control"
+                                asp-items="@(new SelectList(Model.pension.shipDetails,"Value", "Text"))">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>DATE OF BIRTH</label>
+                        <input type="date" id="birthDate" asp-for="pension.BirthDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>DATE OF LAST PROMOTION</label>
+                        <input type="date" id="senioritydate" asp-for="pension.senioritydate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>TRADE CATEGORY</label>
+                        <input id="tradecategory" asp-for="pension.Tradecategory" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>TRADE CATEGORY DATE</label>
+                        <input id="tradeCatDate" type="date" asp-for="pension.TradeCatDate" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DATE OF DISCHARGE/AUTHORITY</label>
+                        <input id="prvServdate" type="date" asp-for="pension.PrvServdate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PREVIOUS SERVICE FROM</label>
+                        <input id="prvEstab" type="date" asp-for="pension.PrvEstab" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PREVIOUS ESTABLISHMENT</label>
+                        @*<select id="prvShipEstab" asp-for="pension.PrvShipEstab" asp-items="Model.pension.shipDetails" class="form-control"></select>*@
+                        <select asp-for="pension.PrvShipEstab"
+                                class="form-control"
+                                asp-items="@(new SelectList(Model.pension.shipDetails,"Value", "Text"))">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DATE OF ENLISTMENT</label>
+                        <input id="enlistmentdate" type="date" asp-for="pension.Enlistmentdate" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PRESENT SERVICE FROM</label>
+                        <input id="preServicefrom" type="date" asp-for="pension.PreServicefrom" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PRESENT SERVICE TO</label>
+                        <input id="preServiceTo" type="date" asp-for="pension.PreServiceTo" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>WAR SERVICE FROM</label>
+                        <input id="warsrv_from" type="date" asp-for="pension.Warsrv_from" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>WAR SERVICE TO</label>
+                        <input id="warsrv_to" type="date" asp-for="pension.Warsrv_to" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>TOTAL LENGTH OF SERVICE</label>
+                        <input id="totalService" type="text" asp-for="pension.TotalService" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>NON-RECKONABLE SERVICE (IF ANY)</label>
+                        <input id="nonrec_Service" type="text" asp-for="pension.Nonrec_Service" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>NON-RECKONABLE SERVICE REASON</label>
+                        <input id="nonRecReason" type="text" asp-for="pension.NonRecReason" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>AUTHORITY FOR TRANSFER OF SERVICE</label>
+                        <input id="transAuthority" type="text" asp-for="pension.TransAuthority" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>FINAL TOTAL LENGTH OF SERVICE FOR PENSION</label>
+                        <input id="finTotalService" type="text" asp-for="pension.FinTotalService" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DATE ON WHICH PAYMENT OF PENSION COMMENCES</label>
+                        <input id="pensionDate" type="date" asp-for="pension.PensionDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>SUB-TREASURY MAKING PAYMENT</label>
+                        <input id="paymentDept" type="text" asp-for="pension.PaymentDept" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PERMANENT ADDRESS</label>
+                        <input id="pAddress" type="text" asp-for="pension.PAddress" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>CONTACT ADDRESS</label>
+                        <input id="cAddress" type="text" asp-for="pension.CAddress" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>NATURE OF DISABILITY</label>
+                        <input id="disabilityNat" type="text" asp-for="pension.DisabilityNat" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>DEGREE OF DISABILITY</label>
+                        <input id="disabilityDegree" type="text" asp-for="pension.DisabilityDegree" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>EFFECTIVE DATE OF DISABILITY</label>
+                        <input id="disabilityDate" type="date" asp-for="pension.DisabilityDate" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" id="btnSavePensionInit" class="btn btn-primary" value="Submit" />
+            </div>
+        </form>
+
+    </div>
+
+    </div>

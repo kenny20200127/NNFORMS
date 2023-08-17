@@ -10,6 +10,10 @@
         public static string sp_defaultUsers = "sp_defaultUsers";
         public static string Sp_Pension = "SP_PENSION";
         public static string Sp_Death = "Sp_Death";
+        public static string CreatePension = "CreatePension";
+        public static string CreateDeathGratuity = "CreateDeathGratuity";
+        
+
 
         //constant values
         public static string SystemAdmin="SystemAdmin";

@@ -2337,7 +2337,6 @@ C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\bin\Debug\net5.0\CrystalDecisions.Re
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\bin\Debug\net5.0\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\bin\Debug\net5.0\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\bin\Debug\net5.0\CrystalDecisions.ReportAppServer.CommonControls.dll
-C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.csproj.AssemblyReference.cache
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.AssemblyInfoInputs.cache
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.AssemblyInfo.cs
@@ -2411,6 +2410,7 @@ C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\Account
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\Account\VerifyCode.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\ApproveDeath.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\DeathEnquery.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\DeathFormReportPage.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\DeathMainReport.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\DeathMainReportPage.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\DeathPayment.cshtml.g.cs
@@ -2439,6 +2439,7 @@ C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\NLogin\
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\NLogin\VerifyCode.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\ApprovePension.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\PensionEnquery.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\PensionFormReportPage.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\PensionGratuity.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\PensionInitiation.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\PensionMainReport.cshtml.g.cs
@@ -2490,3 +2491,6 @@ C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.dll
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\ref\NNPEFWEB.dll
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.pdb
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.genruntimeconfig.cache
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.csproj.AssemblyReference.cache
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\CreatePension.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\CreateDeathBen.cshtml.g.cs

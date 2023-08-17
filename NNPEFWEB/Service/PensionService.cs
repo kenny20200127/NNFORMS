@@ -59,6 +59,25 @@ namespace NNPEFWEB.Service
                 return new List<PensionReportModel>();
             }
         }
+        public async Task<PensionReport> getPensionFormsReport(int id)
+        {
+            try
+            {
+                
+                var param = new DynamicParameters();
+                param.Add("@statusInput", 14);
+                param.Add("@PersonID", id);
+
+                var respq = await dapper.GetAsync<PensionReport>(ApplicationConstant.Sp_Pension, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new PensionReport();
+            }
+        }
+
 
         public PensionService(IDapper dapper, ILogger<PensionService> logger)
         {
@@ -172,7 +191,7 @@ namespace NNPEFWEB.Service
                 param.Add("@PreServicefrom", model.PreServicefrom);
                 param.Add("@PreServiceTo", model.PreServiceTo);
                 param.Add("@Warsrv_from", model.Warsrv_from);
-                param.Add("@@Warsrv_to", model.Warsrv_to);
+                param.Add("@Warsrv_to", model.Warsrv_to);
                 param.Add("@TotalService", model.TotalService);
                 param.Add("@Nonrec_Service", model.Nonrec_Service);
                 param.Add("@NonRecReason", model.NonRecReason);
@@ -193,6 +212,59 @@ namespace NNPEFWEB.Service
 
             }
             catch(Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new BaseResponse()
+                {
+                    responseCode = "05",
+                    responseMessage = "Exception Occured"
+                };
+            }
+        }
+        public async Task<BaseResponse> CreatePension(PensionViewModel model)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@statusInput", 1);
+                param.Add("@SVC_NO", model.SVC_NO);
+                param.Add("@FirstName", model.FirstName);
+                param.Add("@MiddleName", model.MiddleName);
+                param.Add("@LastName", model.LastName);
+                param.Add("@Title", model.Title);
+                param.Add("@ShipEstab", model.ShipEstab);
+                param.Add("@BirthDate", model.BirthDate);
+                param.Add("@senioritydate", model.senioritydate);
+                param.Add("@Tradecategory", model.Tradecategory);
+                param.Add("@TradeCatDate", model.TradeCatDate);
+                param.Add("@PrvEstab", model.PrvEstab);
+                param.Add("@PrvServdate", model.PrvServdate);
+                param.Add("@PrvShipEstab", model.PrvShipEstab);
+                param.Add("@Enlistmentdate", model.Enlistmentdate);
+                param.Add("@PreServicefrom", model.PreServicefrom);
+                param.Add("@PreServiceTo", model.PreServiceTo);
+                param.Add("@Warsrv_from", model.Warsrv_from);
+                param.Add("@Warsrv_to", model.Warsrv_to);
+                param.Add("@TotalService", model.TotalService);
+                param.Add("@Nonrec_Service", model.Nonrec_Service);
+                param.Add("@NonRecReason", model.NonRecReason);
+                param.Add("@TransAuthority", model.TransAuthority);
+                param.Add("@FinTotalService", model.FinTotalService);
+                param.Add("@PensionDate", model.PensionDate);
+                param.Add("@PaymentDept", model.PaymentDept);
+                param.Add("@PAddress", model.PAddress);
+                param.Add("@CAddress", model.CAddress);
+                param.Add("@DisabilityNat", model.DisabilityNat);
+                param.Add("@DisabilityDegree", model.DisabilityDegree);
+                param.Add("@DisabilityDate", model.DisabilityDate);
+                param.Add("@status", model.status);
+                param.Add("@createdby", model.createdBy);
+
+                var respq = await dapper.GetAsync<BaseResponse>(ApplicationConstant.CreatePension, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+
+            }
+            catch (Exception ex)
             {
                 logger.LogError($"Exception ===> {ex.Message}");
                 return new BaseResponse()

@@ -10,6 +10,7 @@ namespace NNPEFWEB.Service
     public interface IPensionService
     {
         Task<IEnumerable<PensionReportModel>> getPensionpaidReport(DateTime start, DateTime end);
+        Task<PensionReport> getPensionFormsReport(int id);
         Task<IEnumerable<PensionReportModel>> getPensionStatusReport(string role);
         IEnumerable<PensionViewModel> GetPensionInit();
         Task<BaseResponse> UpdatePensionPayment(ApprovePensionViewModel model);
@@ -20,6 +21,7 @@ namespace NNPEFWEB.Service
         IEnumerable<SelectListItem> getRatingDetails();
         PersonelDetailsViewModel GetPersonnelBySvcNo(string svcNo);
         Task<BaseResponse> UpdatePension(PensionViewModel model);
+        Task<BaseResponse> CreatePension(PensionViewModel model);
         Task<BaseResponse> UpdatePensionForCPO(PensionViewModel model);
         IEnumerable<PensionViewModel> GetPensionByStatus(string status);
         PensionViewModel GetPensionBySvcNo(string svcNo);

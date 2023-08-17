@@ -14,7 +14,7 @@
             <div style="float:right;">
                 <div class="input-group mb-3">
                     <input name="searchString" type="text" class="form-control" placeholder="search by service no" aria-label="Username" aria-describedby="basic-addon1">
-                    <button class="input-group-text" asp-action="PensionReviews" asp-controller="PersonnelLogin" asp-route-searchString="searchString">
+                    <button class="input-group-text" asp-action="PensionReviews" asp-controller="PensionForms" asp-route-searchString="searchString">
                         Search
                     </button>
                 </div>
@@ -304,7 +304,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/PensionForms/PensionInitiation",
+                    url: "/PensionForms/PensionUpdateReview",
                     data: empForm,
                     success: function (data) {
                         window.alert(data.responseMessage);
@@ -325,41 +325,66 @@
                 method: "GET",
                 url: `/api/Pension/GetPensionByPersonID?personID=${id}`,
                 success: function (data) {
-                    console.log(data.disabilityDate)
+                    console.log(data.pensionDate);
+                    var formattedDate = formatDateForInput(data.birthDate);
+                    var formattedsenioritydate = formatDateForInput(data.senioritydate);
+                    var formattedtradeCatDate = formatDateForInput(data.tradeCatDate);
+                    var formatteddisabilityDate = formatDateForInput(data.disabilityDate);
+                    var formattedenlistmentdate= formatDateForInput(data.enlistmentdate);
+                    var formattedprvServdate= formatDateForInput(data.prvServdate);
+                    var formattedpreServiceTo = formatDateForInput(data.preServiceTo);
+                    var formattedwarsrv_from = formatDateForInput(data.warsrv_from);
+                    var formattedwarsrv_to = formatDateForInput(data.warsrv_to);
+                    var formattedpensionDate = formatDateForInput(data.pensionDate);
+                  //  var formatteddisabilityDegree = formatDateForInput(data.disabilityDegree);
+                    console.log(formattedpensionDate);
+                    $('#pension_BirthDate').prop('value', formattedDate);
                     $('#pension_FirstName').val(data.firstName);
                     $('#pension_LastName').val(data.lastName);
                     $('#pension_Title').val(data.title);
                     $('#pension_SVC_NO').val(data.svC_NO);
                     $('#pension_MiddleName').val(data.middleName);
                     $('#pension_ShipEstab').val(data.shipEstab);
-                    $('#pension_BirthDate').prop(data.birthDate);
-                    $('#pension_senioritydate').prop(data.senioritydate);
+                    $('#pension_senioritydate').prop('value',formattedsenioritydate);
                     $('#pension_Tradecategory').val(data.tradecategory);
-                    $('#pension_TradeCatDate').prop(data.tradeCatDate);
+                    $('#pension_TradeCatDate').prop('value',formattedtradeCatDate);
                     $('#pension_PrvEstab').val(data.prvEstab);
                     $('#pension_PrvShipEstab').val(data.prvShipEstab);
-                    $('#pension_Enlistmentdate').prop(data.enlistmentdate);
-                    $('#pension_PreServicefrom').prop(data.preServicefrom);
-                    $('#pension_PreServiceTo').prop(data.preServiceTo);
-                    $('#pension_PrvServdate').prop(data.prvServdate);
-                    $('#pension_Warsrv_from').prop(data.warsrv_from);
-                    $('#pension_Warsrv_to').prop(data.warsrv_to);
+                    $('#pension_Enlistmentdate').prop('value',formattedenlistmentdate);
+                    $('#pension_PreServicefrom').prop('value',formattedprvServdate);
+                    $('#pension_PreServiceTo').prop('value',formattedpreServiceTo);
+                    $('#pension_PrvServdate').prop('value',formattedprvServdate);
+                    $('#pension_Warsrv_from').prop('value',formattedwarsrv_from);
+                    $('#pension_Warsrv_to').prop('value',formattedwarsrv_to);
                     $('#pension_TotalService').val(data.totalService);
                     $('#pension_Nonrec_Service').val(data.nonrec_Service);
                     $('#pension_NonRecReason').val(data.nonRecReason);
                     $('#pension_TransAuthority').val(data.transAuthority);
                     $('#pension_FinTotalService').val(data.finTotalService);
-                    $('#pension_pensionDate').prop(data.pensionDate);
+                    $('#pension_PensionDate').prop('value',formattedpensionDate);
                     $('#pension_PaymentDept').val(data.paymentDept);
                     $('#pension_PAddress').val(data.pAddress);
                     $('#pension_CAddress').val(data.cAddress);
                     $('#pension_DisabilityNat').val(data.disabilityNat);
                     $('#pension_DisabilityDegree').val(data.disabilityDegree);
-                    $('#pension_DisabilityDate').prop(data.disabilityDate);
+                    $('#pension_DisabilityDate').prop('value',formatteddisabilityDate);
                    
                     $('#exampleModal').modal('show');
                  }
               });
             }
+            function formatDateForInput(date) {
+                var dateObj = new Date(date);
+                var year = dateObj.getFullYear();
+                var month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                var day = String(dateObj.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+           
+
+
+
+
+
         </script>
     }

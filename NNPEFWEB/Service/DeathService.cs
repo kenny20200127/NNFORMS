@@ -308,6 +308,58 @@ namespace NNPEFWEB.Service
                 };
             }
         }
+        public async Task<BaseResponse> CreateDeath(DeathViewModel model)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@statusInput", 1);
+                param.Add("@SVC_NO", model.SVC_NO);
+                param.Add("FirstName", model.FirstName);
+                param.Add("MiddleName", model.MiddleName);
+                param.Add("@LastName", model.LastName);
+                param.Add("@Title", model.Title);
+                param.Add("@ShipEstab", model.ShipEstab);
+                param.Add("@BirthDate", model.BirthDate);
+                param.Add("@senioritydate", model.senioritydate);
+                param.Add("@Prvsrv_from", model.Prevsrv_from);
+                param.Add("@Prvsrv_to", model.Prevsrv_To);
+                param.Add("@PrvEstab", model.PrvEstab);
+                param.Add("@PrvAuthor", model.PrvAuthor);
+                param.Add("@PrvEnListDate", model.PrvEnListDate);
+                param.Add("@Deathdate", model.Deathdate);
+                param.Add("@DeathReason", model.DeathReason);
+                param.Add("@DeathConfirm", model.DeathConfirm);
+                param.Add("@TradeClass", model.TradeClass);
+                param.Add("@Prvwar_from", model.Postwar_from);
+                param.Add("@Prvwar_to", model.Postwar_to);
+                param.Add("@Warsrv_from", model.Warsrv_from);
+                param.Add("@Warsrv_to", model.Warsrv_to);
+                param.Add("@Postwar_from", model.Postwar_from);
+                param.Add("@Postwar_to", model.Postwar_to);
+                param.Add("@Nonrec_Service", model.Nonrec_Service);
+                param.Add("@Totalrec_Service", model.Totalrec_Service);
+                param.Add("@SubTreasury", model.SubTreasury);
+                param.Add("@NOKName", model.NOKName);
+                param.Add("@NOKAdress", model.NOKAdress);
+                param.Add("@Totalgratuity", model.Totalgratuity);
+                param.Add("@status", model.status);
+                param.Add("@createdby", model.createdby);
+
+                var respq = await dapper.GetAsync<BaseResponse>(ApplicationConstant.CreateDeathGratuity, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new BaseResponse()
+                {
+                    responseCode = "05",
+                    responseMessage = "Exception Occured"
+                };
+            }
+        }
 
         public async Task<BaseResponse> UpdateDeathForCPO(DeathViewModel model)
         {
@@ -438,6 +490,25 @@ namespace NNPEFWEB.Service
             {
                 logger.LogError($"Exception ===> {ex.Message}");
                 return new List<DeathReportModel>();
+            }
+        }
+        public async Task<DeathReportFormModel> getDeathFormsReport(int id)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@statusInput", 14);
+                param.Add("@PersonID", id);
+
+
+                var respq = await dapper.GetAsync<DeathReportFormModel>(ApplicationConstant.Sp_Death, param, commandType: System.Data.CommandType.StoredProcedure);
+                return respq;
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception ===> {ex.Message}");
+                return new DeathReportFormModel();
             }
         }
 

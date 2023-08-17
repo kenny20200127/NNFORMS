@@ -1242,3 +1242,7 @@ C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\Pensi
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionMainReportPage.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionStatusReport.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionStatusReportPage.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\PensionFormReportPage.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\DeathForms\DeathFormReportPage.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\DeathForms\CreateDeathBen.cshtml.g.cs
+C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Release\net5.0\Razor\Views\PensionForms\CreatePension.cshtml.g.cs

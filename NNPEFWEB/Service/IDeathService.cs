@@ -9,6 +9,7 @@ namespace NNPEFWEB.Service
 {
     public interface IDeathService
     {
+        Task<DeathReportFormModel> getDeathFormsReport(int id);
         Task<IEnumerable<DeathReportModel>> getDeathpaidReport(DateTime start, DateTime end);
         Task<IEnumerable<DeathReportModel>> getDeathStatusReport(string role);
         Task<BaseResponse> ApproveDeathPayment(ApproveDeathViewModel model);
@@ -20,6 +21,7 @@ namespace NNPEFWEB.Service
         IEnumerable<SelectListItem> getRatingDetails();
         PersonelDetailsViewModel GetPersonnelBySvcNo(string svcNo);
         Task<BaseResponse> UpdateDeath(DeathViewModel model);
+        Task<BaseResponse> CreateDeath(DeathViewModel model);
         Task<BaseResponse> UpdateDeathForCPO(DeathViewModel model);
         IEnumerable<DeathViewModel> GetDeathByStatus(string status);
        
