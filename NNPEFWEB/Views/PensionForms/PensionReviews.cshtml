@@ -284,7 +284,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="submit" id="btnPensionPreview" class="btn btn-primary" value="Submit" />
+                                <button type="button" id="btnPensionPreview" class="btn btn-primary">Submit</button>
+                                @*<input type="submit" id="btnPensionPreview" class="btn btn-primary" value="Submit" />*@
                             </div>
                         </form>
                        
@@ -304,10 +305,10 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/PensionForms/PensionUpdateReview",
+                    url: "/PensionForms/CreatePensionInitiation",
                     data: empForm,
                     success: function (data) {
-                        window.alert(data.responseMessage);
+                        window.alert("Pension Initiation reviews update successful");
 
                         $('#exampleModal').on('hidden.bs.modal', function () {
                             $(this).find('form').trigger('reset');

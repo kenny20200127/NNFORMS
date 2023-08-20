@@ -87,6 +87,7 @@ namespace NNPEFWEB.Controllers
             return View(model);
 
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateInitiation(DeathModel model)
         {
@@ -97,20 +98,22 @@ namespace NNPEFWEB.Controllers
             model2.status = ApplicationConstant.Initiation;
             model2.shipDetails = GetShip();
             var getdeath = deathService.GetPersonnelBySvcNo(model2.SVC_NO);
+            var result = new BaseResponse();
             if (getdeath == null)
             {
                 model.death.status = null;
-                await deathService.CreateDeath(model2);
+                result=await deathService.CreateDeath(model2);
 
             }
             else
             {
-                await deathService.UpdateDeath(model2);
+               
+             result=await deathService.UpdateDeath(model2);
             }
             //var result = await deathService.UpdateDeath(model2);
 
             ModelState.Clear();
-            return RedirectToAction("Initiation", "DeathForms");
+            return Ok(result);
         }
 
         public async Task<IActionResult> DeathReviews(int? pageNumber, string searchString)

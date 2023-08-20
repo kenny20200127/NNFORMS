@@ -2494,3 +2494,7 @@ C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.genruntime
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\NNPEFWEB.csproj.AssemblyReference.cache
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\CreatePension.cshtml.g.cs
 C:\Users\Home\source\repos\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\CreateDeathBen.cshtml.g.cs
+C:\Users\yusuf.ogundiji\Documents\External work\Navy-Kenneth\work\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\CreateDeathBen.cshtml.g.cs
+C:\Users\yusuf.ogundiji\Documents\External work\Navy-Kenneth\work\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\DeathForms\DeathFormReportPage.cshtml.g.cs
+C:\Users\yusuf.ogundiji\Documents\External work\Navy-Kenneth\work\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\CreatePension.cshtml.g.cs
+C:\Users\yusuf.ogundiji\Documents\External work\Navy-Kenneth\work\NNFORMS\NNPEFWEB\obj\Debug\net5.0\Razor\Views\PensionForms\PensionFormReportPage.cshtml.g.cs

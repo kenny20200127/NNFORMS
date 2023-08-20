@@ -75,17 +75,17 @@ namespace NNPEFWEB.Models
 
         public PensionViewModel()
         {
-            BirthDate = DateTime.Now;
-            senioritydate = DateTime.Now;
-            TradeCatDate = DateTime.Now;
-            PrvServdate = DateTime.Now;
-            Enlistmentdate = DateTime.Now;
-            PreServicefrom = DateTime.Now;
-            PreServiceTo = DateTime.Now;
-            Warsrv_from = DateTime.Now;
-            Warsrv_to = DateTime.Now;
-            PensionDate = DateTime.Now;
-            DisabilityDate = DateTime.Now;
+            //BirthDate = DateTime.Now;
+            //senioritydate = DateTime.Now;
+            //TradeCatDate = DateTime.Now;
+            //PrvServdate = DateTime.Now;
+            //Enlistmentdate = DateTime.Now;
+            //PreServicefrom = DateTime.Now;
+            //PreServiceTo = DateTime.Now;
+            //Warsrv_from = DateTime.Now;
+            //Warsrv_to = DateTime.Now;
+            //PensionDate = DateTime.Now;
+            //DisabilityDate = DateTime.Now;
         }
     }
     public class PensionReport

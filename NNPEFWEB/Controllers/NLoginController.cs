@@ -273,7 +273,7 @@ namespace NNPEFWEB.Controllers
         }
 
        
-       
+      
         public List<SelectListItem> GetRank()
         {
             var ranksList = (from rk in _context.ef_ranks

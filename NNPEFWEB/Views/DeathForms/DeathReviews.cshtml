@@ -286,7 +286,8 @@
                             </div>
                             </div>*@
                             <div class="form-group">
-                                <input id="btnDeathPreview" type="submit" class="btn btn-primary" value="Submit" />
+                                <button type="button" id="btnDeathPreview" class="btn btn-primary">Submit</button>
+                               @* <input id="btnDeathPreview" type="submit" class="btn btn-primary" value="Submit" />*@
                             </div>
                         </form>
                     </div>
@@ -310,7 +311,7 @@
                     url: "/DeathForms/CreateInitiation",
                     data: empForm,
                     success: function (data) {
-                        window.alert(data.responseMessage);
+                        window.alert("update of Death Initiation successful");
 
                         $('#exampleModal').on('hidden.bs.modal', function () {
                             $(this).find('form').trigger('reset');

@@ -121,6 +121,7 @@ namespace NNPEFWEB.Controllers
             TempData["role"] = role;
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> CreatePensionInitiation(PensionModel model)
         {
@@ -140,15 +141,15 @@ namespace NNPEFWEB.Controllers
             }
             else
             {
-                 result = await service.UpdatePension(viewModel);
+                result = await service.UpdatePension(viewModel);
             }
             
             TempData["messageInit"] = result.responseMessage;
             TempData["user"] = createdBy;
             ModelState.Clear();
-            return RedirectToAction("PensionInitiation", "PensionForms");
+            return Ok(result);
+           // return RedirectToAction("PensionInitiation", "Pensionforms");
         }
-
 
         [HttpGet]
         public async Task<IActionResult> PensionUpdate(int? pageNumber, string searchString)
@@ -171,7 +172,7 @@ namespace NNPEFWEB.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> PensionUpdateReview(int? pageNumber, string searchString)
         {
             PensionModel model = new PensionModel();
